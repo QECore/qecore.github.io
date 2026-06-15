@@ -136,7 +136,7 @@ export default function ActivityPage() {
           <p className="text-sm text-muted-foreground mt-1">Recent actions across your workspace</p>
         </div>
         <Select value={typeFilter} onValueChange={setTypeFilter}>
-          <SelectTrigger className="w-36 skeu-input">
+          <SelectTrigger id="activity-type-select" data-test-id="activity-type-select" data-testid="activity-type-select" className="w-36 skeu-input">
             <Filter className="w-3.5 h-3.5 mr-1.5" />
             <SelectValue />
           </SelectTrigger>
@@ -155,25 +155,25 @@ export default function ActivityPage() {
           <table className="w-full text-sm">
             <thead className="sticky top-0 z-10" style={{ background: "hsl(var(--card))" }}>
               <tr className="border-b border-border bg-muted/40 select-none">
-                <th onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
+                <th id="sort-activity-id" data-test-id="sort-activity-id" data-testid="sort-activity-id" onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
                   <span className="flex items-center">Id {renderSortIcon("id")}</span>
                 </th>
-                <th onClick={() => handleSort("action")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-32 cursor-pointer hover:bg-muted/15 group">
+                <th id="sort-activity-action" data-test-id="sort-activity-action" data-testid="sort-activity-action" onClick={() => handleSort("action")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-32 cursor-pointer hover:bg-muted/15 group">
                   <span className="flex items-center">Action {renderSortIcon("action")}</span>
                 </th>
-                <th onClick={() => handleSort("type")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden sm:table-cell w-32 cursor-pointer hover:bg-muted/15 group">
+                <th id="sort-activity-type" data-test-id="sort-activity-type" data-testid="sort-activity-type" onClick={() => handleSort("type")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden sm:table-cell w-32 cursor-pointer hover:bg-muted/15 group">
                   <span className="flex items-center">Type {renderSortIcon("type")}</span>
                 </th>
-                <th onClick={() => handleSort("entity")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
+                <th id="sort-activity-entity" data-test-id="sort-activity-entity" data-testid="sort-activity-entity" onClick={() => handleSort("entity")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
                   <span className="flex items-center">Entity {renderSortIcon("entity")}</span>
                 </th>
-                <th onClick={() => handleSort("details")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
+                <th id="sort-activity-details" data-test-id="sort-activity-details" data-testid="sort-activity-details" onClick={() => handleSort("details")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
                   <span className="flex items-center">Details {renderSortIcon("details")}</span>
                 </th>
-                <th onClick={() => handleSort("actor")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell w-28 cursor-pointer hover:bg-muted/15 group">
+                <th id="sort-activity-actor" data-test-id="sort-activity-actor" data-testid="sort-activity-actor" onClick={() => handleSort("actor")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell w-28 cursor-pointer hover:bg-muted/15 group">
                   <span className="flex items-center">Actor {renderSortIcon("actor")}</span>
                 </th>
-                <th onClick={() => handleSort("when")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-32 cursor-pointer hover:bg-muted/15 group">
+                <th id="sort-activity-when" data-test-id="sort-activity-when" data-testid="sort-activity-when" onClick={() => handleSort("when")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-32 cursor-pointer hover:bg-muted/15 group">
                   <span className="flex items-center">When {renderSortIcon("when")}</span>
                 </th>
               </tr>
@@ -214,7 +214,7 @@ export default function ActivityPage() {
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span>Rows per page</span>
             <Select value={String(pageSize)} onValueChange={(v) => setPageSize(Number(v))}>
-              <SelectTrigger className="w-[68px] h-7 text-xs skeu-input">
+              <SelectTrigger id="activity-page-size-select" data-test-id="activity-page-size-select" data-testid="activity-page-size-select" className="w-[68px] h-7 text-xs skeu-input">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -231,6 +231,9 @@ export default function ActivityPage() {
             </span>
 
             <button
+              id="btn-page-first"
+              data-test-id="btn-page-first"
+              data-testid="btn-page-first"
               disabled={safePage <= 1}
               onClick={() => setCurrentPage(1)}
               className="p-1 rounded-md hover:bg-muted/40 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
@@ -239,6 +242,9 @@ export default function ActivityPage() {
               <ChevronsLeft className="w-4 h-4" />
             </button>
             <button
+              id="btn-page-prev"
+              data-test-id="btn-page-prev"
+              data-testid="btn-page-prev"
               disabled={safePage <= 1}
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               className="p-1 rounded-md hover:bg-muted/40 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
@@ -253,6 +259,9 @@ export default function ActivityPage() {
               ) : (
                 <button
                   key={pg}
+                  id={`btn-page-${pg}`}
+                  data-test-id={`btn-page-${pg}`}
+                  data-testid={`btn-page-${pg}`}
                   onClick={() => setCurrentPage(pg as number)}
                   className={`min-w-[28px] h-7 rounded-md text-xs font-medium transition-all duration-150
                     ${safePage === pg
@@ -266,6 +275,9 @@ export default function ActivityPage() {
             )}
 
             <button
+              id="btn-page-next"
+              data-test-id="btn-page-next"
+              data-testid="btn-page-next"
               disabled={safePage >= totalPages}
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               className="p-1 rounded-md hover:bg-muted/40 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
@@ -274,6 +286,9 @@ export default function ActivityPage() {
               <ChevronRight className="w-4 h-4" />
             </button>
             <button
+              id="btn-page-last"
+              data-test-id="btn-page-last"
+              data-testid="btn-page-last"
               disabled={safePage >= totalPages}
               onClick={() => setCurrentPage(totalPages)}
               className="p-1 rounded-md hover:bg-muted/40 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"

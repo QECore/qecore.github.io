@@ -42,7 +42,7 @@ export default function ResetPassword() {
         title="Invalid reset link"
         subtitle="This password reset link is missing or invalid"
         footer={
-          <Link to="/forgot-password" className="text-primary font-medium hover:underline">
+          <Link id="reset-password-request-new-link" data-test-id="reset-password-request-new-link" data-testid="reset-password-request-new-link" to="/forgot-password" className="text-primary font-medium hover:underline">
             Request a new link
           </Link>
         }
@@ -72,6 +72,8 @@ export default function ResetPassword() {
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
               id="password"
+              data-test-id="reset-password-new-password-input"
+              data-testid="reset-password-new-password-input"
               type="password"
               autoComplete="new-password"
               autoFocus
@@ -89,6 +91,8 @@ export default function ResetPassword() {
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
               id="confirm"
+              data-test-id="reset-password-confirm-password-input"
+              data-testid="reset-password-confirm-password-input"
               type="password"
               autoComplete="new-password"
               placeholder="••••••••"
@@ -99,7 +103,7 @@ export default function ResetPassword() {
             />
           </div>
         </div>
-        <Button type="submit" className="w-full h-12 font-medium" disabled={loading}>
+        <Button id="reset-password-submit" data-test-id="reset-password-submit" data-testid="reset-password-submit" type="submit" className="w-full h-12 font-medium" disabled={loading}>
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />

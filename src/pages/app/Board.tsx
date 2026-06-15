@@ -169,7 +169,7 @@ export default function Board() {
           <div className="flex items-center gap-2">
             <span className="text-xs font-medium text-muted-foreground">Project:</span>
             <Select value={selectedProjectId ? String(selectedProjectId) : ""} onValueChange={(v) => setSelectedProjectId(Number(v))}>
-              <SelectTrigger className="skeu-input w-[200px] h-9 text-xs">
+              <SelectTrigger id="board-project-select" data-test-id="board-project-select" data-testid="board-project-select" className="skeu-input w-[200px] h-9 text-xs">
                 <SelectValue placeholder="Select project" />
               </SelectTrigger>
               <SelectContent>
@@ -180,7 +180,7 @@ export default function Board() {
             </Select>
           </div>
           
-          <SkeuButton variant="primary" onClick={() => openCreate("todo")} disabled={!selectedProjectId}>
+          <SkeuButton id="new-task-button" data-test-id="new-task-button" data-testid="new-task-button" variant="primary" onClick={() => openCreate("todo")} disabled={!selectedProjectId}>
             <Plus className="w-4 h-4" /> New Task
           </SkeuButton>
         </div>
@@ -238,10 +238,10 @@ export default function Board() {
                           #{t.id}
                         </span>
                         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button onClick={() => openEdit(t)} className="p-1 hover:bg-muted rounded text-muted-foreground hover:text-foreground">
+                          <button id={`board-edit-task-${t.id}`} data-test-id={`board-edit-task-${t.id}`} data-testid={`board-edit-task-${t.id}`} onClick={() => openEdit(t)} className="p-1 hover:bg-muted rounded text-muted-foreground hover:text-foreground">
                             <Pencil className="w-3 h-3" />
                           </button>
-                          <button onClick={() => deleteTask(t.id)} className="p-1 hover:bg-destructive/10 rounded text-destructive">
+                          <button id={`board-delete-task-${t.id}`} data-test-id={`board-delete-task-${t.id}`} data-testid={`board-delete-task-${t.id}`} onClick={() => deleteTask(t.id)} className="p-1 hover:bg-destructive/10 rounded text-destructive">
                             <Trash2 className="w-3 h-3" />
                           </button>
                         </div>
@@ -287,6 +287,9 @@ export default function Board() {
 
               {/* Quick Add Button at Bottom of Column */}
               <button
+                id={`column-add-${col.id}`}
+                data-test-id={`column-add-${col.id}`}
+                data-testid={`column-add-${col.id}`}
                 onClick={() => openCreate(col.id)}
                 className="mx-3 my-2.5 p-2 rounded-lg border border-dashed border-border/60 hover:border-border hover:bg-muted/10 text-muted-foreground hover:text-foreground flex items-center justify-center gap-1.5 text-xs transition-all duration-200"
               >
@@ -309,6 +312,9 @@ export default function Board() {
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">Title *</label>
               <input
+                id="form-title"
+                data-test-id="form-title"
+                data-testid="form-title"
                 className="skeu-input w-full px-3 py-2 text-sm"
                 value={form.title}
                 onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -318,6 +324,9 @@ export default function Board() {
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">Description</label>
               <textarea
+                id="form-description"
+                data-test-id="form-description"
+                data-testid="form-description"
                 className="skeu-input w-full px-3 py-2 text-sm min-h-[60px] resize-none"
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
@@ -327,7 +336,7 @@ export default function Board() {
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">Project *</label>
               <Select value={form.project_id ? String(form.project_id) : ""} onValueChange={(v) => setForm({ ...form, project_id: v })}>
-                <SelectTrigger className="skeu-input">
+                <SelectTrigger id="form-project" data-test-id="form-project" data-testid="form-project" className="skeu-input">
                   <SelectValue placeholder="Select a project" />
                 </SelectTrigger>
                 <SelectContent>
@@ -341,7 +350,7 @@ export default function Board() {
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Status</label>
                 <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
-                  <SelectTrigger className="skeu-input">
+                  <SelectTrigger id="form-status" data-test-id="form-status" data-testid="form-status" className="skeu-input">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -355,7 +364,7 @@ export default function Board() {
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Priority</label>
                 <Select value={form.priority} onValueChange={(v) => setForm({ ...form, priority: v })}>
-                  <SelectTrigger className="skeu-input">
+                  <SelectTrigger id="form-priority" data-test-id="form-priority" data-testid="form-priority" className="skeu-input">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -371,6 +380,9 @@ export default function Board() {
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Assignee</label>
                 <input
+                  id="form-assignee"
+                  data-test-id="form-assignee"
+                  data-testid="form-assignee"
                   className="skeu-input w-full px-3 py-2 text-sm"
                   value={form.assignee}
                   onChange={(e) => setForm({ ...form, assignee: e.target.value })}
@@ -382,6 +394,9 @@ export default function Board() {
                 <Popover>
                   <PopoverTrigger asChild>
                     <button
+                      id="form-due-date"
+                      data-test-id="form-due-date"
+                      data-testid="form-due-date"
                       type="button"
                       className="skeu-input w-full px-3 py-2 text-sm flex items-center justify-between text-left font-normal bg-background hover:bg-muted/10 transition-colors"
                     >
@@ -409,10 +424,10 @@ export default function Board() {
               </div>
             </div>
             <div className="flex gap-2 pt-2">
-              <SkeuButton variant="primary" className="flex-1" onClick={save}>
+              <SkeuButton id="form-save" data-test-id="form-save" data-testid="form-save" variant="primary" className="flex-1" onClick={save}>
                 Save
               </SkeuButton>
-              <SkeuButton onClick={() => setDrawerOpen(false)}>Cancel</SkeuButton>
+              <SkeuButton id="form-cancel" data-test-id="form-cancel" data-testid="form-cancel" onClick={() => setDrawerOpen(false)}>Cancel</SkeuButton>
             </div>
           </div>
         </DialogContent>

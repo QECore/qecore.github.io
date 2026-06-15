@@ -316,6 +316,9 @@ function EndpointRow({ ep, isOpen, onToggle }: { ep: any; isOpen: boolean; onTog
   return (
     <div className="border-b border-border last:border-0">
       <button
+        id={`swagger-endpoint-${ep.method.toLowerCase()}-${ep.path.replace(/[^a-zA-Z0-9]/g, '-')}`}
+        data-test-id={`swagger-endpoint-${ep.method.toLowerCase()}-${ep.path.replace(/[^a-zA-Z0-9]/g, '-')}`}
+        data-testid={`swagger-endpoint-${ep.method.toLowerCase()}-${ep.path.replace(/[^a-zA-Z0-9]/g, '-')}`}
         onClick={onToggle}
         className="flat-item w-full flex items-center gap-3 px-4 py-3 hover:bg-muted/20 transition-colors text-left"
       >
@@ -339,6 +342,9 @@ function EndpointRow({ ep, isOpen, onToggle }: { ep: any; isOpen: boolean; onTog
                     Path <span style={{ color: "#7dd3fc" }}>:id</span>
                   </label>
                   <input
+                    id="swagger-param-id"
+                    data-test-id="swagger-param-id"
+                    data-testid="swagger-param-id"
                     type="text"
                     value={pathId}
                     onChange={(e) => setPathId(e.target.value)}
@@ -351,6 +357,9 @@ function EndpointRow({ ep, isOpen, onToggle }: { ep: any; isOpen: boolean; onTog
               <div>
                 <label className="text-[10px] text-muted-foreground uppercase tracking-wider block mb-1">Query Params</label>
                 <input
+                  id="swagger-param-query"
+                  data-test-id="swagger-param-query"
+                  data-testid="swagger-param-query"
                   type="text"
                   value={queryParams}
                   onChange={(e) => setQueryParams(e.target.value)}
@@ -369,6 +378,9 @@ function EndpointRow({ ep, isOpen, onToggle }: { ep: any; isOpen: boolean; onTog
                     style={{ border: "1px solid rgba(255,255,255,0.06)" }}
                   >
                     <textarea
+                      id="swagger-param-body"
+                      data-test-id="swagger-param-body"
+                      data-testid="swagger-param-body"
                       value={payloadText}
                       onChange={(e) => setPayloadText(e.target.value)}
                       spellCheck={false}
@@ -398,10 +410,24 @@ function EndpointRow({ ep, isOpen, onToggle }: { ep: any; isOpen: boolean; onTog
               )}
 
               <div className="flex gap-2 pt-1">
-                <SkeuButton variant="primary" className="text-xs" onClick={executeRequest} disabled={loading}>
+                <SkeuButton
+                  id={`swagger-execute-${ep.method.toLowerCase()}-${ep.path.replace(/[^a-zA-Z0-9]/g, '-')}`}
+                  data-test-id={`swagger-execute-${ep.method.toLowerCase()}-${ep.path.replace(/[^a-zA-Z0-9]/g, '-')}`}
+                  data-testid={`swagger-execute-${ep.method.toLowerCase()}-${ep.path.replace(/[^a-zA-Z0-9]/g, '-')}`}
+                  variant="primary"
+                  className="text-xs"
+                  onClick={executeRequest}
+                  disabled={loading}
+                >
                   <Play className="w-3 h-3" /> {loading ? "Executing…" : "Execute"}
                 </SkeuButton>
-                <SkeuButton className="text-xs" onClick={copyPath}>
+                <SkeuButton
+                  id={`swagger-copy-${ep.method.toLowerCase()}-${ep.path.replace(/[^a-zA-Z0-9]/g, '-')}`}
+                  data-test-id={`swagger-copy-${ep.method.toLowerCase()}-${ep.path.replace(/[^a-zA-Z0-9]/g, '-')}`}
+                  data-testid={`swagger-copy-${ep.method.toLowerCase()}-${ep.path.replace(/[^a-zA-Z0-9]/g, '-')}`}
+                  className="text-xs"
+                  onClick={copyPath}
+                >
                   {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                   {copied ? "Copied" : "Copy Path"}
                 </SkeuButton>
@@ -472,12 +498,18 @@ export default function SwaggerPortal() {
 
       <div className="flex gap-2 mb-6">
         <SkeuButton 
+          id="swagger-tab-endpoints"
+          data-test-id="swagger-tab-endpoints"
+          data-testid="swagger-tab-endpoints"
           className={!showModels ? "active" : ""} 
           onClick={() => setShowModels(false)}
         >
           Endpoints
         </SkeuButton>
         <SkeuButton 
+          id="swagger-tab-models"
+          data-test-id="swagger-tab-models"
+          data-testid="swagger-tab-models"
           className={showModels ? "active" : ""} 
           onClick={() => setShowModels(true)}
         >
@@ -490,6 +522,9 @@ export default function SwaggerPortal() {
           {apiGroups.map((group) => (
             <SkeuCard key={group.name} className="flat-menu p-0 overflow-hidden">
               <button
+                id={`swagger-group-${group.name.toLowerCase()}`}
+                data-test-id={`swagger-group-${group.name.toLowerCase()}`}
+                data-testid={`swagger-group-${group.name.toLowerCase()}`}
                 onClick={() => handleGroupToggle(group.name)}
                 className="flat-item w-full flex items-center justify-between px-4 py-3 bg-muted/30 hover:bg-muted/50 transition-colors"
               >

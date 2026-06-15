@@ -39,6 +39,9 @@ export default function AppSidebar() {
             {sidebarItems.map((item) => (
               <Link
                 key={item.path}
+                id={`sidebar-${item.label.toLowerCase()}`}
+                data-test-id={`sidebar-${item.label.toLowerCase()}`}
+                data-testid={`sidebar-${item.label.toLowerCase()}`}
                 to={item.path}
                 className={`
                   flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-sm transition-all duration-200

@@ -424,7 +424,7 @@ export default function Tasks() {
           <p className="text-sm text-muted-foreground mt-1">Track and manage work items</p>
         </div>
         {activeTab === "active" && (
-          <SkeuButton variant="primary" onClick={openCreate}>
+          <SkeuButton id="new-task-button" data-test-id="new-task-button" data-testid="new-task-button" variant="primary" onClick={openCreate}>
             <Plus className="w-4 h-4" /> New Task
           </SkeuButton>
         )}
@@ -433,6 +433,9 @@ export default function Tasks() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex gap-2">
           <button
+            id="tab-active"
+            data-test-id="tab-active"
+            data-testid="tab-active"
             onClick={() => setActiveTab("active")}
             className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
               activeTab === "active"
@@ -443,6 +446,9 @@ export default function Tasks() {
             Active
           </button>
           <button
+            id="tab-deleted"
+            data-test-id="tab-deleted"
+            data-testid="tab-deleted"
             onClick={() => setActiveTab("deleted")}
             className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
               activeTab === "deleted"
@@ -455,12 +461,12 @@ export default function Tasks() {
         </div>
         <div className="flex gap-2">
           {activeTab === "active" && sortedTasks.length > 0 && (
-            <SkeuButton variant="destructive" onClick={handleDeleteAll}>
+            <SkeuButton id="delete-all-tasks" data-test-id="delete-all-tasks" data-testid="delete-all-tasks" variant="destructive" onClick={handleDeleteAll}>
               {hasActiveFilters ? "Delete Filtered" : "Delete All"}
             </SkeuButton>
           )}
           {activeTab === "deleted" && sortedTasks.length > 0 && (
-            <SkeuButton variant="primary" onClick={handleRestoreAll}>
+            <SkeuButton id="restore-all-tasks" data-test-id="restore-all-tasks" data-testid="restore-all-tasks" variant="primary" onClick={handleRestoreAll}>
               {hasActiveFilters ? "Restore Filtered" : "Restore All"}
             </SkeuButton>
           )}
@@ -484,28 +490,28 @@ export default function Tasks() {
           <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-muted/40 select-none">
-              <th onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-tasks-id" data-test-id="sort-tasks-id" data-testid="sort-tasks-id" onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Id {renderSortIcon("id")}</span>
               </th>
-              <th onClick={() => handleSort("title")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-tasks-title" data-test-id="sort-tasks-title" data-testid="sort-tasks-title" onClick={() => handleSort("title")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Title {renderSortIcon("title")}</span>
               </th>
-              <th onClick={() => handleSort("project")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-tasks-project" data-test-id="sort-tasks-project" data-testid="sort-tasks-project" onClick={() => handleSort("project")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Project {renderSortIcon("project")}</span>
               </th>
-              <th onClick={() => handleSort("status")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden sm:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-tasks-status" data-test-id="sort-tasks-status" data-testid="sort-tasks-status" onClick={() => handleSort("status")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden sm:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Status {renderSortIcon("status")}</span>
               </th>
-              <th onClick={() => handleSort("priority")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden sm:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-tasks-priority" data-test-id="sort-tasks-priority" data-testid="sort-tasks-priority" onClick={() => handleSort("priority")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden sm:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Priority {renderSortIcon("priority")}</span>
               </th>
-              <th onClick={() => handleSort("assignee")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-tasks-assignee" data-test-id="sort-tasks-assignee" data-testid="sort-tasks-assignee" onClick={() => handleSort("assignee")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Assignee {renderSortIcon("assignee")}</span>
               </th>
-              <th onClick={() => handleSort("due_date")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-tasks-due_date" data-test-id="sort-tasks-due_date" data-testid="sort-tasks-due_date" onClick={() => handleSort("due_date")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Due Date {renderSortIcon("due_date")}</span>
               </th>
-              <th onClick={() => handleSort("description")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-tasks-description" data-test-id="sort-tasks-description" data-testid="sort-tasks-description" onClick={() => handleSort("description")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Description {renderSortIcon("description")}</span>
               </th>
               <th className="px-4 py-2.5 w-20"></th>
@@ -528,7 +534,7 @@ export default function Tasks() {
                 </td>
                 <td className="px-4 py-3 hidden sm:table-cell">
                   <Select value={t.status} onValueChange={(v) => updateStatus(t, v)}>
-                    <SelectTrigger className="border-0 p-0 h-auto shadow-none w-auto"><StatusBadge status={t.status} /></SelectTrigger>
+                    <SelectTrigger id={`inline-task-status-${t.id}`} data-test-id={`inline-task-status-${t.id}`} data-testid={`inline-task-status-${t.id}`} className="border-0 p-0 h-auto shadow-none w-auto"><StatusBadge status={t.status} /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="todo">To Do</SelectItem>
                       <SelectItem value="in_progress">In Progress</SelectItem>
@@ -549,11 +555,11 @@ export default function Tasks() {
                   <div className="flex items-center gap-1">
                     {activeTab === "active" ? (
                       <>
-                        <button onClick={() => openEdit(t)} className="p-1.5 hover:bg-muted rounded-md transition-colors"><Pencil className="w-3.5 h-3.5 text-muted-foreground" /></button>
-                        <button onClick={() => deleteTask(t.id)} className="p-1.5 hover:bg-destructive/10 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5 text-destructive" /></button>
+                        <button id={`edit-task-${t.id}`} data-test-id={`edit-task-${t.id}`} data-testid={`edit-task-${t.id}`} onClick={() => openEdit(t)} className="p-1.5 hover:bg-muted rounded-md transition-colors"><Pencil className="w-3.5 h-3.5 text-muted-foreground" /></button>
+                        <button id={`delete-task-${t.id}`} data-test-id={`delete-task-${t.id}`} data-testid={`delete-task-${t.id}`} onClick={() => deleteTask(t.id)} className="p-1.5 hover:bg-destructive/10 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5 text-destructive" /></button>
                       </>
                     ) : (
-                      <button onClick={() => handleRestore(t.id)} className="px-2 py-1 text-xs bg-accent/10 hover:bg-accent/20 text-accent rounded border border-accent/20 transition-colors">Restore</button>
+                      <button id={`restore-task-${t.id}`} data-test-id={`restore-task-${t.id}`} data-testid={`restore-task-${t.id}`} onClick={() => handleRestore(t.id)} className="px-2 py-1 text-xs bg-accent/10 hover:bg-accent/20 text-accent rounded border border-accent/20 transition-colors">Restore</button>
                     )}
                   </div>
                 </td>
@@ -570,16 +576,16 @@ export default function Tasks() {
           <div className="space-y-4 mt-4">
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">Title *</label>
-              <input className="skeu-input w-full px-3 py-2 text-sm" value={form.title} onChange={(e) => setForm({...form, title: e.target.value})} placeholder="Task title" />
+              <input id="form-title" data-test-id="form-title" data-testid="form-title" className="skeu-input w-full px-3 py-2 text-sm" value={form.title} onChange={(e) => setForm({...form, title: e.target.value})} placeholder="Task title" />
             </div>
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">Description</label>
-              <textarea className="skeu-input w-full px-3 py-2 text-sm min-h-[60px] resize-none" value={form.description} onChange={(e) => setForm({...form, description: e.target.value})} placeholder="Optional description" />
+              <textarea id="form-description" data-test-id="form-description" data-testid="form-description" className="skeu-input w-full px-3 py-2 text-sm min-h-[60px] resize-none" value={form.description} onChange={(e) => setForm({...form, description: e.target.value})} placeholder="Optional description" />
             </div>
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">Project *</label>
               <Select value={form.project_id ? String(form.project_id) : ""} onValueChange={(v) => setForm({...form, project_id: v})}>
-                <SelectTrigger className="skeu-input">
+                <SelectTrigger id="form-project" data-test-id="form-project" data-testid="form-project" className="skeu-input">
                   <SelectValue placeholder="Select a project" />
                 </SelectTrigger>
                 <SelectContent>
@@ -593,7 +599,7 @@ export default function Tasks() {
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Status</label>
                 <Select value={form.status} onValueChange={(v) => setForm({...form, status: v})}>
-                  <SelectTrigger className="skeu-input"><SelectValue /></SelectTrigger>
+                  <SelectTrigger id="form-status" data-test-id="form-status" data-testid="form-status" className="skeu-input"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="todo">To Do</SelectItem>
                     <SelectItem value="in_progress">In Progress</SelectItem>
@@ -605,7 +611,7 @@ export default function Tasks() {
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Priority</label>
                 <Select value={form.priority} onValueChange={(v) => setForm({...form, priority: v})}>
-                  <SelectTrigger className="skeu-input"><SelectValue /></SelectTrigger>
+                  <SelectTrigger id="form-priority" data-test-id="form-priority" data-testid="form-priority" className="skeu-input"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="low">Low</SelectItem>
                     <SelectItem value="medium">Medium</SelectItem>
@@ -618,13 +624,16 @@ export default function Tasks() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Assignee</label>
-                <input className="skeu-input w-full px-3 py-2 text-sm" value={form.assignee} onChange={(e) => setForm({...form, assignee: e.target.value})} placeholder="Name" />
+                <input id="form-assignee" data-test-id="form-assignee" data-testid="form-assignee" className="skeu-input w-full px-3 py-2 text-sm" value={form.assignee} onChange={(e) => setForm({...form, assignee: e.target.value})} placeholder="Name" />
               </div>
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Due Date</label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <button
+                      id="form-due-date"
+                      data-test-id="form-due-date"
+                      data-testid="form-due-date"
                       type="button"
                       className="skeu-input w-full px-3 py-2 text-sm flex items-center justify-between text-left font-normal bg-background hover:bg-muted/10 transition-colors"
                     >
@@ -667,6 +676,9 @@ export default function Tasks() {
                         <span className="truncate" title={doc.name}>{doc.name}</span>
                       </div>
                       <button 
+                        id={`delete-doc-${doc.id}`}
+                        data-test-id={`delete-doc-${doc.id}`}
+                        data-testid={`delete-doc-${doc.id}`}
                         type="button" 
                         onClick={() => handleDeleteDoc(doc.id)} 
                         className="p-1 hover:bg-destructive/15 rounded text-destructive transition-colors"
@@ -682,6 +694,9 @@ export default function Tasks() {
                         <span className="truncate font-medium text-accent" title={file.name}>{file.name} (staged)</span>
                       </div>
                       <button 
+                        id={`remove-staged-file-${idx}`}
+                        data-test-id={`remove-staged-file-${idx}`}
+                        data-testid={`remove-staged-file-${idx}`}
                         type="button" 
                         onClick={() => handleRemoveStagedFile(idx)} 
                         className="p-1 hover:bg-destructive/15 rounded text-destructive transition-colors"
@@ -694,6 +709,9 @@ export default function Tasks() {
               )}
 
               <div
+                id="form-upload-dropzone"
+                data-test-id="form-upload-dropzone"
+                data-testid="form-upload-dropzone"
                 className={`border border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors ${dragOver ? "border-accent bg-accent/5" : "border-border hover:bg-muted/10"}`}
                 onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                 onDragLeave={() => setDragOver(false)}
@@ -715,8 +733,8 @@ export default function Tasks() {
             </div>
 
             <div className="flex gap-2 pt-2">
-              <SkeuButton variant="primary" className="flex-1" onClick={save}>Save</SkeuButton>
-              <SkeuButton onClick={() => setDrawerOpen(false)}>Cancel</SkeuButton>
+              <SkeuButton id="form-save" data-test-id="form-save" data-testid="form-save" variant="primary" className="flex-1" onClick={save}>Save</SkeuButton>
+              <SkeuButton id="form-cancel" data-test-id="form-cancel" data-testid="form-cancel" onClick={() => setDrawerOpen(false)}>Cancel</SkeuButton>
             </div>
           </div>
         </SheetContent>
@@ -728,8 +746,8 @@ export default function Tasks() {
           <DialogHeader><DialogTitle className="font-heading">Delete Tasks</DialogTitle></DialogHeader>
           <p className="text-sm text-muted-foreground">Are you sure you want to delete <span className="font-medium text-foreground">{sortedTasks.length} task(s)</span>?</p>
           <div className="flex gap-2 mt-4">
-            <SkeuButton variant="destructive" className="flex-1" onClick={confirmDeleteAll}>Delete All</SkeuButton>
-            <SkeuButton onClick={() => setBulkDeleteOpen(false)}>Cancel</SkeuButton>
+            <SkeuButton id="bulk-delete-confirm" data-test-id="bulk-delete-confirm" data-testid="bulk-delete-confirm" variant="destructive" className="flex-1" onClick={confirmDeleteAll}>Delete All</SkeuButton>
+            <SkeuButton id="bulk-delete-cancel" data-test-id="bulk-delete-cancel" data-testid="bulk-delete-cancel" onClick={() => setBulkDeleteOpen(false)}>Cancel</SkeuButton>
           </div>
         </DialogContent>
       </Dialog>

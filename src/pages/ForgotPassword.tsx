@@ -76,6 +76,8 @@ export default function ForgotPassword() {
           <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
           <Input
             id="email"
+            data-test-id="forgot-password-email-input"
+            data-testid="forgot-password-email-input"
             type="email"
             autoComplete="email"
             autoFocus
@@ -87,7 +89,7 @@ export default function ForgotPassword() {
           />
         </div>
       </div>
-      <SkeuButton type="submit" variant="primary" className="w-full h-12 font-medium" disabled={loading}>
+      <SkeuButton id="forgot-password-continue" data-test-id="forgot-password-continue" data-testid="forgot-password-continue" type="submit" variant="primary" className="w-full h-12 font-medium" disabled={loading}>
         {loading ? (
           <>
             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -106,6 +108,9 @@ export default function ForgotPassword() {
         <Mail className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
         <span className="text-sm text-foreground truncate">{email}</span>
         <button
+          id="forgot-password-change-email"
+          data-test-id="forgot-password-change-email"
+          data-testid="forgot-password-change-email"
           type="button"
           onClick={() => { setStep("email"); setError(""); setWarning(""); setPassword(""); setConfirmPassword(""); }}
           className="ml-auto text-xs text-primary hover:underline shrink-0"
@@ -127,6 +132,8 @@ export default function ForgotPassword() {
           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
           <Input
             id="new-password"
+            data-test-id="forgot-password-new-password-input"
+            data-testid="forgot-password-new-password-input"
             type="password"
             autoComplete="new-password"
             autoFocus
@@ -145,6 +152,8 @@ export default function ForgotPassword() {
           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
           <Input
             id="confirm-password"
+            data-test-id="forgot-password-confirm-password-input"
+            data-testid="forgot-password-confirm-password-input"
             type="password"
             autoComplete="new-password"
             placeholder="••••••••"
@@ -156,7 +165,7 @@ export default function ForgotPassword() {
           />
         </div>
       </div>
-      <SkeuButton type="submit" variant="primary" className="w-full h-12 font-medium" disabled={loading}>
+      <SkeuButton id="forgot-password-reset-submit" data-test-id="forgot-password-reset-submit" data-testid="forgot-password-reset-submit" type="submit" variant="primary" className="w-full h-12 font-medium" disabled={loading}>
         {loading ? (
           <>
             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -180,7 +189,7 @@ export default function ForgotPassword() {
           Your password has been updated. You can now log in with your new password.
         </p>
       </div>
-      <SkeuButton variant="primary" className="w-full h-12 font-medium" onClick={() => navigate("/login")}>
+      <SkeuButton id="forgot-password-go-to-login" data-test-id="forgot-password-go-to-login" data-testid="forgot-password-go-to-login" variant="primary" className="w-full h-12 font-medium" onClick={() => navigate("/login")}>
         Go to Login
       </SkeuButton>
     </div>
@@ -199,7 +208,7 @@ export default function ForgotPassword() {
       subtitle={subtitles[step]}
       footer={
         step !== "done" && (
-          <Link to="/login" className="text-primary font-medium hover:underline">
+          <Link id="forgot-password-back-to-login" data-test-id="forgot-password-back-to-login" data-testid="forgot-password-back-to-login" to="/login" className="text-primary font-medium hover:underline">
             <ArrowLeft className="w-3 h-3 inline mr-1" />Back to log in
           </Link>
         )

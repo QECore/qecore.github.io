@@ -151,11 +151,11 @@ export default function Playground() {
       <TooltipProvider>
         <Tabs defaultValue="inputs" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5 p-1 bg-muted/50 rounded-xl h-12">
-            <TabsTrigger value="inputs" className="text-xs sm:text-sm font-medium rounded-lg h-10">Inputs & Selection</TabsTrigger>
-            <TabsTrigger value="buttons" className="text-xs sm:text-sm font-medium rounded-lg h-10">Buttons & Actions</TabsTrigger>
-            <TabsTrigger value="display" className="text-xs sm:text-sm font-medium rounded-lg h-10">Data & Display</TabsTrigger>
-            <TabsTrigger value="overlays" className="text-xs sm:text-sm font-medium rounded-lg h-10">Dialogs & Sheets</TabsTrigger>
-            <TabsTrigger value="advanced" className="text-xs sm:text-sm font-medium rounded-lg h-10">Advanced & Labs</TabsTrigger>
+            <TabsTrigger id="tab-trigger-inputs" data-test-id="tab-trigger-inputs" data-testid="tab-trigger-inputs" value="inputs" className="text-xs sm:text-sm font-medium rounded-lg h-10">Inputs & Selection</TabsTrigger>
+            <TabsTrigger id="tab-trigger-buttons" data-test-id="tab-trigger-buttons" data-testid="tab-trigger-buttons" value="buttons" className="text-xs sm:text-sm font-medium rounded-lg h-10">Buttons & Actions</TabsTrigger>
+            <TabsTrigger id="tab-trigger-display" data-test-id="tab-trigger-display" data-testid="tab-trigger-display" value="display" className="text-xs sm:text-sm font-medium rounded-lg h-10">Data & Display</TabsTrigger>
+            <TabsTrigger id="tab-trigger-overlays" data-test-id="tab-trigger-overlays" data-testid="tab-trigger-overlays" value="overlays" className="text-xs sm:text-sm font-medium rounded-lg h-10">Dialogs & Sheets</TabsTrigger>
+            <TabsTrigger id="tab-trigger-advanced" data-test-id="tab-trigger-advanced" data-testid="tab-trigger-advanced" value="advanced" className="text-xs sm:text-sm font-medium rounded-lg h-10">Advanced & Labs</TabsTrigger>
           </TabsList>
 
           {/* TAB 1: INPUTS & SELECTION */}
@@ -168,28 +168,28 @@ export default function Playground() {
                 <div className="space-y-4 mt-4">
                   <div className="space-y-2">
                     <Label htmlFor="playground-text">Text Input</Label>
-                    <Input id="playground-text" data-testid="text-input" placeholder="Enter text..." value={textVal} onChange={(e) => setTextVal(e.target.value)} />
+                    <Input id="playground-text" data-test-id="text-input" data-testid="text-input" placeholder="Enter text..." value={textVal} onChange={(e) => setTextVal(e.target.value)} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="playground-password">Password</Label>
-                    <Input id="playground-password" type="password" data-testid="password-input" placeholder="••••••••" value={passwordVal} onChange={(e) => setPasswordVal(e.target.value)} />
+                    <Input id="playground-password" type="password" data-test-id="password-input" data-testid="password-input" placeholder="••••••••" value={passwordVal} onChange={(e) => setPasswordVal(e.target.value)} />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="playground-number">Number</Label>
-                      <Input id="playground-number" type="number" data-testid="number-input" placeholder="0" value={numberVal} onChange={(e) => setNumberVal(e.target.value)} />
+                      <Input id="playground-number" type="number" data-test-id="number-input" data-testid="number-input" placeholder="0" value={numberVal} onChange={(e) => setNumberVal(e.target.value)} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="playground-switch">Switch Toggle</Label>
                       <div className="flex items-center space-x-2 h-10">
-                        <Switch id="playground-switch" checked={switchVal} onCheckedChange={setSwitchVal} />
+                        <Switch id="playground-switch" data-test-id="switch-input" data-testid="switch-input" checked={switchVal} onCheckedChange={setSwitchVal} />
                         <span className="text-xs text-muted-foreground">{switchVal ? "ON" : "OFF"}</span>
                       </div>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="playground-textarea">Textarea</Label>
-                    <Textarea id="playground-textarea" data-testid="textarea-input" placeholder="Write something..." value={textareaVal} onChange={(e) => setTextareaVal(e.target.value)} className="min-h-[80px]" />
+                    <Textarea id="playground-textarea" data-test-id="textarea-input" data-testid="textarea-input" placeholder="Write something..." value={textareaVal} onChange={(e) => setTextareaVal(e.target.value)} className="min-h-[80px]" />
                   </div>
                 </div>
               </SkeuCard>
@@ -201,7 +201,7 @@ export default function Playground() {
                   <div className="space-y-2">
                     <Label>Input OTP (6-digits)</Label>
                     <div className="flex justify-start">
-                      <InputOTP maxLength={6} value={otpVal} onChange={setOtpVal}>
+                      <InputOTP id="playground-otp" data-test-id="otp-input" data-testid="otp-input" maxLength={6} value={otpVal} onChange={setOtpVal}>
                         <InputOTPGroup>
                           <InputOTPSlot index={0} />
                           <InputOTPSlot index={1} />
@@ -223,14 +223,14 @@ export default function Playground() {
                       <Label>Slider Range</Label>
                       <span className="text-xs font-mono text-muted-foreground">{sliderVal[0]}%</span>
                     </div>
-                    <Slider value={sliderVal} onValueChange={setSliderVal} max={100} step={1} />
+                    <Slider id="playground-slider" data-test-id="slider-input" data-testid="slider-input" value={sliderVal} onValueChange={setSliderVal} max={100} step={1} />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label>Checkbox Group</Label>
                       <div className="flex items-center space-x-2 py-1">
-                        <Checkbox id="terms" checked={checkboxVal} onCheckedChange={setCheckboxVal} />
+                        <Checkbox id="terms" data-test-id="checkbox-terms" data-testid="checkbox-terms" checked={checkboxVal} onCheckedChange={setCheckboxVal} />
                         <Label htmlFor="terms" className="text-xs font-normal cursor-pointer select-none">Accept terms</Label>
                       </div>
                     </div>
@@ -238,7 +238,7 @@ export default function Playground() {
                     <div className="space-y-2">
                       <Label>Dropdown (Select)</Label>
                       <Select value={dropdownVal} onValueChange={setDropdownVal}>
-                        <SelectTrigger className="w-full">
+                        <SelectTrigger id="playground-select" data-test-id="select-input" data-testid="select-input" className="w-full">
                           <SelectValue placeholder="Fruit..." />
                         </SelectTrigger>
                         <SelectContent>
@@ -253,7 +253,7 @@ export default function Playground() {
                   <div className="grid grid-cols-2 gap-4 border-t border-border pt-4">
                     <div>
                       <Label className="mb-2 block">Radio Group</Label>
-                      <RadioGroup value={radioVal} onValueChange={setRadioVal} className="space-y-1">
+                      <RadioGroup id="playground-radio" data-test-id="radio-group" data-testid="radio-group" value={radioVal} onValueChange={setRadioVal} className="space-y-1">
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="option1" id="r1" />
                           <Label htmlFor="r1" className="text-xs font-normal cursor-pointer">Option One</Label>
@@ -270,7 +270,7 @@ export default function Playground() {
                       <div className="border rounded-lg p-2 max-h-[100px] overflow-y-auto space-y-1 bg-card">
                         {multiOptions.map((opt) => (
                           <div key={opt} className="flex items-center space-x-2">
-                            <Checkbox id={`multi-${opt}`} checked={multiSelect.includes(opt)} onCheckedChange={() => toggleMulti(opt)} />
+                            <Checkbox id={`multi-${opt}`} data-test-id={`checkbox-multi-${opt.toLowerCase()}`} data-testid={`checkbox-multi-${opt.toLowerCase()}`} checked={multiSelect.includes(opt)} onCheckedChange={() => toggleMulti(opt)} />
                             <Label htmlFor={`multi-${opt}`} className="text-xs font-normal cursor-pointer">{opt}</Label>
                           </div>
                         ))}
@@ -312,7 +312,7 @@ export default function Playground() {
                     <div className="flex items-center justify-between space-x-4 px-4 py-2 border rounded-lg bg-muted/40">
                       <h4 className="text-sm font-semibold">Repository Configuration</h4>
                       <CollapsibleTrigger asChild>
-                        <Button variant="ghost" size="sm" className="w-9 p-0">
+                        <Button id="playground-collapsible-trigger" data-test-id="collapsible-trigger" data-testid="collapsible-trigger" variant="ghost" size="sm" className="w-9 p-0">
                           <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isCollapsibleOpen ? "transform rotate-180" : ""}`} />
                         </Button>
                       </CollapsibleTrigger>
@@ -334,8 +334,8 @@ export default function Playground() {
                     <Label className="mb-2 block">Progress Bar Indicator</Label>
                     <Progress value={progressVal} className="mb-3" />
                     <div className="flex gap-2">
-                      <Button variant="outline" size="sm" onClick={() => setProgressVal(Math.max(0, progressVal - 10))}>-10%</Button>
-                      <Button variant="outline" size="sm" onClick={() => setProgressVal(Math.min(100, progressVal + 10))}>+10%</Button>
+                      <Button id="playground-progress-minus" data-test-id="progress-minus" data-testid="progress-minus" variant="outline" size="sm" onClick={() => setProgressVal(Math.max(0, progressVal - 10))}>-10%</Button>
+                      <Button id="playground-progress-plus" data-test-id="progress-plus" data-testid="progress-plus" variant="outline" size="sm" onClick={() => setProgressVal(Math.min(100, progressVal + 10))}>+10%</Button>
                     </div>
                   </div>
                 </div>
@@ -352,12 +352,12 @@ export default function Playground() {
                 <div>
                   <h3 className="text-sm font-semibold mb-4 text-indigo-500">Standard Button Variants</h3>
                   <div className="flex flex-wrap gap-3">
-                    <Button variant="default">Default Button</Button>
-                    <Button variant="secondary">Secondary</Button>
-                    <Button variant="outline">Outline Variant</Button>
-                    <Button variant="destructive">Destructive Action</Button>
-                    <Button variant="ghost">Ghost Button</Button>
-                    <Button variant="link">Link Style</Button>
+                    <Button id="btn-variant-default" data-test-id="btn-variant-default" data-testid="btn-variant-default" variant="default">Default Button</Button>
+                    <Button id="btn-variant-secondary" data-test-id="btn-variant-secondary" data-testid="btn-variant-secondary" variant="secondary">Secondary</Button>
+                    <Button id="btn-variant-outline" data-test-id="btn-variant-outline" data-testid="btn-variant-outline" variant="outline">Outline Variant</Button>
+                    <Button id="btn-variant-destructive" data-test-id="btn-variant-destructive" data-testid="btn-variant-destructive" variant="destructive">Destructive Action</Button>
+                    <Button id="btn-variant-ghost" data-test-id="btn-variant-ghost" data-testid="btn-variant-ghost" variant="ghost">Ghost Button</Button>
+                    <Button id="btn-variant-link" data-test-id="btn-variant-link" data-testid="btn-variant-link" variant="link">Link Style</Button>
                   </div>
                 </div>
 
@@ -365,7 +365,7 @@ export default function Playground() {
                   <h3 className="text-sm font-semibold mb-4 text-indigo-500">Toggles & Toggle Groups</h3>
                   <div className="space-y-6">
                     <div className="flex items-center gap-4">
-                      <Toggle aria-label="Toggle bold" pressed={toggleActive} onPressedChange={setToggleActive}>
+                      <Toggle id="playground-toggle" data-test-id="toggle-btn" data-testid="toggle-btn" aria-label="Toggle bold" pressed={toggleActive} onPressedChange={setToggleActive}>
                         <Check className="h-4 w-4 mr-2" /> {toggleActive ? "Active" : "Inactive"}
                       </Toggle>
                       <span className="text-xs text-muted-foreground">Single toggle state</span>
@@ -374,9 +374,9 @@ export default function Playground() {
                     <div className="space-y-2">
                       <Label>Alignment Toggle Group</Label>
                       <ToggleGroup type="single" value={toggleGroupVal} onValueChange={(val) => val && setToggleGroupVal(val)}>
-                        <ToggleGroupItem value="left" aria-label="Align left">Left Align</ToggleGroupItem>
-                        <ToggleGroupItem value="center" aria-label="Align center">Center Align</ToggleGroupItem>
-                        <ToggleGroupItem value="right" aria-label="Align right">Right Align</ToggleGroupItem>
+                        <ToggleGroupItem id="toggle-align-left" data-test-id="toggle-align-left" data-testid="toggle-align-left" value="left" aria-label="Align left">Left Align</ToggleGroupItem>
+                        <ToggleGroupItem id="toggle-align-center" data-test-id="toggle-align-center" data-testid="toggle-align-center" value="center" aria-label="Align center">Center Align</ToggleGroupItem>
+                        <ToggleGroupItem id="toggle-align-right" data-test-id="toggle-align-right" data-testid="toggle-align-right" value="right" aria-label="Align right">Right Align</ToggleGroupItem>
                       </ToggleGroup>
                       <p className="text-xs text-muted-foreground">Selected value: <span className="font-mono text-foreground font-semibold">{toggleGroupVal}</span></p>
                     </div>

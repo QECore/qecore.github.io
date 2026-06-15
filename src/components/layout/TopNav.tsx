@@ -68,10 +68,16 @@ export default function TopNav() {
                   PW-Core
                 </Link>
                 <Shuffle
+                  id="header-shuffle"
+                  data-test-id="header-shuffle"
+                  data-testid="header-shuffle"
                   onClick={handleShuffle}
                   className="w-3.5 h-3.5 text-muted-foreground/60 hover:text-foreground hover:rotate-180 transition-all duration-300 cursor-pointer shrink-0 mx-0.5"
                 />
                 <button
+                  id="switch-to-k6-core"
+                  data-test-id="switch-to-k6-core"
+                  data-testid="switch-to-k6-core"
                   onClick={() => setActiveHeader("k6-core")}
                   className="px-2.5 py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 hover:bg-secondary hover:text-foreground transition-all border border-border/50 shrink-0"
                   style={{ fontFamily: "'Outfit', sans-serif" }}
@@ -92,10 +98,16 @@ export default function TopNav() {
                   K6-Core
                 </Link>
                 <Shuffle
+                  id="header-shuffle"
+                  data-test-id="header-shuffle"
+                  data-testid="header-shuffle"
                   onClick={handleShuffle}
                   className="w-3.5 h-3.5 text-muted-foreground/60 hover:text-foreground hover:rotate-180 transition-all duration-300 cursor-pointer shrink-0 mx-0.5"
                 />
                 <button
+                  id="switch-to-pw-core"
+                  data-test-id="switch-to-pw-core"
+                  data-testid="switch-to-pw-core"
                   onClick={() => setActiveHeader("pw-core")}
                   className="px-2.5 py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 hover:bg-secondary hover:text-foreground transition-all border border-border/50 shrink-0"
                   style={{ fontFamily: "'Outfit', sans-serif" }}
@@ -116,6 +128,9 @@ export default function TopNav() {
             return (
               <Link
                 key={item.path}
+                id={`nav-${item.label.toLowerCase()}`}
+                data-test-id={`nav-${item.label.toLowerCase()}`}
+                data-testid={`nav-${item.label.toLowerCase()}`}
                 to={targetPath}
                 className={`
                   flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all
@@ -135,6 +150,9 @@ export default function TopNav() {
 
         <div className="flex items-center justify-end gap-1">
           <button
+            id="theme-toggle"
+            data-test-id="theme-toggle"
+            data-testid="theme-toggle"
             onClick={toggleDark}
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-all"
             title={dark ? "Light mode" : "Dark mode"}
@@ -143,6 +161,9 @@ export default function TopNav() {
           </button>
           {isAuthenticated ? (
             <button
+              id="logout-button"
+              data-test-id="logout-button"
+              data-testid="logout-button"
               onClick={() => logout()}
               className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-all"
             >
@@ -151,6 +172,9 @@ export default function TopNav() {
             </button>
           ) : (
             <button
+              id="login-button"
+              data-test-id="login-button"
+              data-testid="login-button"
               onClick={() => navigateToLogin()}
               className={`
                 flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs transition-all

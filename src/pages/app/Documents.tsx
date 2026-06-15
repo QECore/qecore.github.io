@@ -291,6 +291,9 @@ export default function Documents() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex gap-2">
           <button
+            id="tab-active"
+            data-test-id="tab-active"
+            data-testid="tab-active"
             onClick={() => setActiveTab("active")}
             className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
               activeTab === "active"
@@ -301,6 +304,9 @@ export default function Documents() {
             Active
           </button>
           <button
+            id="tab-deleted"
+            data-test-id="tab-deleted"
+            data-testid="tab-deleted"
             onClick={() => setActiveTab("deleted")}
             className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
               activeTab === "deleted"
@@ -313,12 +319,12 @@ export default function Documents() {
         </div>
         <div className="flex gap-2">
           {activeTab === "active" && sortedDocs.length > 0 && (
-            <SkeuButton variant="destructive" onClick={handleDeleteAll}>
+            <SkeuButton id="delete-all-documents" data-test-id="delete-all-documents" data-testid="delete-all-documents" variant="destructive" onClick={handleDeleteAll}>
               {search.trim() !== "" || Object.values(activeFilters).some(val => Array.isArray(val) ? val.length > 0 : !!val) ? "Delete Filtered" : "Delete All"}
             </SkeuButton>
           )}
           {activeTab === "deleted" && sortedDocs.length > 0 && (
-            <SkeuButton variant="primary" onClick={handleRestoreAll}>
+            <SkeuButton id="restore-all-documents" data-test-id="restore-all-documents" data-testid="restore-all-documents" variant="primary" onClick={handleRestoreAll}>
               {search.trim() !== "" || Object.values(activeFilters).some(val => Array.isArray(val) ? val.length > 0 : !!val) ? "Restore Filtered" : "Restore All"}
             </SkeuButton>
           )}
@@ -342,22 +348,22 @@ export default function Documents() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-muted/40 select-none">
-              <th onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-docs-id" data-test-id="sort-docs-id" data-testid="sort-docs-id" onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Id {renderSortIcon("id")}</span>
               </th>
-              <th onClick={() => handleSort("name")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-docs-name" data-test-id="sort-docs-name" data-testid="sort-docs-name" onClick={() => handleSort("name")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Name {renderSortIcon("name")}</span>
               </th>
-              <th onClick={() => handleSort("project")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-docs-project" data-test-id="sort-docs-project" data-testid="sort-docs-project" onClick={() => handleSort("project")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Project {renderSortIcon("project")}</span>
               </th>
-              <th onClick={() => handleSort("task")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-docs-task" data-test-id="sort-docs-task" data-testid="sort-docs-task" onClick={() => handleSort("task")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Task {renderSortIcon("task")}</span>
               </th>
-              <th onClick={() => handleSort("type")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-docs-type" data-test-id="sort-docs-type" data-testid="sort-docs-type" onClick={() => handleSort("type")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Type {renderSortIcon("type")}</span>
               </th>
-              <th onClick={() => handleSort("size")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-docs-size" data-test-id="sort-docs-size" data-testid="sort-docs-size" onClick={() => handleSort("size")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Size {renderSortIcon("size")}</span>
               </th>
               <th className="px-4 py-2.5 w-10"></th>
@@ -386,6 +392,9 @@ export default function Documents() {
                     </TooltipProvider>
                     {activeTab === "active" && (
                       <button
+                        id={`replace-doc-${doc.id}`}
+                        data-test-id={`replace-doc-${doc.id}`}
+                        data-testid={`replace-doc-${doc.id}`}
                         type="button"
                         onClick={() => handleReplaceClick(doc)}
                         className="opacity-0 group-hover/cell:opacity-100 p-1 hover:bg-muted rounded text-muted-foreground hover:text-foreground transition-all ml-1"
@@ -412,11 +421,11 @@ export default function Documents() {
                   <TruncatedCell>{doc.file_type || "—"}</TruncatedCell>
                 </td>
                 <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{formatSize(doc.file_size)}</td>
-                <td className="px-4 py-3">
+                 <td className="px-4 py-3">
                   {activeTab === "active" ? (
-                    <button onClick={() => setDeleteDoc(doc)} className="p-1.5 hover:bg-destructive/10 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5 text-destructive" /></button>
+                    <button id={`delete-doc-${doc.id}`} data-test-id={`delete-doc-${doc.id}`} data-testid={`delete-doc-${doc.id}`} onClick={() => setDeleteDoc(doc)} className="p-1.5 hover:bg-destructive/10 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5 text-destructive" /></button>
                   ) : (
-                    <button onClick={() => handleRestore(doc.id)} className="px-2 py-1 text-xs bg-accent/10 hover:bg-accent/20 text-accent rounded border border-accent/20 transition-colors">Restore</button>
+                    <button id={`restore-doc-${doc.id}`} data-test-id={`restore-doc-${doc.id}`} data-testid={`restore-doc-${doc.id}`} onClick={() => handleRestore(doc.id)} className="px-2 py-1 text-xs bg-accent/10 hover:bg-accent/20 text-accent rounded border border-accent/20 transition-colors">Restore</button>
                   )}
                 </td>
               </tr>
@@ -430,8 +439,8 @@ export default function Documents() {
           <DialogHeader><DialogTitle className="font-heading">Delete Document</DialogTitle></DialogHeader>
           <p className="text-sm text-muted-foreground">Are you sure you want to delete <span className="font-medium text-foreground">{deleteDoc?.name}</span>?</p>
           <div className="flex gap-2 mt-4">
-            <SkeuButton variant="destructive" className="flex-1" onClick={confirmDelete}>Delete</SkeuButton>
-            <SkeuButton onClick={() => setDeleteDoc(null)}>Cancel</SkeuButton>
+            <SkeuButton id="delete-confirm" data-test-id="delete-confirm" data-testid="delete-confirm" variant="destructive" className="flex-1" onClick={confirmDelete}>Delete</SkeuButton>
+            <SkeuButton id="delete-cancel" data-test-id="delete-cancel" data-testid="delete-cancel" onClick={() => setDeleteDoc(null)}>Cancel</SkeuButton>
           </div>
         </DialogContent>
       </Dialog>
@@ -442,8 +451,8 @@ export default function Documents() {
           <DialogHeader><DialogTitle className="font-heading">Delete Documents</DialogTitle></DialogHeader>
           <p className="text-sm text-muted-foreground">Are you sure you want to delete <span className="font-medium text-foreground">{sortedDocs.length} document(s)</span>?</p>
           <div className="flex gap-2 mt-4">
-            <SkeuButton variant="destructive" className="flex-1" onClick={confirmDeleteAll}>Delete All</SkeuButton>
-            <SkeuButton onClick={() => setBulkDeleteOpen(false)}>Cancel</SkeuButton>
+            <SkeuButton id="bulk-delete-confirm" data-test-id="bulk-delete-confirm" data-testid="bulk-delete-confirm" variant="destructive" className="flex-1" onClick={confirmDeleteAll}>Delete All</SkeuButton>
+            <SkeuButton id="bulk-delete-cancel" data-test-id="bulk-delete-cancel" data-testid="bulk-delete-cancel" onClick={() => setBulkDeleteOpen(false)}>Cancel</SkeuButton>
           </div>
         </DialogContent>
       </Dialog>

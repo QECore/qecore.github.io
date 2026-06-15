@@ -286,7 +286,7 @@ export default function Projects() {
           <p className="text-sm text-muted-foreground mt-1">Manage your workspace projects</p>
         </div>
         {activeTab === "active" && (
-          <SkeuButton variant="primary" onClick={openCreate}>
+          <SkeuButton id="new-project-button" data-test-id="new-project-button" data-testid="new-project-button" variant="primary" onClick={openCreate}>
             <Plus className="w-4 h-4" /> New Project
           </SkeuButton>
         )}
@@ -295,6 +295,9 @@ export default function Projects() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex gap-2">
           <button
+            id="tab-active"
+            data-test-id="tab-active"
+            data-testid="tab-active"
             onClick={() => setActiveTab("active")}
             className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
               activeTab === "active"
@@ -305,6 +308,9 @@ export default function Projects() {
             Active
           </button>
           <button
+            id="tab-deleted"
+            data-test-id="tab-deleted"
+            data-testid="tab-deleted"
             onClick={() => setActiveTab("deleted")}
             className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
               activeTab === "deleted"
@@ -317,12 +323,12 @@ export default function Projects() {
         </div>
         <div className="flex gap-2">
           {activeTab === "active" && sortedProjects.length > 0 && (
-            <SkeuButton variant="destructive" onClick={handleDeleteAll}>
+            <SkeuButton id="delete-all-projects" data-test-id="delete-all-projects" data-testid="delete-all-projects" variant="destructive" onClick={handleDeleteAll}>
               {search.trim() !== "" || Object.values(activeFilters).some(val => Array.isArray(val) ? val.length > 0 : !!val) ? "Delete Filtered" : "Delete All"}
             </SkeuButton>
           )}
           {activeTab === "deleted" && sortedProjects.length > 0 && (
-            <SkeuButton variant="primary" onClick={handleRestoreAll}>
+            <SkeuButton id="restore-all-projects" data-test-id="restore-all-projects" data-testid="restore-all-projects" variant="primary" onClick={handleRestoreAll}>
               {search.trim() !== "" || Object.values(activeFilters).some(val => Array.isArray(val) ? val.length > 0 : !!val) ? "Restore Filtered" : "Restore All"}
             </SkeuButton>
           )}
@@ -346,25 +352,25 @@ export default function Projects() {
           <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-muted/40 select-none">
-              <th onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-projects-id" data-test-id="sort-projects-id" data-testid="sort-projects-id" onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Id {renderSortIcon("id")}</span>
               </th>
-              <th onClick={() => handleSort("title")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-projects-title" data-test-id="sort-projects-title" data-testid="sort-projects-title" onClick={() => handleSort("title")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Title {renderSortIcon("title")}</span>
               </th>
-              <th onClick={() => handleSort("status")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden sm:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-projects-status" data-test-id="sort-projects-status" data-testid="sort-projects-status" onClick={() => handleSort("status")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden sm:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Status {renderSortIcon("status")}</span>
               </th>
-              <th onClick={() => handleSort("priority")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden sm:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-projects-priority" data-test-id="sort-projects-priority" data-testid="sort-projects-priority" onClick={() => handleSort("priority")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden sm:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Priority {renderSortIcon("priority")}</span>
               </th>
-              <th onClick={() => handleSort("progress")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-projects-progress" data-test-id="sort-projects-progress" data-testid="sort-projects-progress" onClick={() => handleSort("progress")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Progress {renderSortIcon("progress")}</span>
               </th>
-              <th onClick={() => handleSort("due_date")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-projects-due_date" data-test-id="sort-projects-due_date" data-testid="sort-projects-due_date" onClick={() => handleSort("due_date")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Due Date {renderSortIcon("due_date")}</span>
               </th>
-              <th onClick={() => handleSort("tags")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
+              <th id="sort-projects-tags" data-test-id="sort-projects-tags" data-testid="sort-projects-tags" onClick={() => handleSort("tags")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Tags {renderSortIcon("tags")}</span>
               </th>
               <th className="px-4 py-2.5 w-20"></th>
@@ -401,11 +407,11 @@ export default function Projects() {
                   <div className="flex items-center gap-1">
                     {activeTab === "active" ? (
                       <>
-                        <button onClick={() => openEdit(p)} className="p-1.5 hover:bg-muted rounded-md transition-colors"><Pencil className="w-3.5 h-3.5 text-muted-foreground" /></button>
-                        <button onClick={() => { setEditing(p); setDeleteOpen(true); }} className="p-1.5 hover:bg-destructive/10 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5 text-destructive" /></button>
+                        <button id={`edit-project-${p.id}`} data-test-id={`edit-project-${p.id}`} data-testid={`edit-project-${p.id}`} onClick={() => openEdit(p)} className="p-1.5 hover:bg-muted rounded-md transition-colors"><Pencil className="w-3.5 h-3.5 text-muted-foreground" /></button>
+                        <button id={`delete-project-${p.id}`} data-test-id={`delete-project-${p.id}`} data-testid={`delete-project-${p.id}`} onClick={() => { setEditing(p); setDeleteOpen(true); }} className="p-1.5 hover:bg-destructive/10 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5 text-destructive" /></button>
                       </>
                     ) : (
-                      <button onClick={() => handleRestore(p.id)} className="px-2 py-1 text-xs bg-accent/10 hover:bg-accent/20 text-accent rounded border border-accent/20 transition-colors">Restore</button>
+                      <button id={`restore-project-${p.id}`} data-test-id={`restore-project-${p.id}`} data-testid={`restore-project-${p.id}`} onClick={() => handleRestore(p.id)} className="px-2 py-1 text-xs bg-accent/10 hover:bg-accent/20 text-accent rounded border border-accent/20 transition-colors">Restore</button>
                     )}
                   </div>
                 </td>
@@ -425,17 +431,17 @@ export default function Projects() {
           <div className="space-y-4 mt-2">
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">Title *</label>
-              <input className="skeu-input w-full px-3 py-2 text-sm" value={form.title} onChange={(e) => setForm({...form, title: e.target.value})} placeholder="Project title" />
+              <input id="form-title" data-test-id="form-title" data-testid="form-title" className="skeu-input w-full px-3 py-2 text-sm" value={form.title} onChange={(e) => setForm({...form, title: e.target.value})} placeholder="Project title" />
             </div>
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">Description</label>
-              <textarea className="skeu-input w-full px-3 py-2 text-sm min-h-[70px] resize-none" value={form.description} onChange={(e) => setForm({...form, description: e.target.value})} placeholder="Optional description" />
+              <textarea id="form-description" data-test-id="form-description" data-testid="form-description" className="skeu-input w-full px-3 py-2 text-sm min-h-[70px] resize-none" value={form.description} onChange={(e) => setForm({...form, description: e.target.value})} placeholder="Optional description" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Status</label>
                 <Select value={form.status} onValueChange={(v) => setForm({...form, status: v})}>
-                  <SelectTrigger className="skeu-input"><SelectValue /></SelectTrigger>
+                  <SelectTrigger id="form-status" data-test-id="form-status" data-testid="form-status" className="skeu-input"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="active">Active</SelectItem>
                     <SelectItem value="paused">Paused</SelectItem>
@@ -447,7 +453,7 @@ export default function Projects() {
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Priority</label>
                 <Select value={form.priority} onValueChange={(v) => setForm({...form, priority: v})}>
-                  <SelectTrigger className="skeu-input"><SelectValue /></SelectTrigger>
+                  <SelectTrigger id="form-priority" data-test-id="form-priority" data-testid="form-priority" className="skeu-input"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="low">Low</SelectItem>
                     <SelectItem value="medium">Medium</SelectItem>
@@ -460,13 +466,16 @@ export default function Projects() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Progress (%)</label>
-                <input type="number" min="0" max="100" className="skeu-input w-full px-3 py-2 text-sm" value={form.progress} onChange={(e) => setForm({...form, progress: e.target.value})} />
+                <input id="form-progress" data-test-id="form-progress" data-testid="form-progress" type="number" min="0" max="100" className="skeu-input w-full px-3 py-2 text-sm" value={form.progress} onChange={(e) => setForm({...form, progress: e.target.value})} />
               </div>
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Due Date</label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <button
+                      id="form-due-date"
+                      data-test-id="form-due-date"
+                      data-testid="form-due-date"
                       type="button"
                       className="skeu-input w-full px-3 py-2 text-sm flex items-center justify-between text-left font-normal bg-background hover:bg-muted/10 transition-colors"
                     >
@@ -495,11 +504,11 @@ export default function Projects() {
             </div>
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">Tags (comma-separated)</label>
-              <input className="skeu-input w-full px-3 py-2 text-sm" value={form.tags} onChange={(e) => setForm({...form, tags: e.target.value})} placeholder="e.g. frontend, core" />
+              <input id="form-tags" data-test-id="form-tags" data-testid="form-tags" className="skeu-input w-full px-3 py-2 text-sm" value={form.tags} onChange={(e) => setForm({...form, tags: e.target.value})} placeholder="e.g. frontend, core" />
             </div>
             <div className="flex gap-2 pt-2">
-              <SkeuButton variant="primary" className="flex-1" onClick={save}>Save</SkeuButton>
-              <SkeuButton onClick={() => setDrawerOpen(false)}>Cancel</SkeuButton>
+              <SkeuButton id="form-save" data-test-id="form-save" data-testid="form-save" variant="primary" className="flex-1" onClick={save}>Save</SkeuButton>
+              <SkeuButton id="form-cancel" data-test-id="form-cancel" data-testid="form-cancel" onClick={() => setDrawerOpen(false)}>Cancel</SkeuButton>
             </div>
           </div>
         </DialogContent>
@@ -511,8 +520,8 @@ export default function Projects() {
           <DialogHeader><DialogTitle className="font-heading">Delete Project</DialogTitle></DialogHeader>
           <p className="text-sm text-muted-foreground">Are you sure you want to delete <span className="font-medium text-foreground">{editing?.title}</span>?</p>
           <div className="flex gap-2 mt-4">
-            <SkeuButton variant="destructive" className="flex-1" onClick={confirmDelete}>Delete</SkeuButton>
-            <SkeuButton onClick={() => setDeleteOpen(false)}>Cancel</SkeuButton>
+            <SkeuButton id="delete-confirm" data-test-id="delete-confirm" data-testid="delete-confirm" variant="destructive" className="flex-1" onClick={confirmDelete}>Delete</SkeuButton>
+            <SkeuButton id="delete-cancel" data-test-id="delete-cancel" data-testid="delete-cancel" onClick={() => setDeleteOpen(false)}>Cancel</SkeuButton>
           </div>
         </DialogContent>
       </Dialog>
@@ -523,8 +532,8 @@ export default function Projects() {
           <DialogHeader><DialogTitle className="font-heading">Delete Projects</DialogTitle></DialogHeader>
           <p className="text-sm text-muted-foreground">Are you sure you want to delete <span className="font-medium text-foreground">{sortedProjects.length} project(s)</span>?</p>
           <div className="flex gap-2 mt-4">
-            <SkeuButton variant="destructive" className="flex-1" onClick={confirmDeleteAll}>Delete All</SkeuButton>
-            <SkeuButton onClick={() => setBulkDeleteOpen(false)}>Cancel</SkeuButton>
+            <SkeuButton id="bulk-delete-confirm" data-test-id="bulk-delete-confirm" data-testid="bulk-delete-confirm" variant="destructive" className="flex-1" onClick={confirmDeleteAll}>Delete All</SkeuButton>
+            <SkeuButton id="bulk-delete-cancel" data-test-id="bulk-delete-cancel" data-testid="bulk-delete-cancel" onClick={() => setBulkDeleteOpen(false)}>Cancel</SkeuButton>
           </div>
         </DialogContent>
       </Dialog>

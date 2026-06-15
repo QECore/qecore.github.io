@@ -56,13 +56,16 @@ export default function Register() {
       footer={
         <>
           Already have an account?{" "}
-          <Link to="/login" className="text-primary font-medium hover:underline">
+          <Link id="link-login" data-test-id="link-login" data-testid="link-login" to="/login" className="text-primary font-medium hover:underline">
             Log in
           </Link>
         </>
       }
     >
       <SkeuButton
+        id="register-default-user"
+        data-test-id="register-default-user"
+        data-testid="register-default-user"
         className="w-full h-12 text-sm font-medium mb-6"
         onClick={handleDefaultUser}
         disabled={loading}
@@ -93,6 +96,8 @@ export default function Register() {
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
               id="email"
+              data-test-id="email-input"
+              data-testid="email-input"
               type="email"
               autoComplete="email"
               autoFocus
@@ -110,6 +115,8 @@ export default function Register() {
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
               id="password"
+              data-test-id="password-input"
+              data-testid="password-input"
               type="password"
               autoComplete="new-password"
               placeholder="••••••••"
@@ -126,6 +133,8 @@ export default function Register() {
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
               id="confirm"
+              data-test-id="confirm-password-input"
+              data-testid="confirm-password-input"
               type="password"
               autoComplete="new-password"
               placeholder="••••••••"
@@ -136,7 +145,7 @@ export default function Register() {
             />
           </div>
         </div>
-        <SkeuButton type="submit" variant="primary" className="w-full h-12 font-medium" disabled={loading}>
+        <SkeuButton id="register-submit" data-test-id="register-submit" data-testid="register-submit" type="submit" variant="primary" className="w-full h-12 font-medium" disabled={loading}>
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />

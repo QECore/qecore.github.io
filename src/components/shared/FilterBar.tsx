@@ -83,6 +83,9 @@ export default function FilterBar({
         <div className="relative flex-1 min-w-[200px] max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
+            id="search-input"
+            data-test-id="search-input"
+            data-testid="search-input"
             className="skeu-input w-full pl-9 pr-3 py-2 text-sm"
             placeholder={searchPlaceholder}
             value={search}
@@ -93,6 +96,9 @@ export default function FilterBar({
         {/* Filter button + dropdown */}
         <div className="relative" ref={dropRef}>
           <button
+            id="filter-button"
+            data-test-id="filter-button"
+            data-testid="filter-button"
             onClick={() => { setOpen(!open); setActiveHeader(null); }}
             className={`skeu-button inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${activePillEntries.length > 0 ? "text-accent" : "text-foreground"}`}
           >
@@ -126,6 +132,9 @@ export default function FilterBar({
                     return (
                       <button
                         key={fc.key}
+                        id={`filter-category-${fc.key}`}
+                        data-test-id={`filter-category-${fc.key}`}
+                        data-testid={`filter-category-${fc.key}`}
                         onClick={() => setActiveHeader(fc.key)}
                         className="flat-item w-full flex items-center justify-between px-3 py-2.5 text-xs hover:bg-muted/30 transition-colors group"
                       >
@@ -163,10 +172,13 @@ export default function FilterBar({
                     <>
                       {/* Back header */}
                       <div className="flex items-center gap-2 px-3 py-2.5 border-b border-border/50 bg-muted/20">
-                        <button
-                          onClick={() => setActiveHeader(null)}
-                          className="flat-item flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                        >
+                          <button
+                            id="filter-back"
+                            data-test-id="filter-back"
+                            data-testid="filter-back"
+                            onClick={() => setActiveHeader(null)}
+                            className="flat-item flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                          >
                           <ChevronLeft className="w-3.5 h-3.5" />
                           <span className="text-md font-semibold text-foreground ml-1">{fc.label}</span>
                         </button>
@@ -174,6 +186,9 @@ export default function FilterBar({
                         {/* Select / Deselect All (options only) */}
                         {fc.type === "options" && (
                           <button
+                            id="filter-select-all"
+                            data-test-id="filter-select-all"
+                            data-testid="filter-select-all"
                             onClick={() => allSelected ? deselectAll(fc.key) : selectAll(fc.key, fc.options)}
                             className="flat-item ml-auto flex items-center gap-1 text-[10px] font-semibold text-accent hover:text-accent/70 transition-colors"
                           >
@@ -211,6 +226,9 @@ export default function FilterBar({
                             return (
                               <button
                                 key={opt.value}
+                                id={`filter-option-${fc.key}-${opt.value}`}
+                                data-test-id={`filter-option-${fc.key}-${opt.value}`}
+                                data-testid={`filter-option-${fc.key}-${opt.value}`}
                                 onClick={() => toggleOption(fc.key, opt.value)}
                                 className={`flat-item w-full flex items-center gap-3 px-3 py-2.5 text-xs text-left transition-all group ${
                                   checked
@@ -278,6 +296,9 @@ export default function FilterBar({
           })}
           {activePillEntries.length > 1 && (
             <button
+              id="clear-all-filters"
+              data-test-id="clear-all-filters"
+              data-testid="clear-all-filters"
               onClick={() => filterConfig.forEach((fc) => onRemoveFilter(fc.key))}
               className="text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2 p-2"
             >

@@ -49,13 +49,16 @@ export default function Login() {
       footer={
         <>
           Don&apos;t have an account?{" "}
-          <Link to="/register" className="text-primary font-medium hover:underline">
+          <Link id="link-register" data-test-id="link-register" data-testid="link-register" to="/register" className="text-primary font-medium hover:underline">
             Create one
           </Link>
         </>
       }
     >
       <SkeuButton
+        id="login-default-user"
+        data-test-id="login-default-user"
+        data-testid="login-default-user"
         className="w-full h-12 text-sm font-medium mb-6"
         onClick={handleDefaultUser}
         disabled={loading}
@@ -86,6 +89,8 @@ export default function Login() {
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
               id="email"
+              data-test-id="email-input"
+              data-testid="email-input"
               type="email"
               autoComplete="email"
               autoFocus
@@ -100,7 +105,7 @@ export default function Login() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <Label htmlFor="password">Password</Label>
-            <Link to="/forgot-password" className="text-xs text-primary hover:underline">
+            <Link id="link-forgot-password" data-test-id="link-forgot-password" data-testid="link-forgot-password" to="/forgot-password" className="text-xs text-primary hover:underline">
               Forgot password?
             </Link>
           </div>
@@ -108,6 +113,8 @@ export default function Login() {
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <Input
               id="password"
+              data-test-id="password-input"
+              data-testid="password-input"
               type="password"
               autoComplete="current-password"
               placeholder="••••••••"
@@ -118,7 +125,7 @@ export default function Login() {
             />
           </div>
         </div>
-        <SkeuButton type="submit" variant="primary" className="w-full h-12 font-medium" disabled={loading}>
+        <SkeuButton id="login-submit" data-test-id="login-submit" data-testid="login-submit" type="submit" variant="primary" className="w-full h-12 font-medium" disabled={loading}>
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />

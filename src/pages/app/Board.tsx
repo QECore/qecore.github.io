@@ -5,10 +5,10 @@ import { Plus, Trash2, Pencil, Calendar, User } from "lucide-react";
 import SkeuButton from "../../components/shared/SkueButton";
 import StatusBadge from "../../components/shared/StatusBadge";
 import { TruncatedCell } from "../../components/shared/TruncatedCell";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog";
 import { Calendar as CalendarComponent } from "@/components/ui/Calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/Popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/lib/AuthContext";
 

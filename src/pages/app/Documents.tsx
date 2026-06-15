@@ -5,7 +5,7 @@ import { Upload, FileText, Trash2, ArrowUpDown, ArrowUp, ArrowDown } from "lucid
 import SkeuCard from "@/components/shared/SkueCard";
 import SkeuButton from "@/components/shared/SkueButton";
 import { TruncatedCell } from "@/components/shared/TruncatedCell";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 import FilterBar from "@/components/shared/FilterBar";

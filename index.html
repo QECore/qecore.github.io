@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        const saved = localStorage.getItem("theme");
+        if (saved === "light") {
+          document.documentElement.classList.remove("dark");
+        } else {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+    <title>PW-Core Workspace — Build, Test & Document</title>
+    <meta name="description" content="PW-Core Workspace is a modular SaaS platform for project management, QA testing, and API documentation. Launch your app, explore the playground, and browse Swagger docs." />
+    <meta name="keywords" content="PW-Core, SaaS, project management, QA testing, Swagger, API documentation, workspace" />
+    <meta property="og:title" content="PW-Core Workspace" />
+    <meta property="og:description" content="A modular SaaS platform — App, QA Playground, and Swagger Portal in one workspace." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PW-Core Workspace" />
+    <meta name="twitter:description" content="Build, test, and document — all in one place." />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

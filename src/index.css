@@ -1,0 +1,712 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Georgia&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 20% 97%;
+    --foreground: 20 10% 12%;
+    --card: 40 25% 99%;
+    --card-foreground: 20 10% 12%;
+    --popover: 40 25% 99%;
+    --popover-foreground: 20 10% 12%;
+    --primary: 20 8% 20%;
+    --primary-foreground: 40 20% 97%;
+    --secondary: 35 20% 93%;
+    --secondary-foreground: 20 10% 20%;
+    --muted: 35 15% 93%;
+    --muted-foreground: 20 5% 45%;
+    --accent: 25 60% 52%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 15% 88%;
+    --input: 30 15% 88%;
+    --ring: 25 60% 52%;
+    --chart-1: 25 60% 52%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.625rem;
+    --font-heading: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Georgia', serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --sidebar-background: 35 20% 95%;
+    --sidebar-foreground: 20 10% 20%;
+    --sidebar-primary: 20 8% 20%;
+    --sidebar-primary-foreground: 40 20% 97%;
+    --sidebar-accent: 35 20% 90%;
+    --sidebar-accent-foreground: 20 10% 20%;
+    --sidebar-border: 30 15% 88%;
+    --sidebar-ring: 25 60% 52%;
+  }
+
+  .dark {
+    --background: 220 15% 10%;
+    --foreground: 40 15% 92%;
+    --card: 220 15% 13%;
+    --card-foreground: 40 15% 92%;
+    --popover: 220 15% 13%;
+    --popover-foreground: 40 15% 92%;
+    --primary: 40 15% 92%;
+    --primary-foreground: 220 15% 10%;
+    --secondary: 220 10% 18%;
+    --secondary-foreground: 40 15% 92%;
+    --muted: 220 10% 18%;
+    --muted-foreground: 220 5% 55%;
+    --accent: 25 60% 52%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 10% 20%;
+    --input: 220 10% 20%;
+    --ring: 25 60% 52%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 220 15% 12%;
+    --sidebar-foreground: 40 15% 92%;
+    --sidebar-primary: 25 60% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 10% 16%;
+    --sidebar-accent-foreground: 40 15% 92%;
+    --sidebar-border: 220 10% 20%;
+    --sidebar-ring: 25 60% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+}
+
+/* Global Border Reset: Remove all border lines globally */
+*, ::before, ::after {
+  border-width: 0 !important;
+  border-style: none !important;
+}
+
+/* Skeuomorphic utilities */
+.skeu-card {
+  background: hsl(var(--card));
+  border: none !important;
+  box-shadow: 
+    0 10px 25px -5px rgba(0,0,0,0.06),
+    0 8px 10px -5px rgba(0,0,0,0.04),
+    0 1px 3px rgba(0,0,0,0.02),
+    inset 0 2px 0px rgba(255,255,255,0.8),
+    inset 0 -2px 4px rgba(0,0,0,0.02);
+  border-radius: var(--radius);
+}
+
+.dark .skeu-card {
+  box-shadow: 
+    0 10px 25px -5px rgba(0,0,0,0.35),
+    0 8px 10px -5px rgba(0,0,0,0.25),
+    0 1px 3px rgba(0,0,0,0.1),
+    inset 0 1px 0px rgba(255,255,255,0.08),
+    inset 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+/* 3D Skeuomorphic Buttons (Universal & Class-based) */
+button:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]):not([role="checkbox"]):not([role="switch"]):not([role="radio"]):not([role="tab"]):not([class*="rdp-"]):not(.active):not(.skeu-button-primary):not(.bg-primary):not(.bg-emerald-600):not(.bg-amber-600):not(.bg-destructive):not([class*="bg-destructive"]):not([class*="bg-red-"]):not(.flat-item), .skeu-button {
+  background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%) !important;
+  border: none !important;
+  color: #000000 !important;
+  font-weight: 500;
+  box-shadow: 
+    0 4px 6px -1px rgba(0,0,0,0.08),
+    0 2px 4px -1px rgba(0,0,0,0.04),
+    0 1px 2px rgba(0,0,0,0.02),
+    inset 0 2px 0px rgba(255,255,255,0.85),
+    inset 0 -2px 0px rgba(0,0,0,0.04) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.dark button:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]):not([role="checkbox"]):not([role="switch"]):not([role="radio"]):not([role="tab"]):not([class*="rdp-"]):not(.active):not(.skeu-button-primary):not(.bg-primary):not(.bg-emerald-600):not(.bg-amber-600):not(.bg-destructive):not([class*="bg-destructive"]):not([class*="bg-red-"]):not(.flat-item), .dark .skeu-button {
+  background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%) !important;
+  color: hsl(var(--foreground)) !important;
+  box-shadow: 
+    0 4px 6px -1px rgba(0,0,0,0.3),
+    0 2px 4px -1px rgba(0,0,0,0.2),
+    inset 0 1px 0px rgba(255,255,255,0.08),
+    inset 0 -2px 0px rgba(0,0,0,0.1) !important;
+}
+
+button:active, .skeu-button:active {
+  transform: translateY(1px);
+  box-shadow: 
+    inset 0 4px 6px rgba(0,0,0,0.12),
+    inset 0 1px 2px rgba(0,0,0,0.08) !important;
+}
+
+/* 3D Primary Button overrides */
+.skeu-button-primary, 
+button.bg-primary, 
+button.bg-emerald-600, 
+button.bg-amber-600 {
+  background: linear-gradient(180deg, hsl(25 60% 56%) 0%, hsl(25 60% 48%) 100%) !important;
+  color: #000000 !important;
+  border: none !important;
+  box-shadow: 
+    0 4px 6px -1px rgba(180,100,50,0.15),
+    0 2px 4px -1px rgba(180,100,50,0.1),
+    inset 0 2px 0px rgba(255,255,255,0.25),
+    inset 0 -2px 0px rgba(0,0,0,0.08) !important;
+}
+
+.dark .skeu-button-primary, 
+.dark button.bg-primary, 
+.dark button.bg-emerald-600, 
+.dark button.bg-amber-600 {
+  background: linear-gradient(180deg, hsl(25 75% 56%) 0%, hsl(25 75% 48%) 100%) !important;
+  color: #000000 !important;
+  box-shadow: 
+    0 4px 6px -1px rgba(0,0,0,0.3),
+    0 2px 4px -1px rgba(0,0,0,0.15),
+    inset 0 1px 0px rgba(255,255,255,0.12),
+    inset 0 -2px 0px rgba(0,0,0,0.12) !important;
+}
+
+
+/* Flat UI buttons reset: options, navigation, dropdown items, accordion triggers, auxiliary actions */
+button.w-full:not(.skeu-button):not(.skeu-button-primary):not(.active),
+button.text-muted-foreground:not(.skeu-button):not(.skeu-button-primary),
+button.ml-auto:not(.skeu-button):not(.skeu-button-primary),
+[class*="FilterBar"] button:not(.skeu-button):not(.skeu-button-primary),
+[role="menu"] button,
+[role="listbox"] button,
+[role="option"] button,
+[role="option"],
+[data-radix-popper-content-wrapper] button,
+[data-radix-portal] button,
+[role="dialog"] button.w-full:not(.skeu-button):not(.skeu-button-primary),
+.rdp-nav_button,
+.rdp-nav_button:hover {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  border: none !important;
+}
+
+/* High-specificity flat override for .flat-menu containers (dropdown panels, accordion lists) */
+.flat-menu button:not(.skeu-button):not(.skeu-button-primary):not(.active):not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]):not([role="checkbox"]):not([role="switch"]):not([role="radio"]):not([role="tab"]):not([class*="rdp-"]):not(.bg-primary):not(.bg-destructive) {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  border: none !important;
+  color: inherit !important;
+  font-weight: inherit !important;
+  border-radius: 0 !important;
+}
+
+.flat-menu button:not(.skeu-button):not(.skeu-button-primary):not(.active):not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]):not([role="checkbox"]):not([role="switch"]):not([role="radio"]):not([role="tab"]):not([class*="rdp-"]):not(.bg-primary):not(.bg-destructive):hover {
+  background: hsl(var(--muted) / 0.3) !important;
+}
+
+/* Selected Options / Selected Tabs / Active Items 3D Popup Style */
+button.active:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]), 
+a.active, 
+[role="option"][aria-selected="true"], 
+[role="tab"][data-state="active"], 
+button[role="tab"][data-state="active"], 
+button[data-state="active"]:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]),
+[role="menuitem"][data-state="active"],
+button[aria-selected="true"]:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]),
+button[class*="rdp-day_selected"],
+button[class*="rdp-button_selected"],
+.rdp-day_selected,
+.rdp-day_selected button,
+.rdp-day_selected:hover,
+.skeu-button.active,
+.skeu-button[data-state="active"],
+.skeu-button[aria-selected="true"] {
+  background: linear-gradient(180deg, #fb923c 0%, #f97316 100%) !important;
+  color: #000000 !important;
+  box-shadow: 
+    0 4px 6px -1px rgba(0,0,0,0.15),
+    0 2px 4px -1px rgba(0,0,0,0.1),
+    inset 0 1.5px 0px rgba(255,255,255,0.45),
+    inset 0 -2px 0px rgba(0,0,0,0.15) !important;
+  border: none !important;
+}
+
+.bg-secondary {
+  border: none !important;
+  box-shadow: 
+    inset 0 3px 5px rgba(0,0,0,0.06),
+    inset 0 1px 2px rgba(0,0,0,0.04) !important;
+}
+
+.dark button.active:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]), 
+.dark a.active, 
+.dark [role="option"][aria-selected="true"], 
+.dark [role="tab"][data-state="active"], 
+.dark button[role="tab"][data-state="active"], 
+.dark button[data-state="active"]:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]),
+.dark [role="menuitem"][data-state="active"],
+.dark button[aria-selected="true"]:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]),
+.dark button[class*="rdp-day_selected"],
+.dark button[class*="rdp-button_selected"],
+.dark .rdp-day_selected,
+.dark .rdp-day_selected button,
+.dark .rdp-day_selected:hover,
+.dark .skeu-button.active,
+.dark .skeu-button[data-state="active"],
+.dark .skeu-button[aria-selected="true"] {
+  background: linear-gradient(180deg, #fb923c 0%, #f97316 100%) !important;
+  color: #000000 !important;
+  box-shadow: 
+    0 4px 6px -1px rgba(0,0,0,0.3),
+    0 2px 4px -1px rgba(0,0,0,0.2),
+    inset 0 1.5px 0px rgba(255,255,255,0.35),
+    inset 0 -2px 0px rgba(0,0,0,0.2) !important;
+  border: none !important;
+}
+
+/* 3D Inputs / Recessed fields (Forms consistent depth) */
+input:not([data-input-otp]):not([style*="position: absolute"]), textarea, select, [role="combobox"], button[aria-haspopup="listbox"], button[aria-haspopup="dialog"], [role="checkbox"], [role="radio"], .skeu-input {
+  background: hsl(var(--background)) !important;
+  border: none !important;
+  box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.06),
+    inset 0 1px 2px rgba(0,0,0,0.04),
+    0 1px 0px rgba(255,255,255,0.5) !important;
+  border-radius: calc(var(--radius) - 2px);
+  transition: all 0.15s ease;
+  color: hsl(var(--foreground)) !important;
+  text-align: left;
+}
+
+.dark input:not([data-input-otp]):not([style*="position: absolute"]), .dark textarea, .dark select, .dark [role="combobox"], .dark button[aria-haspopup="listbox"], .dark button[aria-haspopup="dialog"], .dark [role="checkbox"], .dark [role="radio"], .dark .skeu-input {
+  box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.25),
+    inset 0 1px 2px rgba(0,0,0,0.15),
+    0 1px 0px rgba(255,255,255,0.03) !important;
+}
+
+input:not([data-input-otp]):not([style*="position: absolute"]):focus, textarea:focus, select:focus, [role="combobox"]:focus, button[aria-haspopup="listbox"]:focus, button[aria-haspopup="dialog"]:focus, .skeu-input:focus {
+  box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.06),
+    0 0 0 3px hsl(var(--accent) / 0.15) !important;
+}
+
+.skeu-inset {
+  background: hsl(var(--muted));
+  border: none !important;
+  box-shadow: 
+    inset 0 3px 6px rgba(0,0,0,0.05),
+    inset 0 1px 2px rgba(0,0,0,0.03) !important;
+  border-radius: var(--radius);
+}
+
+.dark .skeu-inset {
+  box-shadow: 
+    inset 0 3px 6px rgba(0,0,0,0.25),
+    inset 0 1px 2px rgba(0,0,0,0.15) !important;
+}
+
+/* Tables style */
+tr {
+  transition: all 0.2s ease;
+}
+
+table tbody tr td,
+table tbody tr td * {
+  font-size: 0.75rem !important; /* text-xs */
+}
+
+table thead tr th,
+table thead tr th * {
+  font-size: 0.75rem !important; /* text-sm (one up) */
+}
+
+.notion-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.code-block {
+  background: #090909;
+  color: #e2e8f0;
+  border-radius: calc(var(--radius) - 2px);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  white-space: pre;         /* never wrap */
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Thin scrollbars for code/JSON blocks */
+.code-block::-webkit-scrollbar,
+pre::-webkit-scrollbar,
+textarea[spellcheck="false"]::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+.code-block::-webkit-scrollbar-track,
+pre::-webkit-scrollbar-track,
+textarea[spellcheck="false"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+.code-block::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb,
+textarea[spellcheck="false"]::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 99px;
+}
+.code-block::-webkit-scrollbar-thumb:hover,
+pre::-webkit-scrollbar-thumb:hover,
+textarea[spellcheck="false"]::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.endpoint-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+/* Screen reader utility helper to hide visually but keep accessible */
+.sr-only, .rdp-vhidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border-width: 0 !important;
+}
+
+/* Calendar Month/Year header and navigation button layout styling */
+.rdp-caption {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.25rem;
+  padding: 0 2rem !important;
+}
+
+.rdp-caption_dropdowns {
+  display: flex !important;
+  gap: 0.35rem !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.rdp-nav {
+  position: absolute !important;
+  top: 0.85rem !important;
+  left: 0 !important;
+  right: 0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  pointer-events: none !important;
+  padding: 0 !important;
+}
+
+.rdp-nav_button {
+  pointer-events: auto !important;
+}
+
+.rdp-nav_button_previous {
+  position: absolute !important;
+  left: 0px !important;
+}
+
+.rdp-nav_button_next {
+  position: absolute !important;
+  right: 0px !important;
+}
+
+/* Custom scrollbar utility: thin pipe, no background */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.35);
+  border-radius: 99px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent));
+}
+
+/* Hide default browser scrollbars globally */
+html, body {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+}
+
+/* Active form elements: Slider, Checkbox, Radio, Switch, Hover styling */
+
+/* Slider Range and Thumb */
+span.absolute.h-full.bg-primary,
+[class*="Slider"] [class*="Range"],
+[class*="slider"] [class*="range"],
+span[style*="left: 0%"][style*="width:"],
+span[style*="left: 0%"][style*="right:"] {
+  @apply bg-orange-500 !important;
+}
+
+[role="slider"],
+[class*="Thumb"],
+[class*="thumb"] {
+  @apply bg-orange-500 border-orange-500 !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2) !important;
+}
+
+/* Checkboxes */
+[role="checkbox"][data-state="checked"],
+button[role="checkbox"][data-state="checked"],
+.bg-accent[class*="border-accent"] {
+  @apply bg-orange-500 text-black border-orange-500 !important;
+  background-image: none !important;
+}
+[role="checkbox"][data-state="checked"] svg,
+button[role="checkbox"][data-state="checked"] svg {
+  @apply text-black !important;
+}
+
+/* Radio Buttons */
+[role="radio"][data-state="checked"],
+[role="radio"][aria-checked="true"],
+button[role="radio"][data-state="checked"] {
+  @apply border-orange-500 text-orange-500 !important;
+}
+[role="radio"] [data-state="checked"] svg,
+[role="radio"] [data-state="checked"] circle,
+[role="radio"][aria-checked="true"] svg,
+[role="radio"][aria-checked="true"] circle {
+  @apply fill-orange-500 text-orange-500 !important;
+}
+
+/* Switch Toggle */
+[role="switch"][data-state="checked"],
+button[role="switch"][data-state="checked"] {
+  @apply bg-orange-500 !important;
+  background-image: none !important;
+}
+
+/* Hover Accent Highlights (links, dropdown items, option rows) */
+[role="option"]:not([aria-selected="true"]):hover,
+[role="menuitem"]:not([data-state="active"]):hover,
+.hover\:bg-muted\/30:hover,
+tr:hover td,
+a:not(.active):hover,
+button:not(.active):not([data-state="active"]):not([aria-selected="true"]):not(.skeu-button-primary):not(.bg-primary):not(.bg-emerald-600):not(.bg-amber-600):not(.bg-destructive):not([class*="bg-destructive"]):not([class*="bg-red-"]):hover {
+  color: #F97316 !important;
+}
+
+/* Skeuomorphic style and cursor pointer for options/menuitems on hover */
+[role="option"]:hover,
+[role="menuitem"]:hover {
+  cursor: pointer !important;
+}
+
+[role="option"]:not([aria-selected="true"]):hover,
+[role="menuitem"]:not([data-state="active"]):hover {
+  background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%) !important;
+  box-shadow: 
+    0 4px 6px -1px rgba(0,0,0,0.08),
+    0 2px 4px -1px rgba(0,0,0,0.04),
+    inset 0 1.5px 0px rgba(255,255,255,0.85),
+    inset 0 -1.5px 0px rgba(0,0,0,0.04) !important;
+  border-radius: calc(var(--radius) - 4px);
+}
+
+.dark [role="option"]:not([aria-selected="true"]):hover,
+.dark [role="menuitem"]:not([data-state="active"]):hover {
+  background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%) !important;
+  box-shadow: 
+    0 4px 6px -1px rgba(0,0,0,0.3),
+    0 2px 4px -1px rgba(0,0,0,0.2),
+    inset 0 1px 0px rgba(255,255,255,0.08),
+    inset 0 -1.5px 0px rgba(0,0,0,0.1) !important;
+}
+
+/* Ensure hovered selected/active items stay text black */
+button.active:hover, 
+a.active:hover, 
+[role="option"][aria-selected="true"]:hover, 
+[role="tab"][data-state="active"]:hover, 
+button[role="tab"][data-state="active"]:hover, 
+button[data-state="active"]:hover,
+[role="menuitem"][data-state="active"]:hover,
+button[aria-selected="true"]:hover,
+.rdp-day_selected:hover,
+.rdp-day_selected button:hover {
+  color: #000000 !important;
+}
+
+/* Autofill fixes to keep inputs grey background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+input:autofill,
+input:autofill:hover,
+input:autofill:focus {
+  -webkit-text-fill-color: hsl(var(--foreground)) !important;
+  -webkit-box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.06),
+    inset 0 1px 2px rgba(0,0,0,0.04),
+    0 0 0px 1000px hsl(var(--background)) inset !important;
+  transition: background-color 600000s ease-in-out 0s, color 600000s ease-in-out 0s !important;
+}
+
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover, 
+.dark input:-webkit-autofill:focus,
+.dark input:autofill,
+.dark input:autofill:hover,
+.dark input:autofill:focus {
+  -webkit-text-fill-color: hsl(var(--foreground)) !important;
+  -webkit-box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.25),
+    inset 0 1px 2px rgba(0,0,0,0.15),
+    0 0 0px 1000px hsl(var(--background)) inset !important;
+  transition: background-color 600000s ease-in-out 0s, color 600000s ease-in-out 0s !important;
+}
+
+/* Progress Bar Indicator overrides */
+[role="progressbar"] [class*="Indicator"],
+[role="progressbar"] div {
+  @apply bg-orange-500 !important;
+}
+
+/* Placeholder styling - black/dark in light mode, light in dark mode */
+::placeholder {
+  color: rgba(0, 0, 0, 0.6) !important;
+  opacity: 1 !important;
+}
+input::placeholder {
+  color: rgba(0, 0, 0, 0.6) !important;
+  opacity: 1 !important;
+}
+textarea::placeholder {
+  color: rgba(0, 0, 0, 0.6) !important;
+  opacity: 1 !important;
+}
+
+.dark ::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.dark input::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.dark textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* OTP Slots border overrides (bypasses global border reset) */
+.otp-slot {
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: hsl(var(--border)) !important; /* light grey/theme border */
+}
+
+.otp-slot-active,
+.otp-slot[class*="ring-orange-500"] {
+  border-color: #f97316 !important; /* orange-500 active outline */
+}
+
+/* NPM Downloads Badge Skeuomorphism */
+.skeu-badge-up {
+  background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%) !important;
+  box-shadow: 
+    0 4px 6px -1px rgba(0,0,0,0.08),
+    0 2px 4px -1px rgba(0,0,0,0.04),
+    inset 0 2px 0px rgba(255,255,255,0.85),
+    inset 0 -2px 0px rgba(0,0,0,0.04) !important;
+  border-radius: var(--radius);
+}
+
+.dark .skeu-badge-up {
+  box-shadow: 
+    0 4px 6px -1px rgba(0,0,0,0.3),
+    0 2px 4px -1px rgba(0,0,0,0.2),
+    inset 0 1px 0px rgba(255,255,255,0.08),
+    inset 0 -2px 0px rgba(0,0,0,0.1) !important;
+}
+
+.skeu-badge-down {
+  background: hsl(var(--background)) !important;
+  box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.06),
+    inset 0 1px 2px rgba(0,0,0,0.04),
+    0 1px 0px rgba(255,255,255,0.5) !important;
+  border-radius: var(--radius);
+}
+
+.dark .skeu-badge-down {
+  box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.25),
+    inset 0 1px 2px rgba(0,0,0,0.15),
+    0 1px 0px rgba(255,255,255,0.03) !important;
+}
+
+/* Skeuomorphic Popping Up Method Badges */
+.skeu-badge-method-get {
+  background: linear-gradient(180deg, #34d399 0%, #059669 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25), inset 0 1px 0px rgba(255,255,255,0.45), inset 0 -1.5px 0px rgba(0,0,0,0.2) !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.skeu-badge-method-post {
+  background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25), inset 0 1px 0px rgba(255,255,255,0.45), inset 0 -1.5px 0px rgba(0,0,0,0.2) !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.skeu-badge-method-put {
+  background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25), inset 0 1px 0px rgba(255,255,255,0.45), inset 0 -1.5px 0px rgba(0,0,0,0.2) !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.skeu-badge-method-patch {
+  background: linear-gradient(180deg, #a78bfa 0%, #7c3aed 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25), inset 0 1px 0px rgba(255,255,255,0.45), inset 0 -1.5px 0px rgba(0,0,0,0.2) !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.skeu-badge-method-delete {
+  background: linear-gradient(180deg, #f87171 0%, #dc2626 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25), inset 0 1px 0px rgba(255,255,255,0.45), inset 0 -1.5px 0px rgba(0,0,0,0.2) !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}

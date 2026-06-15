@@ -208,25 +208,28 @@ export default function Landing() {
       <section className="mb-12">
         <h2 className="font-heading font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Component Matrix</h2>
         <SkeuCard className="overflow-hidden p-0">
-          <table className="w-full text-sm">
+          <table id="landing-component-matrix-table" data-test-id="landing-component-matrix-table" data-testid="landing-component-matrix-table" className="w-full text-sm">
             <thead>
               <tr className="border-b border-border bg-muted/40">
-                <th className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Component Group</th>
-                <th className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Page / Location</th>
-                <th className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Capabilities Checked</th>
+                <th id="landing-hdr-group" data-test-id="landing-hdr-group" data-testid="landing-hdr-group" className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Component Group</th>
+                <th id="landing-hdr-location" data-test-id="landing-hdr-location" data-testid="landing-hdr-location" className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Page / Location</th>
+                <th id="landing-hdr-desc" data-test-id="landing-hdr-desc" data-testid="landing-hdr-desc" className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Capabilities Checked</th>
               </tr>
             </thead>
             <tbody>
-              {componentMatrix.map((row) => (
-                <tr key={row.component} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
-                  <td className="px-4 py-3 flex items-center gap-2">
-                    <row.icon className="w-3.5 h-3.5 text-muted-foreground" />
-                    <span className="font-medium">{row.component}</span>
-                  </td>
-                  <td className="px-4 py-3 text-muted-foreground">{row.page}</td>
-                  <td className="px-4 py-3 text-muted-foreground text-xs">{row.desc}</td>
-                </tr>
-              ))}
+              {componentMatrix.map((row) => {
+                const slug = row.component.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                return (
+                  <tr key={row.component} id={`landing-row-${slug}`} data-test-id={`landing-row-${slug}`} data-testid={`landing-row-${slug}`} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
+                    <td id={`landing-cell-${slug}-group`} data-test-id={`landing-cell-${slug}-group`} data-testid={`landing-cell-${slug}-group`} className="px-4 py-3 flex items-center gap-2">
+                      <row.icon className="w-3.5 h-3.5 text-muted-foreground" />
+                      <span className="font-medium">{row.component}</span>
+                    </td>
+                    <td id={`landing-cell-${slug}-location`} data-test-id={`landing-cell-${slug}-location`} data-testid={`landing-cell-${slug}-location`} className="px-4 py-3 text-muted-foreground">{row.page}</td>
+                    <td id={`landing-cell-${slug}-desc`} data-test-id={`landing-cell-${slug}-desc`} data-testid={`landing-cell-${slug}-desc`} className="px-4 py-3 text-muted-foreground text-xs">{row.desc}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </SkeuCard>

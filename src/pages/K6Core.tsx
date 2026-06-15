@@ -58,25 +58,28 @@ export default function K6Core() {
       <section className="mb-12">
         <h2 className="font-heading font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Capabilities</h2>
         <SkeuCard className="overflow-hidden p-0">
-          <table className="w-full text-sm">
+          <table id="k6-capabilities-table" data-test-id="k6-capabilities-table" data-testid="k6-capabilities-table" className="w-full text-sm">
             <thead>
               <tr className="border-b border-border bg-muted/40">
-                <th className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Capability Group</th>
-                <th className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Location / Usage</th>
-                <th className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Description</th>
+                <th id="k6-hdr-group" data-test-id="k6-hdr-group" data-testid="k6-hdr-group" className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Capability Group</th>
+                <th id="k6-hdr-location" data-test-id="k6-hdr-location" data-testid="k6-hdr-location" className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Location / Usage</th>
+                <th id="k6-hdr-desc" data-test-id="k6-hdr-desc" data-testid="k6-hdr-desc" className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider">Description</th>
               </tr>
             </thead>
             <tbody>
-              {capabilities.map((row) => (
-                <tr key={row.group} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
-                  <td className="px-4 py-3 flex items-center gap-2">
-                    <row.icon className="w-3.5 h-3.5 text-muted-foreground" />
-                    <span className="font-medium">{row.group}</span>
-                  </td>
-                  <td className="px-4 py-3 text-muted-foreground">{row.page}</td>
-                  <td className="px-4 py-3 text-muted-foreground text-xs">{row.desc}</td>
-                </tr>
-              ))}
+              {capabilities.map((row) => {
+                const slug = row.group.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                return (
+                  <tr key={row.group} id={`k6-row-${slug}`} data-test-id={`k6-row-${slug}`} data-testid={`k6-row-${slug}`} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
+                    <td id={`k6-cell-${slug}-group`} data-test-id={`k6-cell-${slug}-group`} data-testid={`k6-cell-${slug}-group`} className="px-4 py-3 flex items-center gap-2">
+                      <row.icon className="w-3.5 h-3.5 text-muted-foreground" />
+                      <span className="font-medium">{row.group}</span>
+                    </td>
+                    <td id={`k6-cell-${slug}-location`} data-test-id={`k6-cell-${slug}-location`} data-testid={`k6-cell-${slug}-location`} className="px-4 py-3 text-muted-foreground">{row.page}</td>
+                    <td id={`k6-cell-${slug}-desc`} data-test-id={`k6-cell-${slug}-desc`} data-testid={`k6-cell-${slug}-desc`} className="px-4 py-3 text-muted-foreground text-xs">{row.desc}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </SkeuCard>

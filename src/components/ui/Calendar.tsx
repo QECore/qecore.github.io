@@ -1,6 +1,6 @@
 import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
+import { DayPicker, useDayPicker, useNavigation, useDayRender, DayProps, CaptionLabel, CaptionProps, CaptionDropdowns } from "react-day-picker"
+import { isSameMonth } from "date-fns"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
@@ -76,6 +76,134 @@ function CalendarDropdown({
   )
 }
 
+function CustomDay(props: DayProps) {
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
+  const dayRender = useDayRender(props.date, props.displayMonth, buttonRef)
+
+  if (dayRender.isHidden) {
+    return <div role="gridcell" />
+  }
+  if (!dayRender.isButton) {
+    return <div {...dayRender.divProps} />
+  }
+
+  // Format date as YYYY-MM-DD
+  const dateStr = props.date.toISOString().split("T")[0]
+  const testId = `day-${dateStr}`
+
+  return (
+    <button
+      name="day"
+      ref={buttonRef}
+      id={testId}
+      data-test-id={testId}
+      data-testid={testId}
+      {...dayRender.buttonProps}
+    />
+  )
+}
+
+function CustomCaption(props: CaptionProps) {
+  const { classNames, disableNavigation, styles, captionLayout, components } = useDayPicker()
+  const { previousMonth, nextMonth, goToMonth, displayMonths } = useNavigation()
+
+  const CaptionLabelComponent = components?.CaptionLabel ?? CaptionLabel
+
+  const displayIndex = displayMonths.findIndex((month) =>
+    isSameMonth(props.displayMonth, month)
+  )
+
+  const isFirst = displayIndex === 0
+  const isLast = displayIndex === displayMonths.length - 1
+
+  const hideNext = !nextMonth || (displayMonths.length > 1 && (isFirst || !isLast))
+  const hidePrevious = !previousMonth || (displayMonths.length > 1 && (isLast || !isFirst))
+
+  const handlePreviousClick = () => {
+    if (previousMonth) goToMonth(previousMonth)
+  }
+
+  const handleNextClick = () => {
+    if (nextMonth) goToMonth(nextMonth)
+  }
+
+  const renderNavigation = () => {
+    if (disableNavigation) return null
+    return (
+      <div className={classNames.nav} style={styles.nav}>
+        {!hidePrevious && (
+          <button
+            type="button"
+            id="calendar-prev"
+            data-test-id="calendar-prev"
+            data-testid="calendar-prev"
+            className={cn(classNames.nav_button, classNames.nav_button_previous, "flex items-center justify-center")}
+            style={styles.nav_button_previous}
+            disabled={!previousMonth}
+            onClick={handlePreviousClick}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+        )}
+        {!hideNext && (
+          <button
+            type="button"
+            id="calendar-next"
+            data-test-id="calendar-next"
+            data-testid="calendar-next"
+            className={cn(classNames.nav_button, classNames.nav_button_next, "flex items-center justify-center")}
+            style={styles.nav_button_next}
+            disabled={!nextMonth}
+            onClick={handleNextClick}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+    )
+  }
+
+  if (disableNavigation) {
+    return (
+      <div className={classNames.caption} style={styles.caption}>
+        <CaptionLabelComponent id={props.id} displayMonth={props.displayMonth} />
+      </div>
+    )
+  }
+
+  if (captionLayout === "dropdown") {
+    return (
+      <div className={classNames.caption} style={styles.caption}>
+        <CaptionDropdowns displayMonth={props.displayMonth} id={props.id} />
+      </div>
+    )
+  }
+
+  if (captionLayout === "dropdown-buttons") {
+    return (
+      <div className={classNames.caption} style={styles.caption}>
+        <CaptionDropdowns
+          displayMonth={props.displayMonth}
+          displayIndex={props.displayIndex}
+          id={props.id}
+        />
+        {renderNavigation()}
+      </div>
+    )
+  }
+
+  return (
+    <div className={classNames.caption} style={styles.caption}>
+      <CaptionLabelComponent
+        id={props.id}
+        displayMonth={props.displayMonth}
+        displayIndex={props.displayIndex}
+      />
+      {renderNavigation()}
+    </div>
+  )
+}
+
 function Calendar({
   className,
   classNames,
@@ -141,6 +269,8 @@ function Calendar({
           <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
         Dropdown: CalendarDropdown,
+        Day: CustomDay,
+        Caption: CustomCaption,
       }}
       {...props} />)
   );

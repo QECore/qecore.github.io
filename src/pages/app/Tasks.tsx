@@ -487,7 +487,7 @@ export default function Tasks() {
 
       <SkeuCard className="p-0 overflow-hidden">
         <div className="overflow-x-auto w-full">
-          <table className="w-full text-sm">
+          <table id="tasks-table" data-test-id="tasks-table" data-testid="tasks-table" className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-muted/40 select-none">
               <th id="sort-tasks-id" data-test-id="sort-tasks-id" data-testid="sort-tasks-id" onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
@@ -514,7 +514,7 @@ export default function Tasks() {
               <th id="sort-tasks-description" data-test-id="sort-tasks-description" data-testid="sort-tasks-description" onClick={() => handleSort("description")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Description {renderSortIcon("description")}</span>
               </th>
-              <th className="px-4 py-2.5 w-20"></th>
+              <th id="tasks-hdr-actions" data-test-id="tasks-hdr-actions" data-testid="tasks-hdr-actions" className="px-4 py-2.5 w-20"></th>
             </tr>
           </thead>
           <tbody>
@@ -524,15 +524,15 @@ export default function Tasks() {
               const project = projects.find(p => p.id === t.project_id);
               const projectTitle = project ? project.title : "—";
               return (
-              <tr key={t.id} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
-                <td className="px-4 py-3 font-mono text-xs text-muted-foreground w-12">{t.id}</td>
-                <td className="px-4 py-3 font-medium">
+              <tr key={t.id} id={`task-row-${t.id}`} data-test-id={`task-row-${t.id}`} data-testid={`task-row-${t.id}`} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
+                <td id={`task-cell-${t.id}-id`} data-test-id={`task-cell-${t.id}-id`} data-testid={`task-cell-${t.id}-id`} className="px-4 py-3 font-mono text-xs text-muted-foreground w-12">{t.id}</td>
+                <td id={`task-cell-${t.id}-title`} data-test-id={`task-cell-${t.id}-title`} data-testid={`task-cell-${t.id}-title`} className="px-4 py-3 font-medium">
                   <TruncatedCell>{t.title}</TruncatedCell>
                 </td>
-                <td className="px-4 py-3 text-muted-foreground text-xs">
+                <td id={`task-cell-${t.id}-project`} data-test-id={`task-cell-${t.id}-project`} data-testid={`task-cell-${t.id}-project`} className="px-4 py-3 text-muted-foreground text-xs">
                   <TruncatedCell>{projectTitle}</TruncatedCell>
                 </td>
-                <td className="px-4 py-3 hidden sm:table-cell">
+                <td id={`task-cell-${t.id}-status`} data-test-id={`task-cell-${t.id}-status`} data-testid={`task-cell-${t.id}-status`} className="px-4 py-3 hidden sm:table-cell">
                   <Select value={t.status} onValueChange={(v) => updateStatus(t, v)}>
                     <SelectTrigger id={`inline-task-status-${t.id}`} data-test-id={`inline-task-status-${t.id}`} data-testid={`inline-task-status-${t.id}`} className="border-0 p-0 h-auto shadow-none w-auto"><StatusBadge status={t.status} /></SelectTrigger>
                     <SelectContent>
@@ -543,15 +543,15 @@ export default function Tasks() {
                     </SelectContent>
                   </Select>
                 </td>
-                <td className="px-4 py-3 hidden sm:table-cell"><StatusBadge status={t.priority} /></td>
-                <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">
+                <td id={`task-cell-${t.id}-priority`} data-test-id={`task-cell-${t.id}-priority`} data-testid={`task-cell-${t.id}-priority`} className="px-4 py-3 hidden sm:table-cell"><StatusBadge status={t.priority} /></td>
+                <td id={`task-cell-${t.id}-assignee`} data-test-id={`task-cell-${t.id}-assignee`} data-testid={`task-cell-${t.id}-assignee`} className="px-4 py-3 text-muted-foreground hidden md:table-cell">
                   <TruncatedCell>{t.assignee || "—"}</TruncatedCell>
                 </td>
-                <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">{t.due_date || "—"}</td>
-                <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">
+                <td id={`task-cell-${t.id}-due_date`} data-test-id={`task-cell-${t.id}-due_date`} data-testid={`task-cell-${t.id}-due_date`} className="px-4 py-3 text-muted-foreground hidden lg:table-cell">{t.due_date || "—"}</td>
+                <td id={`task-cell-${t.id}-description`} data-test-id={`task-cell-${t.id}-description`} data-testid={`task-cell-${t.id}-description`} className="px-4 py-3 text-muted-foreground hidden lg:table-cell">
                   <TruncatedCell>{t.description || "—"}</TruncatedCell>
                 </td>
-                <td className="px-4 py-3">
+                <td id={`task-cell-${t.id}-actions`} data-test-id={`task-cell-${t.id}-actions`} data-testid={`task-cell-${t.id}-actions`} className="px-4 py-3">
                   <div className="flex items-center gap-1">
                     {activeTab === "active" ? (
                       <>

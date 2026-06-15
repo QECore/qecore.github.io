@@ -152,7 +152,7 @@ export default function ActivityPage() {
       <SkeuCard className="p-0 overflow-hidden flex flex-col min-h-0 flex-1">
         {/* Scrollable table area */}
         <div className="overflow-auto flex-1 min-h-0">
-          <table className="w-full text-sm">
+          <table id="activity-table" data-test-id="activity-table" data-testid="activity-table" className="w-full text-sm">
             <thead className="sticky top-0 z-10" style={{ background: "hsl(var(--card))" }}>
               <tr className="border-b border-border bg-muted/40 select-none">
                 <th id="sort-activity-id" data-test-id="sort-activity-id" data-testid="sort-activity-id" onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
@@ -182,27 +182,27 @@ export default function ActivityPage() {
               {paginatedActivities.length === 0 ? (
                 <tr><td colSpan={7} className="px-4 py-8 text-center text-muted-foreground text-sm">No activity recorded yet</td></tr>
               ) : paginatedActivities.map((act) => (
-                <tr key={act.id} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
-                  <td className="px-4 py-3 font-mono text-xs text-muted-foreground w-12">{act.id}</td>
-                  <td className="px-4 py-3">
+                <tr key={act.id} id={`activity-row-${act.id}`} data-test-id={`activity-row-${act.id}`} data-testid={`activity-row-${act.id}`} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
+                  <td id={`act-cell-${act.id}-id`} data-test-id={`act-cell-${act.id}-id`} data-testid={`act-cell-${act.id}-id`} className="px-4 py-3 font-mono text-xs text-muted-foreground w-12">{act.id}</td>
+                  <td id={`act-cell-${act.id}-action`} data-test-id={`act-cell-${act.id}-action`} data-testid={`act-cell-${act.id}-action`} className="px-4 py-3">
                     <span className="flex items-center gap-1.5">
                       <span className={`w-2 h-2 rounded-full shrink-0 ${actionColors[act.action] || "bg-muted-foreground"}`} />
                       <span className="text-xs capitalize font-medium">{act.action}</span>
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell text-xs">
+                  <td id={`act-cell-${act.id}-type`} data-test-id={`act-cell-${act.id}-type`} data-testid={`act-cell-${act.id}-type`} className="px-4 py-3 text-muted-foreground hidden sm:table-cell text-xs">
                     <TruncatedCell>{act.entity_type || "—"}</TruncatedCell>
                   </td>
-                  <td className="px-4 py-3 font-medium">
+                  <td id={`act-cell-${act.id}-entity`} data-test-id={`act-cell-${act.id}-entity`} data-testid={`act-cell-${act.id}-entity`} className="px-4 py-3 font-medium">
                     <TruncatedCell>{act.entity_name || "—"}</TruncatedCell>
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell text-xs">
+                  <td id={`act-cell-${act.id}-details`} data-test-id={`act-cell-${act.id}-details`} data-testid={`act-cell-${act.id}-details`} className="px-4 py-3 text-muted-foreground hidden lg:table-cell text-xs">
                     <TruncatedCell>{act.details || "—"}</TruncatedCell>
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground hidden md:table-cell text-xs">
+                  <td id={`act-cell-${act.id}-actor`} data-test-id={`act-cell-${act.id}-actor`} data-testid={`act-cell-${act.id}-actor`} className="px-4 py-3 text-muted-foreground hidden md:table-cell text-xs">
                     <TruncatedCell>{act.actor || "system"}</TruncatedCell>
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground text-xs whitespace-nowrap">{moment(act.created_date).fromNow()}</td>
+                  <td id={`act-cell-${act.id}-when`} data-test-id={`act-cell-${act.id}-when`} data-testid={`act-cell-${act.id}-when`} className="px-4 py-3 text-muted-foreground text-xs whitespace-nowrap">{moment(act.created_date).fromNow()}</td>
                 </tr>
               ))}
             </tbody>

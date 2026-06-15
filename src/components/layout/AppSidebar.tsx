@@ -22,7 +22,7 @@ export default function AppSidebar() {
   return (
     <div className="flex h-[calc(100vh-64px)] overflow-hidden">
       {/* Floating sidebar palette */}
-      <aside className="w-56 shrink-0 hidden md:flex flex-col p-3">
+      <aside id="sidebar-container" data-test-id="sidebar-container" data-testid="sidebar-container" className="w-56 shrink-0 hidden md:flex flex-col p-3">
         <div
           className="rounded-2xl p-3 flex flex-col gap-1 h-full"
           style={{
@@ -35,7 +35,7 @@ export default function AppSidebar() {
           <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground px-2.5 mb-1 mt-1">
             Platform
           </p>
-          <nav className="flex flex-col gap-0.5">
+          <nav id="sidebar-nav" data-test-id="sidebar-nav" data-testid="sidebar-nav" className="flex flex-col gap-0.5">
             {sidebarItems.map((item) => (
               <Link
                 key={item.path}

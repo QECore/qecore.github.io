@@ -345,7 +345,7 @@ export default function Documents() {
 
       {/* Table */}
       <SkeuCard className="p-0 overflow-hidden">
-        <table className="w-full text-sm">
+        <table id="documents-table" data-test-id="documents-table" data-testid="documents-table" className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-muted/40 select-none">
               <th id="sort-docs-id" data-test-id="sort-docs-id" data-testid="sort-docs-id" onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
@@ -366,16 +366,16 @@ export default function Documents() {
               <th id="sort-docs-size" data-test-id="sort-docs-size" data-testid="sort-docs-size" onClick={() => handleSort("size")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Size {renderSortIcon("size")}</span>
               </th>
-              <th className="px-4 py-2.5 w-10"></th>
+              <th id="docs-hdr-actions" data-test-id="docs-hdr-actions" data-testid="docs-hdr-actions" className="px-4 py-2.5 w-10"></th>
             </tr>
           </thead>
           <tbody>
             {sortedDocs.length === 0 ? (
               <tr><td colSpan={8} className="px-4 py-8 text-center text-muted-foreground text-sm">No documents yet</td></tr>
             ) : sortedDocs.map((doc) => (
-              <tr key={doc.id} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
-                <td className="px-4 py-3 font-mono text-xs text-muted-foreground w-12">{doc.id}</td>
-                <td className="px-4 py-3">
+              <tr key={doc.id} id={`document-row-${doc.id}`} data-test-id={`document-row-${doc.id}`} data-testid={`document-row-${doc.id}`} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
+                <td id={`doc-cell-${doc.id}-id`} data-test-id={`doc-cell-${doc.id}-id`} data-testid={`doc-cell-${doc.id}-id`} className="px-4 py-3 font-mono text-xs text-muted-foreground w-12">{doc.id}</td>
+                <td id={`doc-cell-${doc.id}-name`} data-test-id={`doc-cell-${doc.id}-name`} data-testid={`doc-cell-${doc.id}-name`} className="px-4 py-3">
                   <div className="flex items-center gap-2 group/cell">
                     <FileText className="w-4 h-4 text-muted-foreground shrink-0" />
                     <TooltipProvider>
@@ -405,23 +405,23 @@ export default function Documents() {
                     )}
                   </div>
                 </td>
-                <td className="px-4 py-3 text-muted-foreground">
+                <td id={`doc-cell-${doc.id}-project`} data-test-id={`doc-cell-${doc.id}-project`} data-testid={`doc-cell-${doc.id}-project`} className="px-4 py-3 text-muted-foreground">
                   {(() => {
                     const p = projects.find(proj => String(proj.id) === String(doc.project_id));
                     return p ? <TruncatedCell>{p.title}</TruncatedCell> : "—";
                   })()}
                 </td>
-                <td className="px-4 py-3 text-muted-foreground">
+                <td id={`doc-cell-${doc.id}-task`} data-test-id={`doc-cell-${doc.id}-task`} data-testid={`doc-cell-${doc.id}-task`} className="px-4 py-3 text-muted-foreground">
                   {(() => {
                     const t = tasks.find(tsk => String(tsk.id) === String(doc.task_id));
                     return t ? <TruncatedCell>{t.title}</TruncatedCell> : "—";
                   })()}
                 </td>
-                <td className="px-4 py-3 text-muted-foreground hidden md:table-cell font-mono text-xs">
+                <td id={`doc-cell-${doc.id}-type`} data-test-id={`doc-cell-${doc.id}-type`} data-testid={`doc-cell-${doc.id}-type`} className="px-4 py-3 text-muted-foreground hidden md:table-cell font-mono text-xs">
                   <TruncatedCell>{doc.file_type || "—"}</TruncatedCell>
                 </td>
-                <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{formatSize(doc.file_size)}</td>
-                 <td className="px-4 py-3">
+                <td id={`doc-cell-${doc.id}-size`} data-test-id={`doc-cell-${doc.id}-size`} data-testid={`doc-cell-${doc.id}-size`} className="px-4 py-3 text-muted-foreground hidden md:table-cell">{formatSize(doc.file_size)}</td>
+                <td id={`doc-cell-${doc.id}-actions`} data-test-id={`doc-cell-${doc.id}-actions`} data-testid={`doc-cell-${doc.id}-actions`} className="px-4 py-3">
                   {activeTab === "active" ? (
                     <button id={`delete-doc-${doc.id}`} data-test-id={`delete-doc-${doc.id}`} data-testid={`delete-doc-${doc.id}`} onClick={() => setDeleteDoc(doc)} className="p-1.5 hover:bg-destructive/10 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5 text-destructive" /></button>
                   ) : (

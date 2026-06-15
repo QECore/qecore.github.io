@@ -522,11 +522,11 @@ export default function Playground() {
                 <Input className="max-w-xs h-9 text-xs" placeholder="Search by name or category..." value={tableFilter} onChange={(e) => { setTableFilter(e.target.value); setTablePage(0); }} />
               </div>
               
-              <Table>
+              <Table id="playground-table" data-test-id="playground-table" data-testid="playground-table">
                 <TableHeader>
                   <TableRow>
                     {["name", "category", "price", "stock"].map((col) => (
-                      <TableHead key={col} onClick={() => handleSort(col)} className="cursor-pointer hover:bg-muted/50 select-none text-xs font-semibold capitalize">
+                      <TableHead key={col} id={`sort-playground-${col}`} data-test-id={`sort-playground-${col}`} data-testid={`sort-playground-${col}`} onClick={() => handleSort(col)} className="cursor-pointer hover:bg-muted/50 select-none text-xs font-semibold capitalize">
                         {col} {sortCol === col ? (sortDir === 1 ? " ↑" : " ↓") : ""}
                       </TableHead>
                     ))}
@@ -534,15 +534,15 @@ export default function Playground() {
                 </TableHeader>
                 <TableBody>
                   {pagedData.map((row) => (
-                    <TableRow key={row.id}>
-                      <TableCell className="font-semibold">
+                    <TableRow key={row.id} id={`playground-row-${row.id}`} data-test-id={`playground-row-${row.id}`} data-testid={`playground-row-${row.id}`}>
+                      <TableCell id={`playground-cell-${row.id}-name`} data-test-id={`playground-cell-${row.id}-name`} data-testid={`playground-cell-${row.id}-name`} className="font-semibold">
                         <TruncatedCell>{row.name}</TruncatedCell>
                       </TableCell>
-                      <TableCell>
+                      <TableCell id={`playground-cell-${row.id}-category`} data-test-id={`playground-cell-${row.id}-category`} data-testid={`playground-cell-${row.id}-category`}>
                         <TruncatedCell>{row.category}</TruncatedCell>
                       </TableCell>
-                      <TableCell className="font-mono text-xs">${row.price.toFixed(2)}</TableCell>
-                      <TableCell>{row.stock}</TableCell>
+                      <TableCell id={`playground-cell-${row.id}-price`} data-test-id={`playground-cell-${row.id}-price`} data-testid={`playground-cell-${row.id}-price`} className="font-mono text-xs">${row.price.toFixed(2)}</TableCell>
+                      <TableCell id={`playground-cell-${row.id}-stock`} data-test-id={`playground-cell-${row.id}-stock`} data-testid={`playground-cell-${row.id}-stock`}>{row.stock}</TableCell>
                     </TableRow>
                   ))}
                   {pagedData.length === 0 && (

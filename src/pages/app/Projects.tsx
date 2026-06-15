@@ -349,7 +349,7 @@ export default function Projects() {
 
       <SkeuCard className="p-0 overflow-hidden">
         <div className="overflow-x-auto w-full">
-          <table className="w-full text-sm">
+          <table id="projects-table" data-test-id="projects-table" data-testid="projects-table" className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-muted/40 select-none">
               <th id="sort-projects-id" data-test-id="sort-projects-id" data-testid="sort-projects-id" onClick={() => handleSort("id")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider w-20 cursor-pointer hover:bg-muted/15 group">
@@ -373,7 +373,7 @@ export default function Projects() {
               <th id="sort-projects-tags" data-test-id="sort-projects-tags" data-testid="sort-projects-tags" onClick={() => handleSort("tags")} className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider hidden lg:table-cell cursor-pointer hover:bg-muted/15 group">
                 <span className="flex items-center">Tags {renderSortIcon("tags")}</span>
               </th>
-              <th className="px-4 py-2.5 w-20"></th>
+              <th id="projects-hdr-actions" data-test-id="projects-hdr-actions" data-testid="projects-hdr-actions" className="px-4 py-2.5 w-20"></th>
             </tr>
           </thead>
           <tbody>
@@ -382,14 +382,14 @@ export default function Projects() {
             ) : sortedProjects.map((p) => {
               const tagsStr = (p.tags || []).join(", ");
               return (
-              <tr key={p.id} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
-                <td className="px-4 py-3 font-mono text-xs text-muted-foreground w-12">{p.id}</td>
-                <td className="px-4 py-3 font-medium">
+              <tr key={p.id} id={`project-row-${p.id}`} data-test-id={`project-row-${p.id}`} data-testid={`project-row-${p.id}`} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
+                <td id={`project-cell-${p.id}-id`} data-test-id={`project-cell-${p.id}-id`} data-testid={`project-cell-${p.id}-id`} className="px-4 py-3 font-mono text-xs text-muted-foreground w-12">{p.id}</td>
+                <td id={`project-cell-${p.id}-title`} data-test-id={`project-cell-${p.id}-title`} data-testid={`project-cell-${p.id}-title`} className="px-4 py-3 font-medium">
                   <TruncatedCell>{p.title}</TruncatedCell>
                 </td>
-                <td className="px-4 py-3 hidden sm:table-cell"><StatusBadge status={p.status} /></td>
-                <td className="px-4 py-3 hidden sm:table-cell"><StatusBadge status={p.priority} /></td>
-                <td className="px-4 py-3 hidden md:table-cell">
+                <td id={`project-cell-${p.id}-status`} data-test-id={`project-cell-${p.id}-status`} data-testid={`project-cell-${p.id}-status`} className="px-4 py-3 hidden sm:table-cell"><StatusBadge status={p.status} /></td>
+                <td id={`project-cell-${p.id}-priority`} data-test-id={`project-cell-${p.id}-priority`} data-testid={`project-cell-${p.id}-priority`} className="px-4 py-3 hidden sm:table-cell"><StatusBadge status={p.priority} /></td>
+                <td id={`project-cell-${p.id}-progress`} data-test-id={`project-cell-${p.id}-progress`} data-testid={`project-cell-${p.id}-progress`} className="px-4 py-3 hidden md:table-cell">
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
                       <div className="h-full rounded-full bg-accent" style={{ width: `${p.progress || 0}%` }} />
@@ -397,13 +397,13 @@ export default function Projects() {
                     <span className="text-xs text-muted-foreground w-8 text-right">{p.progress || 0}%</span>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">{p.due_date || "—"}</td>
-                <td className="px-4 py-3 hidden lg:table-cell" title={tagsStr}>
+                <td id={`project-cell-${p.id}-due_date`} data-test-id={`project-cell-${p.id}-due_date`} data-testid={`project-cell-${p.id}-due_date`} className="px-4 py-3 text-muted-foreground hidden lg:table-cell">{p.due_date || "—"}</td>
+                <td id={`project-cell-${p.id}-tags`} data-test-id={`project-cell-${p.id}-tags`} data-testid={`project-cell-${p.id}-tags`} className="px-4 py-3 hidden lg:table-cell" title={tagsStr}>
                   <div className="flex flex-wrap gap-1">
                     {(p.tags || []).map(t => <span key={t} className="px-1.5 py-0.5 rounded text-xs bg-muted text-muted-foreground">{t}</span>)}
                   </div>
                 </td>
-                <td className="px-4 py-3">
+                <td id={`project-cell-${p.id}-actions`} data-test-id={`project-cell-${p.id}-actions`} data-testid={`project-cell-${p.id}-actions`} className="px-4 py-3">
                   <div className="flex items-center gap-1">
                     {activeTab === "active" ? (
                       <>

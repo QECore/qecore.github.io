@@ -50,7 +50,7 @@ export default function TopNav() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+    <header id="top-nav" data-test-id="top-nav" data-testid="top-nav" className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="w-full px-6 grid grid-cols-3 items-center h-16">
         <div className="flex justify-start items-center gap-2.5">
           <img src="/logo.png" alt="Logo" className="h-8 object-contain shrink-0" />
@@ -59,6 +59,9 @@ export default function TopNav() {
               <>
                 <Link
                   to="/"
+                  id="top-nav-logo"
+                  data-test-id="top-nav-logo"
+                  data-testid="top-nav-logo"
                   className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity"
                   style={{
                     fontFamily: "'Outfit', sans-serif",
@@ -89,6 +92,9 @@ export default function TopNav() {
               <>
                 <Link
                   to="/"
+                  id="top-nav-logo"
+                  data-test-id="top-nav-logo"
+                  data-testid="top-nav-logo"
                   className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity"
                   style={{
                     fontFamily: "'Outfit', sans-serif",

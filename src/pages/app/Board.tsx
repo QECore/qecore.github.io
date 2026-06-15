@@ -194,6 +194,9 @@ export default function Board() {
           return (
             <div
               key={col.id}
+              id={`board-column-${col.id}`}
+              data-test-id={`board-column-${col.id}`}
+              data-testid={`board-column-${col.id}`}
               className={`rounded-xl border border-border/80 flex flex-col min-h-[500px] transition-all duration-200 ${col.color} ${
                 isOver ? "ring-2 ring-primary/20 border-primary/40 scale-[1.01]" : ""
               }`}
@@ -228,6 +231,9 @@ export default function Board() {
                   colTasks.map((t) => (
                     <div
                       key={t.id}
+                      id={`board-task-card-${t.id}`}
+                      data-test-id={`board-task-card-${t.id}`}
+                      data-testid={`board-task-card-${t.id}`}
                       draggable
                       onDragStart={(e) => handleDragStart(e, t.id)}
                       onDragEnd={handleDragEnd}
@@ -259,7 +265,7 @@ export default function Board() {
 
                       <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border/40">
                         {/* Assignee / Metadata */}
-                        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
+                        <div id={`board-task-card-${t.id}-assignee`} data-test-id={`board-task-card-${t.id}-assignee`} data-testid={`board-task-card-${t.id}-assignee`} className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
                           {t.assignee ? (
                             <>
                               <User className="w-3 h-3 text-muted-foreground/60" />
@@ -271,11 +277,13 @@ export default function Board() {
                         </div>
 
                         {/* Priority Badge */}
-                        <StatusBadge status={t.priority} size="sm" />
+                        <span id={`board-task-card-${t.id}-priority`} data-test-id={`board-task-card-${t.id}-priority`} data-testid={`board-task-card-${t.id}-priority`}>
+                          <StatusBadge status={t.priority} size="sm" />
+                        </span>
                       </div>
 
                       {t.due_date && (
-                        <div className="flex items-center gap-1 text-[9px] text-muted-foreground mt-2">
+                        <div id={`board-task-card-${t.id}-due-date`} data-test-id={`board-task-card-${t.id}-due-date`} data-testid={`board-task-card-${t.id}-due-date`} className="flex items-center gap-1 text-[9px] text-muted-foreground mt-2">
                           <Calendar className="w-2.5 h-2.5" />
                           <span>{t.due_date}</span>
                         </div>

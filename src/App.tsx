@@ -22,8 +22,20 @@ import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
 import SwaggerPortal from '@/pages/SwaggerPortal';
 import Docs from '@/pages/Docs';
+import K6Core from '@/pages/K6Core';
+import { HeaderProvider, useHeader } from '@/lib/HeaderContext';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Navigate, Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
+
+const LandingWrapper = () => {
+  const { activeHeader } = useHeader();
+  return activeHeader === "pw-core" ? <Landing /> : <K6Core />;
+};
+
+const DocsRedirect = () => {
+  const { activeHeader } = useHeader();
+  return <Navigate to={`/${activeHeader}/docs`} replace />;
+};
 
 const AuthenticatedApp = () => {
   const { isAuthenticated, isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -56,9 +68,12 @@ const AuthenticatedApp = () => {
     <Routes>
       {/* Public Layout */}
       <Route element={<AppLayout />}>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/home" element={<Landing />} />
-        <Route path="/docs" element={<Docs />} />
+        <Route path="/" element={<LandingWrapper />} />
+        <Route path="/pw-core" element={<Navigate to="/" replace />} />
+        <Route path="/k6-core" element={<Navigate to="/" replace />} />
+        <Route path="/docs" element={<DocsRedirect />} />
+        <Route path="/pw-core/docs" element={<Docs />} />
+        <Route path="/k6-core/docs" element={<Docs />} />
         <Route path="/playground" element={<Playground />} />
         <Route path="/swagger" element={<SwaggerPortal />} />
         <Route path="/login" element={<Login />} />
@@ -97,7 +112,9 @@ function App() {
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
-          <AuthenticatedApp />
+          <HeaderProvider>
+            <AuthenticatedApp />
+          </HeaderProvider>
         </Router>
         <Toaster />
       </QueryClientProvider>

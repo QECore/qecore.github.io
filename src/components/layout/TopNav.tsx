@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Home, LayoutDashboard, FlaskConical, FileCode2, LogOut, Moon, Sun, BookOpen, LogIn } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Home, LayoutDashboard, FlaskConical, FileCode2, LogOut, Moon, Sun, BookOpen, LogIn, Zap, Shuffle } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
+import { useHeader } from "@/lib/HeaderContext";
 
 const navItems = [
-  { label: "Home", path: "/home", icon: Home },
   { label: "Docs", path: "/docs", icon: BookOpen },
   { label: "App", path: "/app", icon: LayoutDashboard },
   { label: "Playground", path: "/playground", icon: FlaskConical },
@@ -14,6 +14,13 @@ const navItems = [
 export default function TopNav() {
   const { isAuthenticated, logout, navigateToLogin } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { activeHeader, setActiveHeader, toggleHeader } = useHeader();
+
+  const handleShuffle = () => {
+    toggleHeader();
+  };
+
   const [dark, setDark] = useState(() => {
     const saved = localStorage.getItem("theme");
     return saved !== "light";
@@ -38,48 +45,92 @@ export default function TopNav() {
   }, []);
 
   const isActive = (path) => {
-    if (path === "/home") return location.pathname === "/home";
+    if (path === "/pw-core") return location.pathname === "/pw-core";
     return location.pathname.startsWith(path);
   };
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="w-full px-6 grid grid-cols-3 items-center h-16">
-        <div className="flex justify-start">
-          <Link to="/home" className="flex items-center gap-2 group">
-            <img src="/logo.png" alt="PW-Core Logo" className="h-8 object-contain" />
-            <span
-              className="text-2xl tracking-tight transition-colors"
-              style={{
-                fontFamily: "'Outfit', sans-serif",
-                fontWeight: 800,
-                background: "linear-gradient(135deg, hsl(38, 92%, 55%), hsl(25, 95%, 53%))",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              PW-Core
-            </span>
-          </Link>
+        <div className="flex justify-start items-center gap-2.5">
+          <img src="/logo.png" alt="Logo" className="h-8 object-contain shrink-0" />
+          <div className="flex items-center gap-3 select-none">
+            {activeHeader === "pw-core" ? (
+              <>
+                <Link
+                  to="/"
+                  className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity"
+                  style={{
+                    fontFamily: "'Outfit', sans-serif",
+                    backgroundImage: "linear-gradient(135deg, hsl(38, 92%, 55%), hsl(25, 95%, 53%))",
+                  }}
+                >
+                  PW-Core
+                </Link>
+                <Shuffle
+                  onClick={handleShuffle}
+                  className="w-3.5 h-3.5 text-muted-foreground/60 hover:text-foreground hover:rotate-180 transition-all duration-300 cursor-pointer shrink-0 mx-0.5"
+                />
+                <button
+                  onClick={() => setActiveHeader("k6-core")}
+                  className="px-2.5 py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 hover:bg-secondary hover:text-foreground transition-all border border-border/50 shrink-0"
+                  style={{ fontFamily: "'Outfit', sans-serif" }}
+                >
+                  K6-Core
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/"
+                  className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity"
+                  style={{
+                    fontFamily: "'Outfit', sans-serif",
+                    backgroundImage: "linear-gradient(135deg, hsl(260, 92%, 65%), hsl(280, 95%, 55%))",
+                  }}
+                >
+                  K6-Core
+                </Link>
+                <Shuffle
+                  onClick={handleShuffle}
+                  className="w-3.5 h-3.5 text-muted-foreground/60 hover:text-foreground hover:rotate-180 transition-all duration-300 cursor-pointer shrink-0 mx-0.5"
+                />
+                <button
+                  onClick={() => setActiveHeader("pw-core")}
+                  className="px-2.5 py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 hover:bg-secondary hover:text-foreground transition-all border border-border/50 shrink-0"
+                  style={{ fontFamily: "'Outfit', sans-serif" }}
+                >
+                  PW-Core
+                </button>
+              </>
+            )}
+          </div>
         </div>
 
         <nav className="flex items-center justify-center gap-0.5">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`
-                flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all
-                ${isActive(item.path)
-                  ? "active"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"}
-              `}
-            >
-              <item.icon className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{item.label}</span>
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const targetPath = item.path === "/docs" ? `/${activeHeader}/docs` : item.path;
+            const isDocsActive = item.path === "/docs" && (location.pathname.startsWith("/pw-core/docs") || location.pathname.startsWith("/k6-core/docs"));
+            const linkActive = isDocsActive || (item.path !== "/docs" && location.pathname.startsWith(item.path));
+
+            return (
+              <Link
+                key={item.path}
+                to={targetPath}
+                className={`
+                  flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all
+                  ${linkActive
+                    ? "active"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"}
+                `}
+              >
+                <item.icon className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">
+                  {item.label}
+                </span>
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center justify-end gap-1">

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { BookOpen, ChevronRight, Terminal, Code, Play } from "lucide-react";
 import SkeuCard from "../components/shared/SkueCard";
 
+import { useHeader } from "@/lib/HeaderContext";
+
 const docSections = [
   {
     id: "intro",
@@ -71,9 +73,33 @@ npx pw-core test example.spec.ts --headed`}</pre>
 ];
 
 export default function Docs() {
+  const { activeHeader } = useHeader();
   const [activeTab, setActiveTab] = useState("intro");
 
   const activeContent = docSections.find((s) => s.id === activeTab)?.content;
+
+  if (activeHeader === "k6-core") {
+    return (
+      <div className="notion-page py-10 max-w-5xl">
+        <SkeuCard className="p-12 text-center space-y-6">
+          <div className="mx-auto w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center animate-pulse">
+            <BookOpen className="w-6 h-6 text-indigo-500" />
+          </div>
+          <div className="space-y-3">
+            <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text text-transparent">
+              K6-Core Documentation
+            </h1>
+            <div className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-500 dark:bg-indigo-400/10 dark:text-indigo-400 border border-indigo-500/20">
+              Coming Soon
+            </div>
+          </div>
+          <p className="text-muted-foreground text-sm max-w-md mx-auto leading-relaxed">
+            We are working hard to bring you comprehensive documentation, guides, and examples for K6-Core. Stay tuned!
+          </p>
+        </SkeuCard>
+      </div>
+    );
+  }
 
   return (
     <div className="notion-page py-10 max-w-5xl">

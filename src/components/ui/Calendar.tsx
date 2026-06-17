@@ -1,6 +1,7 @@
 import * as React from "react"
 import { DayPicker, useDayPicker, useNavigation, useDayRender, DayProps, CaptionLabel, CaptionProps, CaptionDropdowns } from "react-day-picker"
 import { isSameMonth } from "date-fns"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"

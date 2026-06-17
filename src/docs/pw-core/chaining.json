@@ -1,0 +1,11 @@
+{
+  "id": "chaining",
+  "title": "Chained Locators",
+  "heading": "Chained Locators & Assertions",
+  "description": "Simplify nested DOM structure lookups without compromising readability.",
+  "body": "Complex, nested locator chains are common when testing modular SaaS frameworks and nested rows. `pw-core` introduces dot-notation chained lookups.",
+  "assertions": {
+    "title": "Chained Assertions",
+    "description": "Asserting nested counts or visibilities is equally simplified:"
+  }
+}

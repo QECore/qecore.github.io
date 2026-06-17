@@ -1,0 +1,16 @@
+{
+  "id": "intro",
+  "title": "Getting Started",
+  "badge": "Overview",
+  "heading": "Introduction",
+  "description": "A developer-first framework layer built on top of Playwright for creating readable, scalable, maintainable, and AI-friendly automation frameworks.",
+  "body": "This package standardizes how pages, locators, components, assertions, and fixtures are defined so teams can focus on writing tests instead of maintaining framework code.",
+  "installationNew": "npm init pw-core",
+  "installationExisting": "npm install pw-core",
+  "whatDoYouGet": [
+    "Fully configured Playwright runner",
+    "Configured tsconfig.json & test scripts",
+    "Demo tests (TypedPage & Registry examples)",
+    "Ready-to-run suite out of the box"
+  ]
+}

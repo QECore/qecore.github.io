@@ -4,12 +4,27 @@ import { Link } from "react-router-dom";
 import { LayoutDashboard, FlaskConical, FileCode2, ArrowRight, Database, Globe, Server, Monitor, TextCursorInput, Table2, Upload, SquareStack, BookOpen } from "lucide-react";
 import SkeuCard from "../components/shared/SkueCard";
 import SkeuButton from "../components/shared/SkueButton";
+import CodeBlock from "../components/shared/CodeBlock";
 
-const archSteps = [
+// Import example source files raw for code comparison replica
+import traditionalLoginPageRaw from "../docs/pw-core/examples/playwright/pages/login.page.ts?raw";
+import traditionalLoginTestRaw from "../docs/pw-core/examples/playwright/tests/login.test.ts?raw";
+import pwcoreLoginPageRaw from "../docs/pw-core/examples/pw-core/pages/login.page.ts?raw";
+import pwcoreLoginTestRaw from "../docs/pw-core/examples/pw-core/tests/login.test.ts?raw";
+
+const appArchSteps = [
   { label: "UI", sub: "React + Tailwind", icon: Monitor },
   { label: "Fake APIs", sub: "/api/*", icon: Server },
   { label: "JSON DB", sub: "Entities", icon: Database },
   { label: "Storage", sub: "Persistent", icon: Globe },
+];
+
+const frameworkArchSteps = [
+  { label: "Tests", sub: "Clean & declarative", icon: FlaskConical },
+  { label: "Registry", sub: "Automatic fixtures", icon: Database },
+  { label: "Typed Pages", sub: "Type-safe Object Model", icon: LayoutDashboard },
+  { label: "Components", sub: "Reusable Tables/UI", icon: Table2 },
+  { label: "Playwright Engine", sub: "Automated browser", icon: Server },
 ];
 
 const componentMatrix = [
@@ -50,8 +65,52 @@ const modules = [
   },
 ];
 
+function GlitchCommand() {
+  const [action, setAction] = React.useState("init");
+  const [displayText, setDisplayText] = React.useState("init");
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setAction((prev) => (prev === "init" ? "install" : "init"));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  React.useEffect(() => {
+    let frame = 0;
+    const target = action;
+    const chars = "abcdefghijklmnopqrstuvwxyz";
+    const glitchDuration = 8; // number of frames to glitch
+
+    const tick = () => {
+      if (frame < glitchDuration) {
+        const scrambled = Array.from({ length: target.length }, () =>
+          chars[Math.floor(Math.random() * chars.length)]
+        ).join("");
+        setDisplayText(scrambled);
+        frame++;
+        requestAnimationFrame(tick);
+      } else {
+        setDisplayText(target);
+      }
+    };
+
+    tick();
+  }, [action]);
+
+  return (
+    <div className="skeu-inset flex items-center font-mono text-xs px-3.5 h-[40px] select-none">
+      <span className="text-slate-400 select-none mr-2">$</span>
+      <span className="text-slate-200 select-all">
+        npm <span className="text-amber-500 font-bold tracking-wide transition-all duration-150 inline-block min-w-[48px] text-center">{displayText}</span> pw-core
+      </span>
+    </div>
+  );
+}
+
 export default function Landing() {
   const [downloads, setDownloads] = React.useState("Loading...");
+  const [activeFile, setActiveFile] = React.useState<"page" | "spec">("page");
 
   React.useEffect(() => {
     fetch("https://api.npmjs.org/downloads/point/last-month/pw-core")
@@ -74,8 +133,9 @@ export default function Landing() {
       <section className="text-left py-12 md:py-8 border-b border-border/40 mb-12">
         <div className="max-w-4xl">
           {/* Tagline */}
-          <div className="text-amber-500 dark:text-amber-400 text-sm font-semibold tracking-wider uppercase mb-10">
-            TYPE-SAFE | READABLE | SCALABLE
+          <div className="text-xs font-bold tracking-widest uppercase mb-10 space-y-1">
+            <span className="text-muted-foreground/60 block">BUILT FOR PLAYWRIGHT</span>
+            <span className="text-amber-500 dark:text-amber-400 block text-sm font-semibold tracking-wider">TYPE-SAFE | READABLE | SCALABLE</span>
           </div>
 
           {/* Main Heading */}
@@ -88,12 +148,17 @@ export default function Landing() {
           </h1>
 
           {/* Subtext */}
-          <p className="text-muted-foreground text-base md:text-lg max-w-3xl mb-8 leading-relaxed">
-            PW-Core provides the building blocks for scalable Playwright automation, combining type-safe page objects, reusable components, and developer-friendly APIs.
-            <span className="block mt-2 text-foreground/90 font-medium">
-              Write less boilerplate. Maintain more automation.
-            </span>
-          </p>
+          <div className="space-y-4 max-w-3xl mb-8">
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+              PW-Core eliminates the boilerplate that grows as Playwright projects scale.
+            </p>
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+              Build type-safe page objects, reusable components, and scalable test architecture without maintaining custom boilerplate.
+            </p>
+            <p className="text-lg md:text-xl text-foreground font-extrabold tracking-tight font-heading leading-tight pt-2">
+              Write less. Ship more.
+            </p>
+          </div>
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-3">
@@ -107,24 +172,167 @@ export default function Landing() {
               href="https://www.npmjs.com/package/pw-core"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-xs font-semibold select-none"
+              className="inline-flex items-center text-xs font-semibold select-none rounded-md overflow-hidden border border-border/60 hover:border-amber-500/50 transition-all"
             >
-              <span
-                className="skeu-badge-up flex items-center gap-1.5 px-3 py-3 text-foreground"
-                style={{ borderRadius: 'calc(var(--radius) - 2px) 0 0 calc(var(--radius) - 2px)' }}
-              >
+              <span className="skeu-badge-up flex items-center gap-1.5 px-3 h-[40px] text-foreground bg-white/[0.02] border-r border-border/40">
                 <svg className="w-4 h-4 fill-[#CB3837]" viewBox="0 0 24 24">
                   <path d="M0 7.334v8h6.666v2H13.333v-2h10.667v-8H0zm1.333 1.333h5.333v6.667H5.333V10H4v4H1.333V8.667zm6.667 0h8v5.333H12v1.333h-1.333v-1.333h-2.667V8.667zM17.333 8.667H22.667v5.333h-2.667V10H18.667v4H17.333V8.667zm-8 1.333v2.667h2.667V10H9.333z" />
                 </svg>
-                Downloads
-              </span>
-              <span
-                className="skeu-badge-down px-3 py-3 font-mono text-orange-500"
-                style={{ borderRadius: '0 calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0' }}
-              >
-                {downloads}
+                Package
               </span>
             </a>
+
+            {/* Animated glitch code block */}
+            <GlitchCommand />
+
+            {/* GitHub Repo Link */}
+            <a
+              href="https://github.com/QECore/pw-core"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-[40px] h-[40px] rounded-full skeu-inset flex items-center justify-center text-foreground hover:text-amber-500 transition-all bg-white/[0.02] border border-border/40 shrink-0"
+              title="GitHub Repository"
+            >
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+
+            {/* Developer Profile Link */}
+            <a
+              href="https://github.com/shanmukaanem"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-[40px] h-[40px] rounded-full overflow-hidden skeu-inset flex items-center justify-center hover:border-amber-500/50 transition-all border border-border/40 shrink-0"
+              title="Developer Profile"
+            >
+              <img 
+                src="https://github.com/shanmukaanem.png" 
+                alt="Shanmuka Chandra Teja Anem" 
+                className="w-5 h-5 object-cover rounded-full"
+              />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Why PW-Core Section */}
+      <section className="py-12 border-b border-border/40 mb-12">
+        <div className="max-w-5xl mx-auto text-left">
+          <h2 className="text-2xl font-bold font-heading text-foreground mb-4">
+            Why Teams Adopt PW-Core
+          </h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {[
+              { title: "Type-safe Selectors", desc: "Compile-time safety for all locators, testIds, and dynamic selectors." },
+              { title: "Reusable Components", desc: "Build modular compound elements like Tables, Modals, and Cards once and reuse everywhere." },
+              { title: "Registry-driven Fixtures", desc: "Centralized page registry automatically wires files into Playwright fixtures without manual setup." },
+              { title: "Cleaner Tests", desc: "Focus test files completely on logic and intent, rather than locator extraction and selector querying." },
+              { title: "Zero Maintenance Boilerplate", desc: "Say goodbye to redundant page class fields, element initializers, and boilerplate constructors." },
+              { title: "Built on Playwright", desc: "Integrates natively with Playwright test runner features, assertions, configurations, and reports." }
+            ].map((item, i) => (
+              <div key={i} className="flex gap-3 items-start">
+                <span className="text-emerald-500 font-bold text-lg leading-none">✓</span>
+                <div>
+                  <h4 className="font-bold text-sm text-foreground">{item.title}</h4>
+                  <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Code Comparison Section */}
+      <section className="py-12 border-b border-border/40 mb-12">
+        <div className="max-w-5xl mx-auto text-left">
+          <h2 className="text-2xl font-bold font-heading text-foreground mb-2">
+            Playwright vs PW-Core
+          </h2>
+          <p className="text-sm text-muted-foreground mb-6">
+            Compare standard Playwright boilerplate with clean, intent-driven PW-Core code.
+          </p>
+
+          {/* Comparison metrics */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div className="skeu-inset p-4 text-center rounded-lg">
+              <span className="text-2xl font-extrabold text-amber-500 block">70%</span>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">Less Boilerplate</span>
+            </div>
+            <div className="skeu-inset p-4 text-center rounded-lg">
+              <span className="text-2xl font-extrabold text-amber-500 block">100%</span>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">Type Safe</span>
+            </div>
+            <div className="skeu-inset p-4 text-center rounded-lg">
+              <span className="text-2xl font-extrabold text-amber-500 block">Single</span>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">Source of Truth</span>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {/* Select file tab */}
+            <div className="flex gap-1 border-b border-border">
+              <button
+                onClick={() => setActiveFile("page")}
+                className={`px-3 py-2 text-xs font-bold transition-all border-b-2 rounded-md ${activeFile === "page"
+                  ? "active border-amber-500 text-foreground font-bold"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+                  }`}
+              >
+                Page Object (login.page.ts)
+              </button>
+              <button
+                onClick={() => setActiveFile("spec")}
+                className={`px-3 py-2 text-xs font-bold transition-all border-b-2 rounded-md ${activeFile === "spec"
+                  ? "active border-amber-500 text-foreground font-bold"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+                  }`}
+              >
+                Test Script (login.test.ts)
+              </button>
+            </div>
+
+            {/* Side-by-side grid */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <h4 className="text-xs font-bold text-red-500 uppercase tracking-wider">Playwright</h4>
+                <CodeBlock
+                  code={activeFile === "page" ? traditionalLoginPageRaw : traditionalLoginTestRaw}
+                  filename={activeFile === "page" ? "login.page.ts" : "login.test.ts"}
+                />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-xs font-bold text-amber-500 uppercase tracking-wider">pw-core</h4>
+                <CodeBlock
+                  code={activeFile === "page" ? pwcoreLoginPageRaw : pwcoreLoginTestRaw}
+                  filename={activeFile === "page" ? "login.page.ts" : "login.test.ts"}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Features Strip */}
+      <section className="py-8 border-b border-border/40 mb-12">
+        <div className="max-w-5xl mx-auto text-left">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-6">
+            Core Features
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+            {[
+              { name: "Typed Pages", desc: "Automated APIs from configs" },
+              { name: "Page Registry", desc: "Centralized fixture mapping" },
+              { name: "Components", desc: "Modular element wrappers" },
+              { name: "Assertions", desc: "Chainable verify statements" },
+              { name: "Storage Helpers", desc: "Fast cookies/session state" },
+              { name: "Fixtures", desc: "Automatic test isolation" }
+            ].map((feat, i) => (
+              <SkeuCard key={i} className="p-3 text-center flex flex-col justify-center min-h-[90px] hover:border-amber-500/25 transition-all">
+                <span className="font-heading font-bold text-xs text-foreground block mb-1">{feat.name}</span>
+                <span className="text-[10px] text-muted-foreground leading-normal">{feat.desc}</span>
+              </SkeuCard>
+            ))}
           </div>
         </div>
       </section>
@@ -183,19 +391,40 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Architecture */}
+      {/* Framework Architecture */}
       <section className="mb-12">
-        <h2 className="font-heading font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Architecture</h2>
+        <h2 className="font-heading font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Framework Architecture</h2>
+        <SkeuCard className="p-6">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-3 overflow-x-auto">
+            {frameworkArchSteps.map((step, i) => (
+              <React.Fragment key={step.label}>
+                <div className="skeu-inset px-3 py-4 text-center flex-1 min-w-[125px] max-w-[160px] h-[105px] flex flex-col justify-center">
+                  <step.icon className="w-5 h-5 mx-auto mb-2 text-muted-foreground" />
+                  <p className="font-heading font-semibold text-xs text-foreground leading-tight">{step.label}</p>
+                  <p className="text-[10px] text-muted-foreground mt-1 leading-normal">{step.sub}</p>
+                </div>
+                {i < frameworkArchSteps.length - 1 && (
+                  <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0 rotate-90 lg:rotate-0" />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </SkeuCard>
+      </section>
+
+      {/* App Architecture */}
+      <section className="mb-12">
+        <h2 className="font-heading font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Demo App Architecture</h2>
         <SkeuCard className="p-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            {archSteps.map((step, i) => (
+            {appArchSteps.map((step, i) => (
               <React.Fragment key={step.label}>
-                <div className="skeu-inset px-5 py-4 text-center min-w-[150px]">
+                <div className="skeu-inset px-5 py-4 text-center min-w-[150px] flex-1">
                   <step.icon className="w-5 h-5 mx-auto mb-2 text-muted-foreground" />
                   <p className="font-heading font-semibold text-sm">{step.label}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{step.sub}</p>
                 </div>
-                {i < archSteps.length - 1 && (
+                {i < appArchSteps.length - 1 && (
                   <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0 rotate-90 sm:rotate-0" />
                 )}
               </React.Fragment>

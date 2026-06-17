@@ -1,0 +1,20 @@
+{
+  "id": "registry",
+  "title": "Page Registry",
+  "heading": "Page Registry",
+  "description": "Minimize registry boilerplate and produce clean, LLM-friendly test frameworks.",
+  "fixtures": {
+    "title": "Automatic Fixtures",
+    "description": "Rather than declaring a Page Object class for simple pages, you can declare them inline inside `createPageRegistry` to automatically obtain fully-typed specs:"
+  },
+  "ai": {
+    "title": "AI-Friendly Design",
+    "description": "Most standard automation frameworks use highly inconsistent APIs (`page.locator()`, `getByRole()`, custom regex). This causes agents and LLMs to produce inconsistent code.",
+    "subtext": "`pw-core` standardizes API syntax into simple commands (`.click()`, `.fill()`, `.verify()`), delivering major benefits:",
+    "benefits": [
+      "Smaller code context translates to significantly lower token usage.",
+      "Highly predictable generated specs with virtually zero synth selector hallucination.",
+      "Shorter, cleaner tests that take seconds to review and merge."
+    ]
+  }
+}

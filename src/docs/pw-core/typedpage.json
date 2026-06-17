@@ -1,0 +1,24 @@
+{
+  "id": "typedpage",
+  "title": "TypedPage & Truths",
+  "heading": "TypedPage & Single Truths",
+  "description": "Understand how configurations drive page objects seamlessly.",
+  "sourceOfTruth": {
+    "title": "The Single Source of Truth",
+    "description": "Everything begins with a page configuration. This configuration strictly owns page URLs, testIds, and selectors."
+  },
+  "typedPageApi": {
+    "title": "TypedPage API",
+    "description": "`TypedPage` is the base class of `pw-core`. When instantiated with a page configuration, it dynamically generates typed methods for all elements in the configuration.",
+    "features": [
+      "goto()",
+      "click(key)",
+      "fill(key, value)",
+      "check(key)",
+      "hover(key)",
+      "textContent(key)",
+      "verify(key)",
+      "verifyURL()"
+    ]
+  }
+}

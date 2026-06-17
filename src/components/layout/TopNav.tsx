@@ -58,7 +58,7 @@ export default function TopNav() {
             {activeHeader === "pw-core" ? (
               <>
                 <Link
-                  to="/"
+                  to="/pw-core"
                   id="top-nav-logo"
                   data-test-id="top-nav-logo"
                   data-testid="top-nav-logo"
@@ -91,7 +91,7 @@ export default function TopNav() {
             ) : (
               <>
                 <Link
-                  to="/"
+                  to="/k6-core"
                   id="top-nav-logo"
                   data-test-id="top-nav-logo"
                   data-testid="top-nav-logo"

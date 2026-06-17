@@ -31,6 +31,8 @@ export const HeaderProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     // If on docs page, transition to the target docs page
     if (location.pathname.startsWith("/pw-core/docs") || location.pathname.startsWith("/k6-core/docs")) {
       navigate(`/${header}/docs`);
+    } else if (location.pathname === "/pw-core" || location.pathname === "/k6-core" || location.pathname === "/") {
+      navigate(`/${header}`);
     }
   };
 

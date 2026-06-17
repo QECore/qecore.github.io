@@ -101,25 +101,41 @@
   background: hsl(var(--card));
   border: none !important;
   box-shadow: 
-    0 10px 25px -5px rgba(0,0,0,0.06),
-    0 8px 10px -5px rgba(0,0,0,0.04),
-    0 1px 3px rgba(0,0,0,0.02),
-    inset 0 2px 0px rgba(255,255,255,0.8),
-    inset 0 -2px 4px rgba(0,0,0,0.02);
+    0 20px 35px -5px rgba(0,0,0,0.1),
+    0 10px 15px -5px rgba(0,0,0,0.06),
+    0 2px 4px rgba(0,0,0,0.04),
+    inset 0 3px 0px rgba(255,255,255,0.95),
+    inset 0 -3px 6px rgba(0,0,0,0.03);
   border-radius: var(--radius);
 }
 
 .dark .skeu-card {
   box-shadow: 
-    0 10px 25px -5px rgba(0,0,0,0.35),
-    0 8px 10px -5px rgba(0,0,0,0.25),
-    0 1px 3px rgba(0,0,0,0.1),
-    inset 0 1px 0px rgba(255,255,255,0.08),
-    inset 0 -2px 4px rgba(0,0,0,0.1);
+    0 25px 45px -5px rgba(0,0,0,0.55),
+    0 12px 20px -5px rgba(0,0,0,0.45),
+    0 2px 4px rgba(0,0,0,0.25),
+    inset 0 1.5px 0px rgba(255,255,255,0.12),
+    inset 0 -3px 6px rgba(0,0,0,0.15);
 }
 
-/* 3D Skeuomorphic Buttons (Universal & Class-based) */
-button:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]):not([role="checkbox"]):not([role="switch"]):not([role="radio"]):not([role="tab"]):not([class*="rdp-"]):not(.active):not(.skeu-button-primary):not(.bg-primary):not(.bg-emerald-600):not(.bg-amber-600):not(.bg-destructive):not([class*="bg-destructive"]):not([class*="bg-red-"]):not(.flat-item), .skeu-button {
+.skeu-text-amber-pop {
+  color: #d97706 !important; /* amber-600 */
+  font-weight: 850;
+  text-shadow: 
+    0 2px 3px rgba(0, 0, 0, 0.3) !important;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.15)) !important;
+}
+
+.dark .skeu-text-amber-pop {
+  color: #fb923c !important; /* amber-400 */
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.9) !important;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5)) !important;
+}
+
+
+/* 3D Skeuomorphic Buttons (Class-based only) */
+.skeu-button {
   background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%) !important;
   border: none !important;
   color: #000000 !important;
@@ -134,7 +150,7 @@ button:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup=
   border-radius: calc(var(--radius) - 2px);
 }
 
-.dark button:not([role="combobox"]):not([aria-haspopup="listbox"]):not([aria-haspopup="dialog"]):not([role="checkbox"]):not([role="switch"]):not([role="radio"]):not([role="tab"]):not([class*="rdp-"]):not(.active):not(.skeu-button-primary):not(.bg-primary):not(.bg-emerald-600):not(.bg-amber-600):not(.bg-destructive):not([class*="bg-destructive"]):not([class*="bg-red-"]):not(.flat-item), .dark .skeu-button {
+.dark .skeu-button {
   background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%) !important;
   color: hsl(var(--foreground)) !important;
   box-shadow: 
@@ -242,6 +258,7 @@ button[class*="rdp-button_selected"],
     inset 0 1.5px 0px rgba(255,255,255,0.45),
     inset 0 -2px 0px rgba(0,0,0,0.15) !important;
   border: none !important;
+  border-radius: calc(var(--radius) - 2px) !important;
 }
 
 .bg-secondary {
@@ -275,6 +292,7 @@ button[class*="rdp-button_selected"],
     inset 0 1.5px 0px rgba(255,255,255,0.35),
     inset 0 -2px 0px rgba(0,0,0,0.2) !important;
   border: none !important;
+  border-radius: calc(var(--radius) - 2px) !important;
 }
 
 /* 3D Inputs / Recessed fields (Forms consistent depth) */
@@ -308,15 +326,17 @@ input:not([data-input-otp]):not([style*="position: absolute"]):focus, textarea:f
   background: hsl(var(--muted));
   border: none !important;
   box-shadow: 
-    inset 0 3px 6px rgba(0,0,0,0.05),
-    inset 0 1px 2px rgba(0,0,0,0.03) !important;
+    inset 0 4px 8px rgba(0,0,0,0.08),
+    inset 0 2px 4px rgba(0,0,0,0.06),
+    inset 0 -1px 1px rgba(255,255,255,0.5) !important;
   border-radius: var(--radius);
 }
 
 .dark .skeu-inset {
   box-shadow: 
-    inset 0 3px 6px rgba(0,0,0,0.25),
-    inset 0 1px 2px rgba(0,0,0,0.15) !important;
+    inset 0 5px 10px rgba(0,0,0,0.35),
+    inset 0 2px 5px rgba(0,0,0,0.25),
+    inset 0 -1px 1px rgba(255,255,255,0.05) !important;
 }
 
 /* Tables style */

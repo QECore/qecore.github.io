@@ -1,0 +1,11 @@
+{
+  "id": "components",
+  "title": "Reusable Components",
+  "heading": "Reusable Components",
+  "description": "Build components once and share them across multiple page objects.",
+  "body": "Most enterprise apps reuse UI blocks like tables, sidebars, list filters, and modals. In traditional automation, locator logic for these blocks gets repeated on every page.",
+  "reusability": {
+    "title": "Defining once, reusing everywhere",
+    "description": "With this pattern, standard elements like grid actions, sorting, and header inspections are unified. Whether it's a users table, an orders table, or a products table, they use the exact same base class and actions."
+  }
+}

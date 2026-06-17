@@ -68,9 +68,9 @@ const AuthenticatedApp = () => {
     <Routes>
       {/* Public Layout */}
       <Route element={<AppLayout />}>
-        <Route path="/" element={<LandingWrapper />} />
-        <Route path="/pw-core" element={<Navigate to="/" replace />} />
-        <Route path="/k6-core" element={<Navigate to="/" replace />} />
+        <Route path="/" element={<Navigate to="/pw-core" replace />} />
+        <Route path="/pw-core" element={<Landing />} />
+        <Route path="/k6-core" element={<K6Core />} />
         <Route path="/docs" element={<DocsRedirect />} />
         <Route path="/pw-core/docs" element={<Docs />} />
         <Route path="/k6-core/docs" element={<Docs />} />

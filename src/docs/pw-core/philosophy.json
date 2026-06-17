@@ -1,0 +1,24 @@
+{
+  "id": "philosophy",
+  "title": "Core Philosophy",
+  "heading": "Core Philosophy",
+  "description": "The architectural principles that drive the design of pw-core.",
+  "principles": [
+    { "title": "Single Source of Truth", "desc": "URLs, selectors, and testIds live in one config object." },
+    { "title": "Readability", "desc": "Tests should read like logical business workflows, not selector hunts." },
+    { "title": "Scalability", "desc": "Adding new pages or views should not increase overall framework complexity." },
+    { "title": "Reusability", "desc": "Components (such as grids and sidebars) are defined once and reused everywhere." },
+    { "title": "Type Safety", "desc": "Catch element name typos and mistakes during development instead of runtime." },
+    { "title": "AI-Friendly", "desc": "Standardised structural patterns significantly reduce context size and token usage." }
+  ],
+  "why": {
+    "title": "Why pw-core?",
+    "description": "Most Playwright test suites start small and manageable. However, as the codebase grows, it often runs into critical challenges:",
+    "negatives": [
+      "Locators duplicated across multiple files",
+      "Massive Page Objects containing verbose locators",
+      "Repeated fixtures declaration boilerplate",
+      "Inconsistent coding styles and locator conventions"
+    ]
+  }
+}

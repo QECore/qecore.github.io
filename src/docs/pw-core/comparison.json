@@ -1,0 +1,23 @@
+{
+  "id": "comparison",
+  "title": "Playwright vs pw-core",
+  "heading": "Playwright vs pw-core",
+  "description": "Observe the gradual difference in code design and usage specs between the two approaches.",
+  "table": [
+    {
+      "aspect": "Boilerplate",
+      "traditional": "High. Explicit page construction and locator declarations.",
+      "pwcore": "Low. Auto-constructed fields and automatic fixture page objects."
+    },
+    {
+      "aspect": "Typing Errors",
+      "traditional": "Fail at runtime (e.g. typing error in selector string name).",
+      "pwcore": "Type safety ensures compile-time errors during typing."
+    },
+    {
+      "aspect": "Cleanliness",
+      "traditional": "Complex tests filled with verbose `.locator().fill()` calls.",
+      "pwcore": "Extremely clean `.fill(\"username\", \"admin\")` syntax."
+    }
+  ]
+}

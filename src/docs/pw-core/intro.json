@@ -8,9 +8,21 @@
   "installationNew": "npm init pw-core",
   "installationExisting": "npm install pw-core",
   "whatDoYouGet": [
-    "Fully configured Playwright runner",
-    "Configured tsconfig.json & test scripts",
-    "Demo tests (TypedPage & Registry examples)",
-    "Ready-to-run suite out of the box"
+    {
+      "title": "Runner",
+      "tagline": "Fully configured Playwright runner"
+    },
+    {
+      "title": "Configuration",
+      "tagline": "Pre-set tsconfig.json & test scripts"
+    },
+    {
+      "title": "Demo Tests",
+      "tagline": "TypedPage & Registry examples"
+    },
+    {
+      "title": "Ready-to-Run",
+      "tagline": "Complete suite out of the box"
+    }
   ]
 }

@@ -74,15 +74,13 @@ function JsonBlock({ value, minHeight }: { value: string; minHeight?: string }) 
         {copied ? <Check className="w-3 h-3 inline" /> : <Copy className="w-3 h-3 inline" />}
       </button>
       <pre
+        className="code-block-inset"
         style={{
           margin: 0,
           padding: "10px 14px",
           fontSize: "11.5px",
           lineHeight: "1.65",
           fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace",
-          background: "#090909",
-          borderRadius: "8px",
-          border: "1px solid rgba(255,255,255,0.06)",
           color: "#e2e8f0",
           overflowX: "auto",
           overflowY: "auto",
@@ -91,6 +89,7 @@ function JsonBlock({ value, minHeight }: { value: string; minHeight?: string }) 
           minHeight: minHeight || "auto",
           scrollbarWidth: "thin",
           scrollbarColor: "rgba(255,255,255,0.12) transparent",
+          borderRadius: "8px",
         }}
       >
         {colorizeJson(pretty)}
@@ -374,8 +373,7 @@ function EndpointRow({ ep, isOpen, onToggle }: { ep: any; isOpen: boolean; onTog
                     Request Body <span className="normal-case text-muted-foreground/60">(JSON)</span>
                   </label>
                   <div
-                    className="relative rounded-lg overflow-hidden"
-                    style={{ border: "1px solid rgba(255,255,255,0.06)" }}
+                    className="relative rounded-lg overflow-hidden code-block-inset"
                   >
                     <textarea
                       id="swagger-param-body"
@@ -392,7 +390,7 @@ function EndpointRow({ ep, isOpen, onToggle }: { ep: any; isOpen: boolean; onTog
                         fontSize: "11.5px",
                         lineHeight: "1.65",
                         fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace",
-                        background: "#090909",
+                        background: "transparent",
                         color: "#86efac",
                         border: "none",
                         outline: "none",

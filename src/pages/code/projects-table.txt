@@ -1,0 +1,10 @@
+type Project = {
+  id: number
+  title: string;
+  status: string
+}
+
+const projectsTable = new Table<Project>('tableLocator');
+const rows = await projectsTable.get();
+const project = rows.get('title','Website');
+const activeProjects = rows.getAll('status','Active');

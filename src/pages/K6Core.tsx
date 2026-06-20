@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Database, Globe, Server, Monitor, TextCursorInput, Table2, Upload, SquareStack, BookOpen, Activity, Zap, Cpu } from "lucide-react";
 import SkeuCard from "../components/shared/SkueCard";
 import SkeuButton from "../components/shared/SkueButton";
+import ThreadedPageLayout from "../components/layout/ThreadedPageLayout";
+import ElasticScroll from "../components/shared/ElasticScroll";
+import Docs from "./Docs";
 
 const archSteps = [
   { label: "k6 Scripting", sub: "TypeScript / JS", icon: Monitor },
@@ -19,11 +22,19 @@ const capabilities = [
 ];
 
 export default function K6Core() {
+  const sections = [
+    { id: "hero", label: "Overview" },
+    { id: "docs", label: "Docs" },
+    { id: "capabilities", label: "Capabilities" },
+  ];
+
   return (
-    <div className="notion-page pb-12">
-      {/* Hero */}
-      <section className="text-left py-12 md:py-8 border-b border-border/40 mb-12">
-        <div className="max-w-4xl">
+    <ElasticScroll>
+      <ThreadedPageLayout sections={sections}>
+        <div className="notion-page pt-0 pb-12">
+          {/* Hero */}
+          <section id="hero" className="snap-item scroll-mt-24 text-left py-12 md:py-8 border-b border-border/40 mb-12 relative">
+            <div className="max-w-4xl">
           {/* Tagline */}
           <div className="flex items-center gap-3 mb-10 flex-wrap">
             <div className="text-indigo-500 dark:text-indigo-400 text-sm font-semibold tracking-wider uppercase">
@@ -54,9 +65,16 @@ export default function K6Core() {
         </div>
       </section>
 
+      <section id="docs" className="snap-item scroll-mt-24 mb-12 relative text-left">
+        <h2 className="sticky top-[60px] z-20 py-3 mb-4 backdrop-blur-md bg-background/85 text-2xl font-bold font-heading text-foreground">
+          Docs
+        </h2>
+        <Docs isEmbedded={true} />
+      </section>
+
       {/* Component Matrix */}
-      <section className="mb-12">
-        <h2 className="font-heading font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">Capabilities</h2>
+      <section id="capabilities" className="snap-item scroll-mt-24 mb-12 relative">
+        <h2 className="sticky top-[60px] z-20 py-3 mb-4 backdrop-blur-md bg-background/85 text-sm font-semibold font-heading uppercase tracking-wider text-muted-foreground">Capabilities</h2>
         <SkeuCard className="overflow-hidden p-0">
           <table id="k6-capabilities-table" data-test-id="k6-capabilities-table" data-testid="k6-capabilities-table" className="w-full text-sm">
             <thead>
@@ -85,5 +103,7 @@ export default function K6Core() {
         </SkeuCard>
       </section>
     </div>
+      </ThreadedPageLayout>
+    </ElasticScroll>
   );
 }

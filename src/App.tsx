@@ -23,6 +23,7 @@ import ResetPassword from '@/pages/ResetPassword';
 import SwaggerPortal from '@/pages/SwaggerPortal';
 import Docs from '@/pages/Docs';
 import K6Core from '@/pages/K6Core';
+import QAWorkspace from '@/pages/QAWorkspace';
 import { HeaderProvider, useHeader } from '@/lib/HeaderContext';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Navigate, Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
@@ -34,7 +35,7 @@ const LandingWrapper = () => {
 
 const DocsRedirect = () => {
   const { activeHeader } = useHeader();
-  return <Navigate to={`/${activeHeader}/docs`} replace />;
+  return <Navigate to={`/${activeHeader}`} replace />;
 };
 
 const AuthenticatedApp = () => {
@@ -71,9 +72,10 @@ const AuthenticatedApp = () => {
         <Route path="/" element={<Navigate to="/pw-core" replace />} />
         <Route path="/pw-core" element={<Landing />} />
         <Route path="/k6-core" element={<K6Core />} />
+        <Route path="/workspace" element={<QAWorkspace />} />
         <Route path="/docs" element={<DocsRedirect />} />
-        <Route path="/pw-core/docs" element={<Docs />} />
-        <Route path="/k6-core/docs" element={<Docs />} />
+        <Route path="/pw-core/docs" element={<Navigate to="/pw-core" replace />} />
+        <Route path="/k6-core/docs" element={<Navigate to="/k6-core" replace />} />
         <Route path="/playground" element={<Playground />} />
         <Route path="/swagger" element={<SwaggerPortal />} />
         <Route path="/login" element={<Login />} />
@@ -98,6 +100,16 @@ const AuthenticatedApp = () => {
   );
 };
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
 function App() {
   useEffect(() => {
     const saved = localStorage.getItem("theme");
@@ -112,6 +124,7 @@ function App() {
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
+          <ScrollToTop />
           <HeaderProvider>
             <AuthenticatedApp />
           </HeaderProvider>

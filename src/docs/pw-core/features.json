@@ -1,0 +1,118 @@
+{
+  "sections": [
+    {
+      "id": "actions",
+      "title": "Actions",
+      "items": [
+        {
+          "code": "fill('username', 'admin')",
+          "purpose": "Uses selector keys defined in registry"
+        },
+        {
+          "code": "click('submit')",
+          "purpose": "No selector lookup in tests"
+        },
+        {
+          "code": "hover('menu')",
+          "purpose": "Hover over target element"
+        },
+        {
+          "code": "press('search', 'Enter')",
+          "purpose": "Press key on target element"
+        }
+      ]
+    },
+    {
+      "id": "assertions",
+      "title": "Assertions",
+      "items": [
+        {
+          "code": "verify('success')",
+          "purpose": "Visible assertion"
+        },
+        {
+          "code": "verifyHidden('spinner')",
+          "purpose": "Hidden assertion"
+        },
+        {
+          "code": "verifyEnabled('submit')",
+          "purpose": "Enabled assertion"
+        },
+        {
+          "code": "verifyDisabled('submit')",
+          "purpose": "Disabled assertion"
+        },
+        {
+          "code": "verify('error').not.toBeVisible()",
+          "purpose": "Fluent Playwright assertion"
+        }
+      ]
+    },
+    {
+      "id": "navigation",
+      "title": "Navigation",
+      "items": [
+        {
+          "code": "goto()",
+          "purpose": "Navigate to configured page"
+        },
+        {
+          "code": "verifyUrl('/dashboard')",
+          "purpose": "Verify current URL"
+        },
+        {
+          "code": "verifyTitle('Dashboard')",
+          "purpose": "Verify page title"
+        }
+      ]
+    },
+    {
+      "id": "locator-targeting",
+      "title": "Locator Targeting",
+      "items": [
+        {
+          "code": "click('user', { nth: 2 })",
+          "purpose": "Select specific match"
+        },
+        {
+          "code": "click('tab', { hasText: 'Admin' })",
+          "purpose": "Filter by text"
+        },
+        {
+          "code": "dblClick('rowBtn', {\n  hasText: 'Edit',\n  nth: 1\n})",
+          "purpose": "Filter by text and select match"
+        }
+      ]
+    },
+    {
+      "id": "table-apis",
+      "title": "Table Reference",
+      "items": [
+        {
+          "code": "table.get()",
+          "purpose": "Returns typed rows"
+        },
+        {
+          "code": "rows.get('title')",
+          "purpose": "Returns first title column value"
+        },
+        {
+          "code": "rows.get('title', 'Website')",
+          "purpose": "Returns matching row"
+        },
+        {
+          "code": "rows.getAll('title')",
+          "purpose": "Returns all title column values"
+        },
+        {
+          "code": "rows.getAll('status', 'Active')",
+          "purpose": "Returns matching rows"
+        },
+        {
+          "code": "table.getRowCount()",
+          "purpose": "Returns row count"
+        }
+      ]
+    }
+  ]
+}

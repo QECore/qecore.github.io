@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 import { registry } from "../docs/registry";
 
 // Extending the dynamically generated registry page class to add custom methods
-export class ExtendedLoginPage extends registry.classes.loginPage {
+export class LoginPage extends registry.pages.loginPage {
   constructor(page: Page) {
     super(page);
   }

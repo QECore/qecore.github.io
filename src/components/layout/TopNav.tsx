@@ -71,7 +71,7 @@ export default function TopNav() {
                   id="top-nav-logo"
                   data-test-id="top-nav-logo"
                   data-testid="top-nav-logo"
-                  className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity"
+                  className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity w-[78px] md:w-[88px] inline-flex items-center"
                   style={{
                     fontFamily: "'Outfit', sans-serif",
                     backgroundImage: "linear-gradient(135deg, hsl(38, 92%, 55%), hsl(25, 95%, 53%))",
@@ -91,7 +91,7 @@ export default function TopNav() {
                   data-test-id="switch-to-k6-core"
                   data-testid="switch-to-k6-core"
                   onClick={() => setActiveHeader("k6-core")}
-                  className="px-2.5 py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 transition-all border border-border/50 shrink-0"
+                  className="w-[70px] inline-flex items-center justify-center py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 transition-all border border-border/50 shrink-0"
                   style={{ fontFamily: "'Outfit', sans-serif" }}
                 >
                   K6-Core
@@ -104,7 +104,7 @@ export default function TopNav() {
                   id="top-nav-logo"
                   data-test-id="top-nav-logo"
                   data-testid="top-nav-logo"
-                  className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity"
+                  className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity w-[78px] md:w-[88px] inline-flex items-center"
                   style={{
                     fontFamily: "'Outfit', sans-serif",
                     backgroundImage: "linear-gradient(135deg, hsl(260, 92%, 65%), hsl(280, 95%, 55%))",
@@ -124,7 +124,7 @@ export default function TopNav() {
                   data-test-id="switch-to-pw-core"
                   data-testid="switch-to-pw-core"
                   onClick={() => setActiveHeader("pw-core")}
-                  className="px-2.5 py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 hover:bg-secondary hover:text-foreground transition-all border border-border/50 shrink-0"
+                  className="w-[70px] inline-flex items-center justify-center py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 transition-all border border-border/50 shrink-0"
                   style={{ fontFamily: "'Outfit', sans-serif" }}
                 >
                   PW-Core

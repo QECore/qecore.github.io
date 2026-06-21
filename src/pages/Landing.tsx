@@ -1,6 +1,6 @@
 // @ts-nocheck
 import * as React from "react";
-import { LayoutDashboard, FlaskConical, FileCode2, ArrowRight, Database, Globe, Server, Monitor, TextCursorInput, Table2, Upload, SquareStack, BookOpen, Settings, Cpu, Layers, Play, Copy, Check } from "lucide-react";
+import { LayoutDashboard, FlaskConical, FileCode2, ArrowRight, Database, Globe, Server, Monitor, TextCursorInput, Table2, Upload, SquareStack, BookOpen, Settings, Cpu, Layers, Play, Copy, Check, Mail, Linkedin } from "lucide-react";
 import SkeuCard from "../components/shared/SkueCard";
 import SkeuButton from "../components/shared/SkueButton";
 import CodeBlock from "../components/shared/CodeBlock";
@@ -10,6 +10,7 @@ import ElasticScroll from "../components/shared/ElasticScroll";
 import ComparisonMetrics from "../components/shared/ComparisonMetrics";
 import Docs from "./Docs";
 import { Highlight, themes } from "prism-react-renderer";
+import { motion, AnimatePresence } from "framer-motion";
 import traditionalLoginPageRaw from "../docs/pw-core/examples/playwright/pages/login.page.ts?raw";
 import traditionalLoginTestRaw from "../docs/pw-core/examples/playwright/tests/login.test.ts?raw";
 import traditionalFixturesRaw from "../docs/pw-core/examples/playwright/docs/fixtures.ts?raw";
@@ -62,9 +63,10 @@ export const test = createPageRegistry({
   login: {
     url: '/login',
     testIds: {
-      name: 'username',
-      password: 'password',
-      submit: 'submit-btn'
+      name: 'username-input',
+      password: 'password-input',
+      login: 'login-button',
+      loginErr: 'login-error'
     }
   }
 })
@@ -74,7 +76,8 @@ test('Verify Login', async ({ login }) => {
   await login.goto()
   await login.fill('name', 'teja')
   await login.fill('password', 'pw-core-secret')
-  await login.click('submit')
+  await login.click('login')
+  await login.verify('loginErr')
 })`;
 
 
@@ -148,16 +151,16 @@ function GlitchCommand() {
 
   const handleCopy = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigator.clipboard.writeText(`npm ${action} pw-core`);
+    navigator.clipboard.writeText(`npm ${action} pw-core@latest`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="bg-black shadow-[inset_0_2px_5px_rgba(0,0,0,0.9)] rounded-md overflow-hidden flex items-center h-[40px] select-none w-[290px] shrink-0">
+    <div className="bg-black shadow-[inset_0_2px_5px_rgba(0,0,0,0.9)] rounded-md overflow-hidden flex items-center h-[40px] select-none w-[350px] shrink-0">
       {/* Left Amber Block */}
       <div
-        className="bg-amber-700/95 text-black font-extrabold h-full flex flex-col justify-center text-[9px] uppercase tracking-wider shrink-0 leading-tight text-center shadow-[inset_0_4px_10px_rgba(0,0,0,0.85),_inset_1px_0_2px_rgba(0,0,0,0.5)]"
+        className="bg-amber-500/90 text-black font-extrabold h-full flex flex-col justify-center text-[9px] uppercase tracking-wider shrink-0 leading-tight text-center shadow-[inset_0_4px_10px_rgba(0,0,0,0.85),_inset_1px_0_2px_rgba(0,0,0,0.5)]"
         style={{ width: "82px" }}
       >
         <span>{displayHeading}</span>
@@ -166,7 +169,15 @@ function GlitchCommand() {
 
       <div className="pl-3.5 font-mono text-xs flex items-center text-slate-200 flex-1 whitespace-nowrap">
         <span className="text-slate-400 select-none mr-2">$</span>
-        <span>npm <span className="text-amber-500 font-bold tracking-wide transition-all duration-150 inline-block min-w-[56px] text-center">{displayText}</span> pw-core</span>
+        <span>npm 
+          <span className="text-amber-500 font-bold tracking-wide transition-all duration-150 inline-block min-w-[56px] text-center">
+            {displayText}
+          </span>
+           pw-core
+           <span className="text-rose-700 font-bold tracking-wide transition-all duration-150 inline-block min-w-[56px] text-center">
+            @latest
+           </span>
+        </span>
       </div>
 
       {/* Copy Button */}
@@ -398,7 +409,7 @@ function FloatingDnaFeatures() {
       {/* Card 2 */}
       <DnaCard
         innerRef={card2Ref}
-        className="self-center w-[98%] cursor-grab active:cursor-grabbing border-amber-500/40 bg-slate-950/95 shadow-[0_12px_40px_rgba(0,0,0,0.9)] z-25"
+        className="self-center w-[70%] cursor-grab active:cursor-grabbing border-amber-500/40 bg-slate-950/95 shadow-[0_12px_40px_rgba(0,0,0,0.9)] z-25"
         onMouseDown={(e) => startDrag(1, e.clientX, e.clientY)}
         onTouchStart={(e) => startDrag(1, e.touches[0].clientX, e.touches[0].clientY)}
       >
@@ -406,7 +417,7 @@ function FloatingDnaFeatures() {
           <span className="font-heading font-extrabold text-xl text-amber-500 leading-none">Typed Pages</span>
           <span className="font-heading font-bold text-[12px] text-foreground tracking-wide uppercase">100% Type-safe</span>
           <p className="text-[10px] text-muted-foreground mt-1 leading-normal">
-            Generate type-safe page fixtures and execution APIs automatically.
+            Generate type-safe page (test/worker fixtures) and execution APIs automatically.
           </p>
         </div>
       </DnaCard>
@@ -426,6 +437,439 @@ function FloatingDnaFeatures() {
           </p>
         </div>
       </DnaCard>
+    </div>
+  );
+}
+
+function ScalingInsightCard() {
+  const [pages, setPages] = React.useState(5);
+
+  // N workflows metrics:
+  // Assumptions per Page Object:
+  // - 8 locators per page.
+  // - Traditional locator: declaration public name: Locator; + assignment this.name = this.page.getByTestId("id"); (~85 chars/locator)
+  // - PW-Core registry style: locator: "id", (~22 chars/locator)
+  //   -> Reduction: ~63 chars per locator. With 8 locators: ~504 chars saved per page.
+  // - Chaining locators & shortened method calls (e.g. login.fill('name', 'val') vs loginPage.name.fill('val'))
+  //   -> Saves ~25 chars per method call. With 5 action calls per test: ~125 chars saved per test.
+  
+  // Traditional calculations:
+  // - Base boilerplate (imports, fixtures, etc.): ~350 chars
+  // - Per Page: Page Object Class structure (~400 chars) + 8 locators definition (~680 chars) = ~1080 chars
+  // - Per Test: Test boilerplate (~300 chars) + 5 action calls (~200 chars) = ~500 chars
+  const tradFiles = 2 * pages + 1;
+  const tradChars = 1580 * pages + 350;
+  
+  // PW-Core calculations:
+  // - Base boilerplate (registry imports & setup): ~250 chars
+  // - Per Page: Registry entry config (~80 chars) + 8 selectors (~176 chars) = ~256 chars
+  // - Per Test: Test boilerplate (~200 chars) + 5 shortened action calls (~75 chars) = ~275 chars
+  const coreFiles = pages + 1;
+  const coreChars = 531 * pages + 250;
+
+  // Differences
+  const fileSaved = tradFiles - coreFiles;
+  const charSaved = tradChars - coreChars;
+  const savingPercent = Math.max(0, Math.round((charSaved / tradChars) * 100));
+  const filePercent = Math.max(0, Math.round((fileSaved / tradFiles) * 100));
+
+  const maxPossibleChars = 1580 * 15 + 350;
+
+  const getDynamicContent = (p: number) => {
+    if (p === 1) {
+      return {
+        paragraphs: [
+          "Both approaches are nearly identical at this scale.",
+          "The application is small, framework overhead is minimal, and maintainability concerns are limited.",
+          "PW-Core's architectural advantages become more apparent as additional page objects are introduced."
+        ],
+        status: "Minimal Complexity"
+      };
+    } else if (p <= 3) {
+      return {
+        paragraphs: [
+          "Traditional Playwright begins introducing separate page classes and additional framework structure.",
+          "PW-Core continues using the same registry-driven architecture without introducing new framework layers.",
+          "The difference is still small but growth patterns are starting to diverge."
+        ],
+        status: "Early Growth"
+      };
+    } else if (p <= 5) {
+      return {
+        paragraphs: [
+          "Traditional Playwright now contains multiple page classes and additional fixture wiring.",
+          "PW-Core expands by adding page definitions while keeping framework structure stable.",
+          "Maintenance effort remains manageable, but architectural growth is becoming visible."
+        ],
+        status: "Architecture Divergence Begins"
+      };
+    } else if (p <= 10) {
+      return {
+        paragraphs: [
+          "Framework complexity starts increasing noticeably.",
+          "Traditional Playwright typically requires more page objects, locator declarations, and fixture extensions as pages expand.",
+          "PW-Core continues scaling through configuration while maintaining a centralized architecture."
+        ],
+        status: "Scaling Advantage Emerging"
+      };
+    } else {
+      return {
+        paragraphs: [
+          "Traditional Playwright now contains significantly more framework structure than application logic.",
+          "PW-Core maintains a centralized registry-driven model, reducing framework growth while keeping pages organized.",
+          "Result: fewer files, smaller AI context footprint, and lower maintenance overhead."
+        ],
+        status: "Constant Complexity Architecture"
+      };
+    }
+  };
+
+  const dynamicContent = getDynamicContent(pages);
+
+  return (
+    <div className="skeu-card p-6 md:p-8 mt-12 bg-slate-950/40 border border-white/5 relative overflow-hidden">
+      {/* Glow Effect */}
+      <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-60 h-60 bg-rose-500/5 rounded-full blur-[80px] pointer-events-none" />
+
+      <div className="flex flex-col md:flex-row gap-8 items-stretch relative z-10">
+        <div className="flex-1 w-full space-y-6">
+          <div>
+            <h6 className="uppercase font-bold tracking-widest text-amber-500 block mb-1">
+              Architecture Scaling Simulator
+            </h6>
+            {/* <h3 className="font-heading text-xl md:text-2xl font-extrabold text-foreground tracking-tight">
+              Traditional Playwright vs Registry-Driven PW-Core
+            </h3> */}
+            <p className="text-xs text-muted-foreground mt-1 max-w-md">
+              Adjust the slider to see how codebase complexity grows as you add page workflows.
+            </p>
+          </div>
+
+          <div className="space-y-2.5 bg-black/40 p-4 rounded-xl border border-white/5">
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-slate-400 font-semibold">Scale of Application:</span>
+              <span className="text-amber-500 font-bold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 font-mono">
+                {pages} Page{pages === 1 ? '' : 's'}
+              </span>
+            </div>
+            
+            <input 
+              type="range" 
+              min="1" 
+              max="15" 
+              value={pages} 
+              onChange={(e) => setPages(Number(e.target.value))}
+              className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500 shadow-[inset_0_1px_3px_rgba(0,0,0,0.6)]"
+            />
+            <div className="flex justify-between text-[9px] text-muted-foreground/60 font-mono">
+              <span>1 Page</span>
+              <span class='mr-16'>5 Pages</span>
+              <span>10 Pages</span>
+              <span>15 Pages</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {/* Files Metric */}
+            <div className="bg-black/20 p-4 rounded-xl border border-white/5 flex flex-col justify-between space-y-4">
+              <div className="space-y-3">
+                <div className="text-xs font-semibold text-slate-300">Total Files Required</div>
+                <div className="space-y-2">
+                  <div className="space-y-1">
+                    <div className="flex justify-between items-baseline text-[10px] text-slate-400">
+                      <span>Playwright</span>
+                      <span className="font-mono font-bold text-red-400 text-[11px] sm:text-xs">
+                        <motion.span
+                          key={tradFiles}
+                          initial={{ scale: 0.9, opacity: 0.7 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          {tradFiles}
+                        </motion.span> files
+                      </span>
+                    </div>
+                    <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-red-600 to-rose-500 transition-all duration-300"
+                        style={{ width: `${Math.min(100, (tradFiles / 31) * 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex justify-between items-baseline text-[10px] text-slate-400">
+                      <span>PW-Core</span>
+                      <span className="font-mono font-bold text-amber-500 text-[11px] sm:text-xs">
+                        <motion.span
+                          key={coreFiles}
+                          initial={{ scale: 0.9, opacity: 0.7 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          {coreFiles}
+                        </motion.span> files
+                      </span>
+                    </div>
+                    <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-amber-600 to-amber-400 transition-all duration-300"
+                        style={{ width: `${Math.min(100, (coreFiles / 31) * 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 inline-block text-center whitespace-nowrap select-none">
+                Save {fileSaved} files ({filePercent}% reduction)
+              </div>
+            </div>
+
+            {/* AI Context Size Metric */}
+            <div className="bg-black/20 p-4 rounded-xl border border-white/5 flex flex-col justify-between space-y-4">
+              <div className="space-y-3">
+                <div className="text-xs font-semibold text-slate-300">AI Context Footprint</div>
+                <div className="space-y-2">
+                  <div className="space-y-1">
+                    <div className="flex justify-between items-baseline text-[10px] text-slate-400">
+                      <span>Playwright</span>
+                      <span className="font-mono font-bold text-red-400 text-[11px] sm:text-xs">
+                        <motion.span
+                          key={tradChars}
+                          initial={{ scale: 0.9, opacity: 0.7 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          {tradChars.toLocaleString()}
+                        </motion.span> chars
+                      </span>
+                    </div>
+                    <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-red-600 to-rose-500 transition-all duration-300"
+                        style={{ width: `${Math.min(100, (tradChars / maxPossibleChars) * 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex justify-between items-baseline text-[10px] text-slate-400">
+                      <span>PW-Core</span>
+                      <span className="font-mono font-bold text-amber-500 text-[11px] sm:text-xs">
+                        <motion.span
+                          key={coreChars}
+                          initial={{ scale: 0.9, opacity: 0.7 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          {coreChars.toLocaleString()}
+                        </motion.span> chars
+                      </span>
+                    </div>
+                    <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-amber-600 to-amber-400 transition-all duration-300"
+                        style={{ width: `${Math.min(100, (coreChars / maxPossibleChars) * 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 inline-block text-center whitespace-nowrap select-none">
+                {savingPercent}% Smaller AI Context
+              </div>
+            </div>
+          </div>
+
+          <div className="text-[10px] text-muted-foreground/60 leading-normal flex items-start gap-1.5 mt-4 pt-3 border-t border-white/5">
+            <span className="text-amber-500 font-semibold select-none shrink-0 font-sans">Methodology:</span>
+            <span>Estimates are based on page-object architectures with approximately 8 locators per Page Class. Actual savings vary by project structure and coding standards.</span>
+          </div>
+        </div>
+
+        <div className="w-full md:w-[320px] bg-white/[0.02] border border-white/5 rounded-xl p-5 flex flex-col justify-between shrink-0 space-y-4">
+          <div className="space-y-3.5">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400/80 block select-none">
+              Metrics Insight
+            </span>
+            
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={pages}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.15 }}
+                className="space-y-3"
+              >
+                <div className="text-xl font-extrabold text-foreground tracking-tight font-heading leading-tight">
+                  At {pages} Page{pages === 1 ? '' : 's'}
+                </div>
+                
+                <div className="text-xs text-muted-foreground leading-relaxed font-sans space-y-3">
+                  {dynamicContent.paragraphs.map((para, idx) => (
+                    <p key={idx}>{para}</p>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* <div className="pt-3.5 border-t border-white/5 space-y-3.5 text-[11px]">
+              <div>
+                <div className="text-[10px] uppercase font-bold tracking-wider text-red-500/85 font-mono mb-1.5 flex items-center justify-between">
+                  <span>Traditional Playwright</span>
+                </div>
+                <ul className="space-y-1 font-mono text-slate-300">
+                  <li className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500/80 shrink-0" />
+                    <span>
+                      <motion.span
+                        key={`po-${pages}`}
+                        initial={{ scale: 0.8, opacity: 0.5 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="font-bold text-red-400"
+                      >
+                        {pages}
+                      </motion.span> Page Class{pages === 1 ? '' : 'es'}
+                    </span>
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500/80 shrink-0" />
+                    <span>
+                      <motion.span
+                        key={`fix-${pages}`}
+                        initial={{ scale: 0.8, opacity: 0.5 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="font-bold text-red-400"
+                      >
+                        {pages}
+                      </motion.span> Fixture Extension{pages === 1 ? '' : 's'}
+                    </span>
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500/80 shrink-0" />
+                    <span>
+                      <motion.span
+                        key={`loc-${pages}`}
+                        initial={{ scale: 0.8, opacity: 0.5 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="font-bold text-red-400"
+                      >
+                        {pages * 8}
+                      </motion.span> Locator Definition{pages * 8 === 1 ? '' : 's'}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <div className="text-[10px] uppercase font-bold tracking-wider text-amber-500 font-mono mb-1.5 flex items-center justify-between">
+                  <span>Registry-Driven PW-Core</span>
+                </div>
+                <ul className="space-y-1 font-mono text-slate-300">
+                  <li className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 shrink-0" />
+                    <span><span className="font-bold text-amber-400">1</span> Registry</span>
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 shrink-0" />
+                    <span><span className="font-bold text-amber-400">1</span> Runtime</span>
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 shrink-0" />
+                    <span>
+                      <motion.span
+                        key={`wf-${pages}`}
+                        initial={{ scale: 0.8, opacity: 0.5 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="font-bold text-amber-400"
+                      >
+                        {pages}
+                      </motion.span> Workflow Definition{pages === 1 ? '' : 's'}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div> */}
+          </div>
+
+          <div className="pt-2 border-t border-white/5 text-[11px] text-slate-400 select-none">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={dynamicContent.status}
+                initial={{ opacity: 0, x: -5 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 5 }}
+                transition={{ duration: 0.15 }}
+                className="flex items-center gap-1.5 font-sans font-semibold text-emerald-400"
+              >
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>✓ {dynamicContent.status}</span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ScalingCodeComparison() {
+  return (
+    <div className="mt-12 space-y-4 text-left border-t border-white/5 pt-8">
+      <div>
+        <span className="text-[10px] uppercase font-bold tracking-widest text-amber-500 block mb-1">
+          Scaling Comparison
+        </span>
+        <h3 className="font-heading text-xl md:text-2xl font-extrabold text-foreground tracking-tight">
+          How Scaling Changes
+        </h3>
+        <p className="text-xs text-muted-foreground mt-1 max-w-2xl">
+          Compare how adding page objects affects repository complexity and framework structure under both architectures.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mt-6">
+        {/* Traditional Playwright */}
+        <div className="bg-black/30 border border-white/5 rounded-xl p-5 flex flex-col justify-between space-y-4">
+          <div className="space-y-3">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-red-500/80 block font-mono">
+              Traditional Playwright (Framework Scaling)
+            </span>
+            <pre className="font-mono text-xs text-slate-300 bg-black/60 p-4 rounded-lg border border-white/5 leading-relaxed overflow-x-auto select-all">
+{`class LoginPage {}
+class UsersPage {}
+class ProductsPage {}
+class SettingsPage {}
+class ReportsPage {}
+...`}
+            </pre>
+          </div>
+          <p className="text-xs text-muted-foreground/75 leading-relaxed pt-3 border-t border-white/5 font-sans">
+            Traditional page-object architectures grow through additional classes and fixture wiring.
+          </p>
+        </div>
+
+        {/* PW-Core */}
+        <div className="bg-black/30 border border-white/5 rounded-xl p-5 flex flex-col justify-between space-y-4">
+          <div className="space-y-3">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-amber-500 block font-mono">
+              PW-Core (Configuration Scaling)
+            </span>
+            <pre className="font-mono text-xs text-slate-300 bg-black/60 p-4 rounded-lg border border-white/5 leading-relaxed overflow-x-auto select-all">
+{`createPageRegistry({
+  login: {...},
+  users: {...},
+  products: {...},
+  settings: {...},
+  reports: {...}
+})`}
+            </pre>
+          </div>
+          <p className="text-xs text-muted-foreground/75 leading-relaxed pt-3 border-t border-white/5 font-sans">
+            PW-Core scales through registry definitions while keeping the framework structure stable.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -509,13 +953,12 @@ export default function Landing() {
                       href="https://www.npmjs.com/package/pw-core"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-xs font-semibold select-none rounded-md overflow-hidden border border-border/60 hover:border-amber-500/50 transition-all"
+                      className="group w-[40px] h-[40px] skeu-inset flex items-center justify-center text-foreground bg-white/[0.02] border border-border/40 shrink-0 hover:border-amber-500/50 transition-all"
+                      title="NPM Package"
                     >
-                      <span className="skeu-badge-up flex items-center gap-1.5 px-3 h-[40px] text-foreground bg-white/[0.02] border-r border-border/40">
-                        <svg className="w-4 h-4 fill-[#CB3837]" viewBox="0 0 24 24">
-                          <path d="M0 7.334v8h6.666v2H13.333v-2h10.667v-8H0zm1.333 1.333h5.333v6.667H5.333V10H4v4H1.333V8.667zm6.667 0h8v5.333H12v1.333h-1.333v-1.333h-2.667V8.667zM17.333 8.667H22.667v5.333h-2.667V10H18.667v4H17.333V8.667zm-8 1.333v2.667h2.667V10H9.333z" />
-                        </svg>
-                      </span>
+                      <svg className="w-6 h-6 fill-[#CB3837] group-hover:fill-orange-500 hover:fill-orange-500 transition-colors duration-200" viewBox="0 0 128 128">
+                        <path d="M2 38.5h124v43.71H64v7.29H36.44v-7.29H2zm6.89 36.43h13.78V53.07h6.89v21.86h6.89V45.79H8.89zm34.44-29.14v36.42h13.78v-7.28h13.78V45.79zm13.78 7.29H64v14.56h-6.89zm20.67-7.29v29.14h13.78V53.07h6.89v21.86h6.89V53.07h6.89v21.86h6.89V45.79z" />
+                      </svg>
                     </a>
 
                     {/* GitHub Repo Link */}
@@ -523,7 +966,7 @@ export default function Landing() {
                       href="https://github.com/QECore/pw-core"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-[40px] h-[40px] rounded-full skeu-inset flex items-center justify-center text-foreground hover:text-amber-500 transition-all bg-white/[0.02] border border-border/40 shrink-0"
+                      className="group w-[40px] h-[40px] skeu-inset flex items-center justify-center text-foreground hover:text-amber-500 hover:border-amber-500/50 transition-all bg-white/[0.02] border border-border/40 shrink-0"
                       title="GitHub Repository"
                     >
                       <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -532,18 +975,38 @@ export default function Landing() {
                     </a>
 
                     {/* Developer Profile Link */}
-                    <a
+                    {/* <a
                       href="https://github.com/shanmukaanem"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-[40px] h-[40px] rounded-full overflow-hidden skeu-inset flex items-center justify-center hover:border-amber-500/50 transition-all border border-border/40 shrink-0"
+                      className="group w-[40px] h-[40px] overflow-hidden skeu-inset flex items-center justify-center text-foreground hover:text-amber-500 hover:border-amber-500/50 transition-all bg-white/[0.02] border border-border/40 shrink-0"
                       title="Developer Profile"
                     >
                       <img
                         src="https://github.com/shanmukaanem.png"
                         alt="Shanmuka Chandra Teja Anem"
-                        className="w-5 h-5 object-cover rounded-full"
+                        className="w-6 h-6 object-cover rounded-full"
                       />
+                    </a> */}
+
+                    {/* LinkedIn Profile Link */}
+                    <a
+                      href="https://www.linkedin.com/in/shanmukaanem"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group w-[40px] h-[40px] skeu-inset flex items-center justify-center text-foreground hover:text-amber-500 hover:border-amber-500/50 transition-all bg-white/[0.02] border border-border/40 shrink-0"
+                      title="LinkedIn Profile"
+                    >
+                      <Linkedin className="w-5 h-5 text-muted-foreground/80 group-hover:text-amber-500 transition-colors" />
+                    </a>
+
+                    {/* Contact Email Link */}
+                    <a
+                      href="mailto:shanmukaanem@gmail.com"
+                      className="group w-[40px] h-[40px] skeu-inset flex items-center justify-center text-foreground hover:text-amber-500 hover:border-amber-500/50 transition-all bg-white/[0.02] border border-border/40 shrink-0"
+                      title="Email Developer"
+                    >
+                      <Mail className="w-5 h-5 text-muted-foreground/80 group-hover:text-amber-500 transition-colors" />
                     </a>
                   </div>
                 </div>
@@ -792,6 +1255,10 @@ export default function Landing() {
                 </div>
 
               </div>
+
+              {/* Centralized insights metric card for 5 pages */}
+              <ScalingInsightCard />
+              {/* <ScalingCodeComparison /> */}
             </div>
           </section>
 

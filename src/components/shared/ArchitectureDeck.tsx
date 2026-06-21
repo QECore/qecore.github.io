@@ -32,7 +32,7 @@ export default function ArchitectureDeck() {
   // 5: Runtime output -> Test line flows (500ms)
   // 6: Static final state before loop (2500ms)
   useEffect(() => {
-    const stepDurations = [500, 500, 500, 500, 500, 500, 2500];
+    const stepDurations = [500, 500, 600, 700, 500, 500, 100];
     
     const timer = setTimeout(() => {
       setFlowStep((prev) => (prev + 1) % 7);
@@ -153,15 +153,21 @@ export default function ArchitectureDeck() {
                 <div key={idx} className="flex items-center gap-3 w-full py-0.5 relative z-10">
                   {/* Circular Completion Indicator on Left */}
                   <span 
-                    className={`w-4 h-4 rounded-full flex items-center justify-center font-bold text-[9px] border transition-all duration-300 shrink-0 ${
+                    className={`w-4 h-4 rounded-full flex items-center justify-center border transition-all duration-300 shrink-0 ${
                       isActive 
                         ? "bg-amber-500/10 border-amber-400 text-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.5)] scale-110" 
                         : isCompleted
-                          ? "bg-amber-500 border-amber-400 text-slate-950 font-extrabold"
+                          ? "bg-amber-500 border-amber-400 text-slate-950"
                           : "bg-slate-950 border-slate-800 text-slate-700"
                     }`}
                   >
-                    {isCompleted ? "✓" : "●"}
+                    {isCompleted ? (
+                      <svg className="w-2.5 h-2.5 stroke-[3.5px] stroke-current" fill="none" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    ) : (
+                      <div className="w-1.5 h-1.5 rounded-full bg-current" />
+                    )}
                   </span>
                   <span 
                     className={`font-mono text-[10px] font-bold transition-all duration-300 leading-none ${

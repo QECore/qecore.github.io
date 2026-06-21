@@ -31,21 +31,27 @@ export default function CodeBlock({ code, filename, compact, textSizeClass, noSc
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
 
-    // Single regex pass to match comments, strings, keywords, methods, object keys, and numbers
-    const regex = /(\/\/.*)|(["'`])(.*?)\2|\b(import|export|class|extends|constructor|super|private|const|let|var|function|return|async|await|from|typeof|new|this|type)\b|\b(test|expect|createPageConfig|createPageRegistry|fill|click|verify|goto|verifyURL|toHaveCount|toBeVisible|dblclick|locator|extend|use)\b(?=\s*\()|(\w+)(?=\s*:(?!:))|\b(\d+)\b/g;
+    // Single regex pass to match comments, strings, keywords, callers, methods, object keys, and numbers
+    const regex = /(\/\/.*)|(["'`])(.*?)\2|\b(const)\s+(\w+)\b|\b(import|export|class|extends|constructor|super|private|let|var|function|return|async|await|from|typeof|new|this|type)\b|\b(test|expect)\b|\b(describe|beforeAll|beforeEach|afterAll|afterEach|only|skip|createPageConfig|createPageRegistry|fill|click|verify|goto|verifyURL|toHaveCount|toBeVisible|dblclick|locator|extend|use)\b(?=\s*\()|(\w+)(?=\s*:(?!:))|\b(\d+)\b/g;
 
-    return escaped.replace(regex, (match, comment, quote, stringContent, keyword, method, objKey, number) => {
+    return escaped.replace(regex, (match, comment, quote, stringContent, constKeyword, constName, keyword, caller, method, objKey, number) => {
       if (comment) {
         return `<span style="color: #64748b; opacity: 0.6;" class="italic">${comment}</span>`;
       }
       if (quote) {
         return `<span class="text-orange-400 font-semibold">${quote}${stringContent}${quote}</span>`;
       }
+      if (constKeyword && constName) {
+        return `<span class="text-purple-400 italic">${constKeyword}</span> <span class="text-red-500 font-bold">${constName}</span>`;
+      }
       if (keyword) {
-        return `<span class="text-indigo-400 font-bold">${keyword}</span>`;
+        return `<span class="text-purple-400 italic">${keyword}</span>`;
+      }
+      if (caller) {
+        return `<span class="text-sky-400 font-semibold">${caller}</span>`;
       }
       if (method) {
-        return `<span class="text-sky-400 font-semibold">${method}</span>`;
+        return `<span class="text-amber-400 font-semibold">${method}</span>`;
       }
       if (objKey) {
         return `<span class="text-red-400 italic">${objKey}</span>`;

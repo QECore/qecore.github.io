@@ -12,11 +12,14 @@ interface ThreadedPageLayoutProps {
 
 export default function ThreadedPageLayout({ sections, children }: ThreadedPageLayoutProps) {
   const [activeId, setActiveId] = React.useState<string>(sections[0]?.id || "");
+  const [isAtBottom, setIsAtBottom] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
-      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
-      if (isAtBottom && sections.length > 0) {
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 70;
+      setIsAtBottom(atBottom);
+
+      if (atBottom && sections.length > 0) {
         setActiveId(sections[sections.length - 1].id);
         return;
       }
@@ -24,13 +27,22 @@ export default function ThreadedPageLayout({ sections, children }: ThreadedPageL
       const targetOffset = 150;
       let closestId = "";
       let minDistance = Infinity;
+      let foundCovering = false;
 
       sections.forEach((sec) => {
+        if (foundCovering) return;
         const el = document.getElementById(sec.id);
         if (!el) return;
         const rect = el.getBoundingClientRect();
         
-        // Calculate the absolute distance of the section's top from the target offset line (150px)
+        // If the section covers the target offset line, it is active
+        if (rect.top <= targetOffset && rect.bottom >= targetOffset) {
+          closestId = sec.id;
+          foundCovering = true;
+          return;
+        }
+
+        // Fallback: Calculate the absolute distance of the section's top from the target offset line
         const distance = Math.abs(rect.top - targetOffset);
         if (distance < minDistance) {
           minDistance = distance;
@@ -72,16 +84,15 @@ export default function ThreadedPageLayout({ sections, children }: ThreadedPageL
         <div className="sticky top-20 pl-4 select-none h-[calc(100vh-80px)] flex flex-col justify-center">
           {/* Thread rail wrapper - stretched vertically to spread nodes */}
           <div className="relative pl-6 flex flex-col justify-between py-6 max-h-[60vh] min-h-[380px]">
-            {/* Thread Line - Spacing above/below using top/bottom limits */}
-            <div className="absolute left-[6px] top-2 bottom-2 w-[2px] bg-slate-200 dark:bg-slate-800 rounded-full" />
+            {/* Thread Line - Spacing above/below aligned to first/last dot centers */}
+            <div className="absolute left-[6px] top-[31px] bottom-[31px] w-[2px] bg-slate-200 dark:bg-slate-800 rounded-full" />
             
             {/* Active Thread Highlight Line */}
             {activeIndex !== -1 && (
               <div
-                className="absolute left-[6px] top-2 w-[2px] bg-gradient-to-b from-amber-500 to-orange-500 rounded-full transition-all duration-300 shadow-[0_0_8px_rgba(245,158,11,0.5)]"
+                className="absolute left-[6px] top-[31px] w-[2px] bg-gradient-to-b from-amber-500 to-orange-500 rounded-full transition-all duration-300 shadow-[0_0_8px_rgba(245,158,11,0.5)]"
                 style={{
-                  height: activeIndex === 0 ? "0%" : `${(activeIndex / (sections.length - 1)) * 100}%`,
-                  bottom: activeIndex === sections.length - 1 ? "8px" : "auto",
+                  height: activeIndex <= 0 ? "0px" : `calc((100% - 62px) * ${activeIndex / (sections.length - 1)})`,
                 }}
               />
             )}
@@ -89,7 +100,7 @@ export default function ThreadedPageLayout({ sections, children }: ThreadedPageL
             {sections.map((sec, idx) => {
               const isActive = sec.id === activeId;
               const isSub = (sec as any).isSub;
-              const isCompleted = idx < activeIndex;
+              const isCompleted = idx < activeIndex || (isAtBottom && idx === sections.length - 1);
               return (
                 <div
                   key={sec.id}
@@ -106,9 +117,11 @@ export default function ThreadedPageLayout({ sections, children }: ThreadedPageL
                         />
                       ) : (
                         <div
-                          className="w-[14px] h-[14px] rounded-full bg-amber-500 flex items-center justify-center text-slate-950 font-extrabold text-[9px] select-none transition-all duration-300"
+                          className="w-[14px] h-[14px] rounded-full bg-amber-500 flex items-center justify-center text-slate-950 transition-all duration-300"
                         >
-                          ✓
+                          <svg className="w-2.5 h-2.5 stroke-[3.5px] stroke-current" fill="none" viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
                         </div>
                       )
                     ) : isActive ? (

@@ -20,9 +20,9 @@ export default function AppSidebar() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-64px)] overflow-hidden">
+    <div className="flex min-h-screen">
       {/* Floating sidebar palette */}
-      <aside id="sidebar-container" data-test-id="sidebar-container" data-testid="sidebar-container" className="w-56 shrink-0 hidden md:flex flex-col p-3">
+      <aside id="sidebar-container" data-test-id="sidebar-container" data-testid="sidebar-container" className="w-56 shrink-0 hidden md:flex flex-col p-3 sticky top-16 h-[calc(100vh-64px)]">
         <div
           className="rounded-2xl p-3 flex flex-col gap-1 h-full"
           style={{
@@ -58,8 +58,8 @@ export default function AppSidebar() {
         </div>
       </aside>
 
-      {/* Right content area with internal scroll */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden">
+      {/* Right content area with normal page scroll */}
+      <div className="flex-1 pb-16">
         <Outlet />
       </div>
     </div>

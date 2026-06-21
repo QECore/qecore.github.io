@@ -5,6 +5,7 @@ import {
 import SkeuCard from "../components/shared/SkueCard";
 import SkeuInset from "../components/shared/SkeuInset";
 import CodeBlock from "../components/shared/CodeBlock";
+import SplitCodeBlock from "../components/shared/SplitCodeBlock";
 import { useHeader } from "@/lib/HeaderContext";
 import ElasticScroll from "../components/shared/ElasticScroll";
 
@@ -192,46 +193,36 @@ export default function Docs({ isEmbedded = false }: DocsProps) {
                 Page Registry
               </h1>
               <p className="text-sm text-muted-foreground mt-2">
-                Create pages, fixtures, and test APIs from a single registry definition.
+                Create Auto page fixtures (both test/ worker scoped), and test APIs from a single registry definition.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-              {/* 1. Registry Definition */}
-              <div id="registry-definition" className="space-y-2">
-                <h3 className="text-lg font-bold text-amber-500">Registry</h3>
-                <p className="text-xs text-muted-foreground">
-                  Define URLs, test IDs, selectors, and page metadata in a single registry.
+            <div className="space-y-4">
+              <SplitCodeBlock
+                files={[
+                  { filename: "registry.ts", code: registryRaw },
+                  { filename: "login.test.ts", code: registryFixturesUsageRaw }
+                ]}
+              />
+            </div>
+
+            <div className="space-y-4 pt-4">
+              <div className="border-b border-border pb-2">
+                <h2 className="text-2xl font-extrabold font-heading text-foreground">
+                  But, what if you have to add custom page methods?
+                </h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Extend the generated page class and replace the auto-generated fixture with your custom subclass extension.
                 </p>
-                <CodeBlock code={registryRaw} filename="registry.ts" textSizeClass="text-[9.5px]" noScroll={true} />
               </div>
 
-              {/* 2. Custom Page */}
-              <div id="registry-extend-class" className="space-y-2">
-                <h3 className="text-lg font-bold text-amber-500">Custom Page</h3>
-                <p className="text-xs text-muted-foreground">
-                  Extend the generated page class to add custom business methods.
-                </p>
-                <CodeBlock code={overrideLoginPageRaw} filename="login.page.ts" textSizeClass="text-[9.5px]" noScroll={true} />
-              </div>
-
-              {/* 3. Fixture Override */}
-              <div id="registry-extend-fixtures" className="space-y-2">
-                <h3 className="text-lg font-bold text-amber-500">Fixture Override</h3>
-                <p className="text-xs text-muted-foreground">
-                  Replace the auto-generated page with your custom subclass extension.
-                </p>
-                <CodeBlock code={overrideFixturesRaw} filename="fixtures.ts" textSizeClass="text-[9.5px]" noScroll={true} />
-              </div>
-
-              {/* 4. Test Usage */}
-              <div id="registry-extend-tests" className="space-y-2">
-                <h3 className="text-lg font-bold text-amber-500">Test Usage</h3>
-                <p className="text-xs text-muted-foreground">
-                  Consume the custom methods directly from your test fixtures.
-                </p>
-                <CodeBlock code={overrideLoginTestRaw} filename="login.test.ts" textSizeClass="text-[9.5px]" noScroll={true} />
-              </div>
+              <SplitCodeBlock
+                files={[
+                  { filename: "login.page.ts", code: overrideLoginPageRaw },
+                  { filename: "fixtures.ts", code: overrideFixturesRaw },
+                  { filename: "login.test.ts", code: overrideLoginTestRaw }
+                ]}
+              />
             </div>
           </div>
 
@@ -239,40 +230,21 @@ export default function Docs({ isEmbedded = false }: DocsProps) {
           <div id="docs-typed-examples" className="space-y-8 pt-12 border-t border-border/40 animate-in fade-in duration-300">
             <div className="border-b border-border pb-4">
               <h1 className="text-3xl font-extrabold font-heading text-foreground">
-                Typed Page
+                Typed Page <span className="text-base font-normal text-muted-foreground/50 ml-2">(Only if you want your locators to be within the page file - Not Recommended)</span>
               </h1>
               <p className="text-sm text-muted-foreground mt-2">
-                Build traditional page objects using TypedPage and createPageConfig.
+                Build traditional page objects using TypedPage and createPageConfig. (Here we lose Auto Test/ Worker scoped Page fixtures)
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
-              {/* Page Definition */}
-              <div id="typed-pages" className="space-y-2">
-                <h3 className="text-lg font-bold text-amber-500">Define Page</h3>
-                <p className="text-xs text-muted-foreground">
-                  Define page URLs, selectors, and page-specific APIs.
-                </p>
-                <CodeBlock code={pwcoreLoginPageRaw} filename="login.page.ts" textSizeClass="text-[9.5px]" noScroll={true} />
-              </div>
-
-              {/* Register Fixtures */}
-              <div id="typed-fixtures" className="space-y-2">
-                <h3 className="text-lg font-bold text-amber-500">Register Fixtures</h3>
-                <p className="text-xs text-muted-foreground">
-                  Register page objects with Playwright fixtures.
-                </p>
-                <CodeBlock code={pwcoreFixturesRaw} filename="fixtures.ts" textSizeClass="text-[9.5px]" noScroll={true} />
-              </div>
-
-              {/* Write Test */}
-              <div id="typed-tests" className="space-y-2">
-                <h3 className="text-lg font-bold text-amber-500">Write Test</h3>
-                <p className="text-xs text-muted-foreground">
-                  Consume page objects inside test specifications.
-                </p>
-                <CodeBlock code={pwcoreLoginTestRaw} filename="login.test.ts" textSizeClass="text-[9.5px]" noScroll={true} />
-              </div>
+            <div className="space-y-4">
+              <SplitCodeBlock
+                files={[
+                  { filename: "login.page.ts", code: pwcoreLoginPageRaw },
+                  { filename: "fixtures.ts", code: pwcoreFixturesRaw },
+                  { filename: "login.test.ts", code: pwcoreLoginTestRaw }
+                ]}
+              />
             </div>
           </div>
 

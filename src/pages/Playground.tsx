@@ -4,6 +4,39 @@ import {
   FlaskConical, Type, ToggleLeft, Table2, Upload, Sparkles, Check, ChevronDown, CheckCircle,
   HelpCircle, Play, Sliders, Grid, RefreshCw, Layers, HelpCircle as HelpIcon
 } from "lucide-react";
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RechartsTooltip,
+  ResponsiveContainer
+} from "recharts";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator
+} from "@/components/ui/Dropdown-Menu";
+import {
+  ChevronUp,
+  ArrowUp,
+  ArrowDown,
+  Search,
+  Filter,
+  MoreHorizontal,
+  AlertTriangle,
+  Info,
+  User,
+  Plus
+} from "lucide-react";
+
+
 
 // Standard templates & layouts
 import SkeuCard from "../components/shared/SkueCard";
@@ -59,6 +92,122 @@ const sampleTableData = [
   { id: 4, name: "Part Delta", category: "Hardware", price: 5.25, stock: 1200 },
   { id: 5, name: "Sensor Epsilon", category: "Electronics", price: 45.00, stock: 88 },
 ];
+
+const dummyLineData = [
+  { name: "Jan", value: 400 },
+  { name: "Feb", value: 300 },
+  { name: "Mar", value: 600 },
+  { name: "Apr", value: 800 },
+  { name: "May", value: 500 },
+  { name: "Jun", value: 700 },
+];
+
+const dummyBarData = [
+  { name: "Mon", value: 120 },
+  { name: "Tue", value: 200 },
+  { name: "Wed", value: 150 },
+  { name: "Thu", value: 80 },
+  { name: "Fri", value: 70 },
+  { name: "Sat", value: 110 },
+  { name: "Sun", value: 130 },
+];
+
+const t1Data = [
+  { id: 1, name: "Alice Vance", email: "alice@example.com", role: "Administrator" },
+  { id: 2, name: "Bob Miller", email: "bob@example.com", role: "Manager" },
+  { id: 3, name: "Charlie Smith", email: "charlie@example.com", role: "Developer" },
+  { id: 4, name: "Diana Prince", email: "diana@example.com", role: "Designer" },
+  { id: 5, name: "Ethan Hunt", email: "ethan@example.com", role: "DevOps Engineer" },
+  { id: 6, name: "Fiona Gallagher", email: "fiona@example.com", role: "Support Specialist" },
+  { id: 7, name: "George Costanza", email: "george@example.com", role: "Product Owner" },
+  { id: 8, name: "Hannah Abbott", email: "hannah@example.com", role: "QA Engineer" },
+];
+
+const t2Data = [
+  { id: 1, name: "MacBook Pro M3", category: "Hardware", price: 1999.00, status: "In Stock" },
+  { id: 2, name: "iPad Pro 11-inch", category: "Hardware", price: 799.00, status: "Low Stock" },
+  { id: 3, name: "Dell 27 Monitor", category: "Peripherals", price: 349.99, status: "In Stock" },
+  { id: 4, name: "Logitech MX Master 3S", category: "Peripherals", price: 99.99, status: "Out of Stock" },
+  { id: 5, name: "Keychron Q1 Keyboard", category: "Peripherals", price: 189.00, status: "In Stock" },
+  { id: 6, name: "USB-C Hub Multiport", category: "Accessories", price: 59.99, status: "In Stock" },
+];
+
+const t3Data = [
+  { id: 1, name: "E-Commerce Re-platform", owner: "Alex K.", status: "In Progress", progress: 65 },
+  { id: 2, name: "SOC2 Compliance Audit", owner: "Sarah T.", status: "Completed", progress: 100 },
+  { id: 3, name: "Mobile App V2 Launch", owner: "Marcus L.", status: "Overdue", progress: 90 },
+  { id: 4, name: "BI Dashboard Integration", owner: "Elena R.", status: "In Progress", progress: 45 },
+  { id: 5, name: "Marketing Website Redesign", owner: "Jane D.", status: "Completed", progress: 100 },
+];
+
+const t4Data = [
+  { id: 101, title: "Database Migration Script", priority: "High", status: "Danger", dueDate: "2026-06-25", assignee: "David W." },
+  { id: 102, title: "API Gateway Rate Limiting", priority: "Medium", status: "Warning", dueDate: "2026-06-28", assignee: "Sophia M." },
+  { id: 103, title: "Billing System Webhook Integration", priority: "High", status: "Danger", dueDate: "2026-06-24", assignee: "Robert C." },
+  { id: 104, title: "Dark Mode Theme Support", priority: "Low", status: "Safe", dueDate: "2026-07-15", assignee: "Emily B." },
+  { id: 105, title: "User Onboarding Walkthrough Plan", priority: "Medium", status: "Safe", dueDate: "2026-07-01", assignee: "Michael K." },
+  { id: 106, title: "Security Vulnerability Patching", priority: "High", status: "Danger", dueDate: "2026-06-26", assignee: "Sarah T." },
+];
+
+const departments = ["Engineering", "Sales", "Marketing", "HR", "Finance"];
+const roles = ["Admin", "Manager", "User", "Support"];
+const statuses = ["Active", "Inactive", "Pending"];
+
+const t5Data = Array.from({ length: 50 }, (_, i) => {
+  const dept = departments[i % departments.length];
+  const role = roles[i % roles.length];
+  const status = statuses[i % statuses.length];
+  const name = [
+    "Alice Smith", "Bob Jones", "Charlie Brown", "Diana Prince", "Ethan Hunt",
+    "Fiona Gallagher", "George Costanza", "Hannah Abbott", "Ian Malcolm", "Julia Roberts",
+    "Kevin Bacon", "Laura Croft", "Michael Scott", "Natalie Portman", "Oscar Wilde",
+    "Penelope Cruz", "Quentin Tarantino", "Rachel Green", "Steve Rogers", "Tony Stark",
+    "Ursula Buffett", "Victor Frankenstein", "Wendy Darling", "Xavier Charles", "Yolanda Adams",
+    "Zachary Levi", "Amy Adams", "Bruce Wayne", "Clark Kent", "Diana Ross",
+    "Emma Watson", "Frank Sinatra", "Grace Kelly", "Harry Potter", "Indiana Jones",
+    "Jack Sparrow", "Katniss Everdeen", "Luke Skywalker", "Marilyn Monroe", "Neo Anderson",
+    "Oliver Twist", "Peter Parker", "Quinn Harley", "Ronald Weasley", "Sherlock Holmes",
+    "Thomas Shelby", "Uma Thurman", "Vito Corleone", "Winston Churchill", "Yoda Grandmaster"
+  ][i] || `User ${i + 1}`;
+  
+  return {
+    id: 1000 + i,
+    name,
+    email: `${name.toLowerCase().replace(/\s+/g, ".")}@example.com`,
+    department: dept,
+    role,
+    status
+  };
+});
+
+const logLevels = ["Info", "Warning", "Error", "Critical"];
+const logComponents = ["AuthService", "BillingAPI", "Database", "UI-Gateway", "Worker-Pool"];
+const logMessages = [
+  "User login success", "Failed login attempt", "Connection timeout on db-primary",
+  "API rate limit exceeded", "Webhook delivered successfully", "Cache eviction completed",
+  "Out of memory warning", "SSL handshake failed", "Disk space low on volume-1",
+  "Payment gateway responding slowly", "Transaction processed successfully", "Configuration reloaded",
+  "Session expired for user", "Invalid authorization token received", "Queries took longer than 500ms",
+  "Background job worker-3 died", "Spawning new worker instance", "File upload failed: validation error",
+  "CSRF token mismatch detected", "Third party endpoint returned 502"
+];
+
+const t6Data = Array.from({ length: 50 }, (_, i) => {
+  const level = logLevels[i % logLevels.length];
+  const component = logComponents[i % logComponents.length];
+  const message = logMessages[i % logMessages.length] + ` (Instance ${Math.floor(i / 10)})`;
+  return {
+    id: 5000 + i,
+    timestamp: new Date(2026, 5, 24, 10, i * 2).toLocaleTimeString(),
+    level,
+    component,
+    message
+  };
+});
+
+
+
+
 
 export default function Playground() {
   const [textVal, setTextVal] = useState("");
@@ -124,6 +273,169 @@ export default function Playground() {
     setMultiSelect((prev) => prev.includes(opt) ? prev.filter((o) => o !== opt) : [...prev, opt]);
   };
 
+  // Table 1 states
+  const [t1Page, setT1Page] = useState(0);
+
+  // Table 2 states
+  const [t2Search, setT2Search] = useState("");
+  const [t2SortCol, setT2SortCol] = useState("name");
+  const [t2SortDir, setT2SortDir] = useState(1);
+  const [t2Page, setT2Page] = useState(0);
+
+  // Table 3 states
+  const [t3StatusFilter, setT3StatusFilter] = useState("all");
+  const [t3Page, setT3Page] = useState(0);
+
+  // Table 4 states
+  const [t4Search, setT4Search] = useState("");
+  const [t4StatusFilter, setT4StatusFilter] = useState("all");
+  const [t4Selected, setT4Selected] = useState([]);
+  const [t4SortCol, setT4SortCol] = useState("dueDate");
+  const [t4SortDir, setT4SortDir] = useState(1);
+  const [t4Page, setT4Page] = useState(0);
+
+  // Table 5 states (Column-wise filters, 50 records)
+  const [t5NameFilter, setT5NameFilter] = useState("");
+  const [t5DeptFilter, setT5DeptFilter] = useState("all");
+  const [t5RoleFilter, setT5RoleFilter] = useState("all");
+  const [t5StatusFilter, setT5StatusFilter] = useState("all");
+  const [t5Page, setT5Page] = useState(0);
+
+  // Table 6 states (Multi-Tag Search Filters, 50 records)
+  const [t6Filters, setT6Filters] = useState([]);
+  const [t6Input, setT6Input] = useState("");
+  const [t6Page, setT6Page] = useState(0);
+
+
+
+  const handleT2Sort = (col) => {
+    if (t2SortCol === col) setT2SortDir(-t2SortDir);
+    else { setT2SortCol(col); setT2SortDir(1); }
+    setT2Page(0);
+  };
+
+  const handleT4Sort = (col) => {
+    if (t4SortCol === col) setT4SortDir(-t4SortDir);
+    else { setT4SortCol(col); setT4SortDir(1); }
+    setT4Page(0);
+  };
+
+  const handleToggleSelectAllT4 = (checked) => {
+    if (checked) {
+      setT4Selected(t4Data.map(item => item.id));
+    } else {
+      setT4Selected([]);
+    }
+  };
+
+  const handleToggleSelectRowT4 = (id, checked) => {
+    if (checked) {
+      setT4Selected(prev => [...prev, id]);
+    } else {
+      setT4Selected(prev => prev.filter(item => item !== id));
+    }
+  };
+
+  const handleT6InputKeyDown = (e) => {
+    if (e.key === "Enter" && t6Input.trim() !== "") {
+      const tag = t6Input.trim().toLowerCase();
+      if (!t6Filters.includes(tag)) {
+        setT6Filters(prev => [...prev, tag]);
+      }
+      setT6Input("");
+      setT6Page(0);
+      e.preventDefault();
+    }
+  };
+
+  const handleRemoveT6Filter = (tag) => {
+    setT6Filters(prev => prev.filter(t => t !== tag));
+    setT6Page(0);
+  };
+
+  const handleClearT6Filters = () => {
+    setT6Filters([]);
+    setT6Page(0);
+  };
+
+
+  // Table 1 Computed
+  const t1Filtered = t1Data;
+  const t1PageSize = 3;
+  const t1PageCount = Math.ceil(t1Filtered.length / t1PageSize);
+  const t1Paged = t1Filtered.slice(t1Page * t1PageSize, (t1Page + 1) * t1PageSize);
+
+  // Table 2 Computed
+  const t2Filtered = t2Data.filter(item =>
+    item.name.toLowerCase().includes(t2Search.toLowerCase()) ||
+    item.category.toLowerCase().includes(t2Search.toLowerCase())
+  );
+  const t2Sorted = [...t2Filtered].sort((a, b) => {
+    const valA = a[t2SortCol];
+    const valB = b[t2SortCol];
+    if (typeof valA === "string") return valA.localeCompare(valB) * t2SortDir;
+    return (valA - valB) * t2SortDir;
+  });
+  const t2PageSize = 3;
+  const t2PageCount = Math.ceil(t2Sorted.length / t2PageSize);
+  const t2Paged = t2Sorted.slice(t2Page * t2PageSize, (t2Page + 1) * t2PageSize);
+
+  // Table 3 Computed
+  const t3Filtered = t3Data.filter(item =>
+    t3StatusFilter === "all" ||
+    item.status.toLowerCase().replace(/\s+/g, "") === t3StatusFilter.toLowerCase()
+  );
+  const t3PageSize = 3;
+  const t3PageCount = Math.ceil(t3Filtered.length / t3PageSize);
+  const t3Paged = t3Filtered.slice(t3Page * t3PageSize, (t3Page + 1) * t3PageSize);
+
+  // Table 4 Computed
+  const t4Filtered = t4Data.filter(item => {
+    const matchSearch = item.title.toLowerCase().includes(t4Search.toLowerCase()) ||
+                        item.assignee.toLowerCase().includes(t4Search.toLowerCase());
+    const matchFilter = t4StatusFilter === "all" ||
+                        item.priority.toLowerCase() === t4StatusFilter.toLowerCase() ||
+                        item.status.toLowerCase() === t4StatusFilter.toLowerCase();
+    return matchSearch && matchFilter;
+  });
+  const t4Sorted = [...t4Filtered].sort((a, b) => {
+    const valA = a[t4SortCol];
+    const valB = b[t4SortCol];
+    return valA.localeCompare(valB) * t4SortDir;
+  });
+  const t4PageSize = 3;
+  const t4PageCount = Math.ceil(t4Sorted.length / t4PageSize);
+  const t4Paged = t4Sorted.slice(t4Page * t4PageSize, (t4Page + 1) * t4PageSize);
+
+  // Table 5 Computed (Column-wise filters, 50 records)
+  const t5Filtered = t5Data.filter(item => {
+    const matchName = item.name.toLowerCase().includes(t5NameFilter.toLowerCase()) ||
+                      item.email.toLowerCase().includes(t5NameFilter.toLowerCase());
+    const matchDept = t5DeptFilter === "all" || item.department === t5DeptFilter;
+    const matchRole = t5RoleFilter === "all" || item.role === t5RoleFilter;
+    const matchStatus = t5StatusFilter === "all" || item.status === t5StatusFilter;
+    return matchName && matchDept && matchRole && matchStatus;
+  });
+  const t5PageSize = 5;
+  const t5PageCount = Math.ceil(t5Filtered.length / t5PageSize);
+  const t5Paged = t5Filtered.slice(t5Page * t5PageSize, (t5Page + 1) * t5PageSize);
+
+  // Table 6 Computed (Multi-Tag Search Filters, 50 records)
+  const t6Filtered = t6Data.filter(item => {
+    if (t6Filters.length === 0) return true;
+    return t6Filters.every(filter =>
+      item.message.toLowerCase().includes(filter) ||
+      item.level.toLowerCase().includes(filter) ||
+      item.component.toLowerCase().includes(filter)
+    );
+  });
+  const t6PageSize = 5;
+  const t6PageCount = Math.ceil(t6Filtered.length / t6PageSize);
+  const t6Paged = t6Filtered.slice(t6Page * t6PageSize, (t6Page + 1) * t6PageSize);
+
+
+
+
   return (
     <div className="notion-page pb-16 max-w-6xl mx-auto px-4">
       {/* Title */}
@@ -149,8 +461,10 @@ export default function Playground() {
       </div>
 
       <TooltipProvider>
-        <Tabs defaultValue="inputs" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 p-1 bg-muted/50 rounded-xl h-12">
+        <Tabs defaultValue="charts" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-4 md:grid-cols-7 p-1 bg-muted/50 rounded-xl h-auto md:h-12 gap-1">
+            <TabsTrigger id="tab-trigger-charts" data-test-id="tab-trigger-charts" data-testid="tab-trigger-charts" value="charts" className="text-xs sm:text-sm font-medium rounded-lg h-10">Charts</TabsTrigger>
+            <TabsTrigger id="tab-trigger-tables" data-test-id="tab-trigger-tables" data-testid="tab-trigger-tables" value="tables" className="text-xs sm:text-sm font-medium rounded-lg h-10">Tables</TabsTrigger>
             <TabsTrigger id="tab-trigger-inputs" data-test-id="tab-trigger-inputs" data-testid="tab-trigger-inputs" value="inputs" className="text-xs sm:text-sm font-medium rounded-lg h-10">Inputs & Selection</TabsTrigger>
             <TabsTrigger id="tab-trigger-buttons" data-test-id="tab-trigger-buttons" data-testid="tab-trigger-buttons" value="buttons" className="text-xs sm:text-sm font-medium rounded-lg h-10">Buttons & Actions</TabsTrigger>
             <TabsTrigger id="tab-trigger-display" data-test-id="tab-trigger-display" data-testid="tab-trigger-display" value="display" className="text-xs sm:text-sm font-medium rounded-lg h-10">Data & Display</TabsTrigger>
@@ -522,7 +836,7 @@ export default function Playground() {
                 <Input className="max-w-xs h-9 text-xs" placeholder="Search by name or category..." value={tableFilter} onChange={(e) => { setTableFilter(e.target.value); setTablePage(0); }} />
               </div>
               
-              <Table id="playground-table" data-test-id="playground-table" data-testid="playground-table">
+              <Table id="display-table" data-test-id="display-table" data-testid="display-table">
                 <TableHeader>
                   <TableRow>
                     {["name", "category", "price", "stock"].map((col) => (
@@ -813,6 +1127,585 @@ export default function Playground() {
                   </div>
                 </div>
               </SkeuCard>
+            </div>
+          </TabsContent>
+
+          {/* TAB 7: TABLES SHOWCASE */}
+          <TabsContent value="tables" className="space-y-8 animate-in fade-in duration-300">
+            <div className="grid md:grid-cols-2 gap-8">
+              
+              {/* TABLE 1: Basic Table with Pagination */}
+              <SkeuCard className="p-6">
+                <SectionHeading icon={Table2} title="1. Basic Table" description="Simple user directory with basic pagination" />
+                <div className="mt-4 border rounded-xl overflow-hidden bg-card">
+                  <Table id="basic-table" data-test-id="basic-table" data-testid="basic-table">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Email</TableHead>
+                        <TableHead>Role</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {t1Paged.map((row) => (
+                        <TableRow key={row.id}>
+                          <TableCell className="font-semibold">{row.name}</TableCell>
+                          <TableCell className="font-mono text-xs">{row.email}</TableCell>
+                          <TableCell className="text-muted-foreground">{row.role}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                  <div className="p-3 border-t border-border flex items-center justify-between bg-muted/10 text-xs">
+                    <span className="text-muted-foreground">Page {t1Page + 1} of {t1PageCount}</span>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setT1Page(prev => Math.max(0, prev - 1))} disabled={t1Page === 0}>Prev</Button>
+                      <Button variant="outline" size="sm" onClick={() => setT1Page(prev => Math.min(t1PageCount - 1, prev + 1))} disabled={t1Page >= t1PageCount - 1}>Next</Button>
+                    </div>
+                  </div>
+                </div>
+              </SkeuCard>
+
+              {/* TABLE 2: Interactive Table with Search & Sort */}
+              <SkeuCard className="p-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                  <SectionHeading icon={Table2} title="2. Search & Sort Table" description="Filter by name/category and sort columns" />
+                  <div className="relative max-w-xs">
+                    <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                    <Input className="pl-8 h-8 text-xs w-[180px]" placeholder="Search catalog..." value={t2Search} onChange={(e) => { setT2Search(e.target.value); setT2Page(0); }} />
+                  </div>
+                </div>
+                <div className="border rounded-xl overflow-hidden bg-card">
+                  <Table id="sort-table" data-test-id="sort-table" data-testid="sort-table">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="cursor-pointer select-none hover:bg-muted/50" onClick={() => handleT2Sort("name")}>
+                          Name {t2SortCol === "name" ? (t2SortDir === 1 ? "↑" : "↓") : ""}
+                        </TableHead>
+                        <TableHead>Category</TableHead>
+                        <TableHead className="cursor-pointer select-none hover:bg-muted/50" onClick={() => handleT2Sort("price")}>
+                          Price {t2SortCol === "price" ? (t2SortDir === 1 ? "↑" : "↓") : ""}
+                        </TableHead>
+                        <TableHead>Status</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {t2Paged.map((row) => (
+                        <TableRow key={row.id}>
+                          <TableCell className="font-semibold">{row.name}</TableCell>
+                          <TableCell>{row.category}</TableCell>
+                          <TableCell className="font-mono">${row.price.toFixed(2)}</TableCell>
+                          <TableCell>
+                            <Badge variant={row.status === "In Stock" ? "outline" : "secondary"} className={row.status === "In Stock" ? "bg-emerald-500/5 text-emerald-500 border-emerald-500/10" : ""}>
+                              {row.status}
+                            </Badge>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                      {t2Paged.length === 0 && (
+                        <TableRow>
+                          <TableCell colSpan={4} className="text-center py-6 text-muted-foreground text-xs">No records found.</TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                  <div className="p-3 border-t border-border flex items-center justify-between bg-muted/10 text-xs">
+                    <span className="text-muted-foreground">Page {t2Page + 1} of {t2PageCount || 1}</span>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setT2Page(prev => Math.max(0, prev - 1))} disabled={t2Page === 0}>Prev</Button>
+                      <Button variant="outline" size="sm" onClick={() => setT2Page(prev => Math.min(t2PageCount - 1, prev + 1))} disabled={t2Page >= t2PageCount - 1 || t2PageCount === 0}>Next</Button>
+                    </div>
+                  </div>
+                </div>
+              </SkeuCard>
+
+              {/* TABLE 3: Complex Table with Icons, Status Pills, and Cell Dropdowns */}
+              <SkeuCard className="p-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                  <SectionHeading icon={Table2} title="3. Status & Dropdown Table" description="Status pills, user icons, and action menus" />
+                  <Select value={t3StatusFilter} onValueChange={(val) => { setT3StatusFilter(val); setT3Page(0); }}>
+                    <SelectTrigger className="w-[140px] h-8 text-xs">
+                      <SelectValue placeholder="Filter status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Projects</SelectItem>
+                      <SelectItem value="completed">Completed</SelectItem>
+                      <SelectItem value="inprogress">In Progress</SelectItem>
+                      <SelectItem value="overdue">Overdue</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="border rounded-xl overflow-hidden bg-card">
+                  <Table id="status-table" data-test-id="status-table" data-testid="status-table">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Project</TableHead>
+                        <TableHead>Lead</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Action</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {t3Paged.map((row) => (
+                        <TableRow key={row.id}>
+                          <TableCell className="font-semibold">{row.name}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-1.5">
+                              <div className="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-600 flex items-center justify-center text-[10px] font-bold">
+                                {row.owner.charAt(0)}
+                              </div>
+                              <span className="text-xs text-muted-foreground">{row.owner}</span>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <Badge className={
+                              row.status === "Completed" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" :
+                              row.status === "In Progress" ? "bg-amber-500/10 text-amber-500 border-amber-500/20" :
+                              "bg-destructive/10 text-destructive border-destructive/20"
+                            } variant="outline">
+                              {row.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-7 w-7 p-0 ml-auto">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end" className="text-xs">
+                                <DropdownMenuLabel>Project Actions</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem onClick={() => toast({ title: `Viewing ${row.name}` })}>View Details</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => toast({ title: `Updating ${row.name}` })}>Edit Project</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                      {t3Paged.length === 0 && (
+                        <TableRow>
+                          <TableCell colSpan={4} className="text-center py-6 text-muted-foreground text-xs">No projects match filter.</TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                  <div className="p-3 border-t border-border flex items-center justify-between bg-muted/10 text-xs">
+                    <span className="text-muted-foreground">Page {t3Page + 1} of {t3PageCount || 1}</span>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setT3Page(prev => Math.max(0, prev - 1))} disabled={t3Page === 0}>Prev</Button>
+                      <Button variant="outline" size="sm" onClick={() => setT3Page(prev => Math.min(t3PageCount - 1, prev + 1))} disabled={t3Page >= t3PageCount - 1 || t3PageCount === 0}>Next</Button>
+                    </div>
+                  </div>
+                </div>
+              </SkeuCard>
+
+              {/* TABLE 4: Advanced Interactive Table with Sort Indicators (Raise & Down arrows), Multi-Select checkboxes, Inline Action Dropdowns, Advanced Filters, and Status Badge */}
+              <SkeuCard className="p-6 col-span-1 md:col-span-2">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                  <div>
+                    <SectionHeading icon={Table2} title="4. Advanced Task Board" description="Sorting with raise/down arrows, checkboxes, and nested action menus" />
+                    {t4Selected.length > 0 && (
+                      <p className="text-xs text-indigo-500 font-medium mt-1">
+                        {t4Selected.length} row(s) selected for bulk actions
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="relative">
+                      <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                      <Input className="pl-8 h-8 text-xs w-[160px]" placeholder="Search tasks..." value={t4Search} onChange={(e) => { setT4Search(e.target.value); setT4Page(0); }} />
+                    </div>
+                    <Select value={t4StatusFilter} onValueChange={(val) => { setT4StatusFilter(val); setT4Page(0); }}>
+                      <SelectTrigger className="w-[120px] h-8 text-xs">
+                        <SelectValue placeholder="Priority" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Priorities</SelectItem>
+                        <SelectItem value="high">High</SelectItem>
+                        <SelectItem value="medium">Medium</SelectItem>
+                        <SelectItem value="low">Low</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {t4Selected.length > 0 && (
+                      <Button size="sm" className="h-8 text-xs" variant="destructive" onClick={() => {
+                        toast({ title: `Bulk deleted ${t4Selected.length} tasks` });
+                        setT4Selected([]);
+                      }}>
+                        Bulk Delete
+                      </Button>
+                    )}
+                  </div>
+                </div>
+                <div className="border rounded-xl overflow-hidden bg-card">
+                  <Table id="advanced-table" data-test-id="advanced-table" data-testid="advanced-table">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-12 text-center">
+                          <Checkbox checked={t4Selected.length === t4Paged.length && t4Paged.length > 0} onCheckedChange={(val) => handleToggleSelectAllT4(!!val)} />
+                        </TableHead>
+                        <TableHead className="cursor-pointer select-none hover:bg-muted/50" onClick={() => handleT4Sort("title")}>
+                          <div className="flex items-center gap-1">
+                            Title
+                            <div className="flex flex-col">
+                              <ChevronUp className={`w-3 h-3 -mb-1 ${t4SortCol === "title" && t4SortDir === 1 ? "text-indigo-600 font-bold" : "text-muted-foreground/30"}`} />
+                              <ChevronDown className={`w-3 h-3 ${t4SortCol === "title" && t4SortDir === -1 ? "text-indigo-600 font-bold" : "text-muted-foreground/30"}`} />
+                            </div>
+                          </div>
+                        </TableHead>
+                        <TableHead>Priority</TableHead>
+                        <TableHead className="cursor-pointer select-none hover:bg-muted/50" onClick={() => handleT4Sort("dueDate")}>
+                          <div className="flex items-center gap-1">
+                            Due Date
+                            <div className="flex flex-col">
+                              <ChevronUp className={`w-3 h-3 -mb-1 ${t4SortCol === "dueDate" && t4SortDir === 1 ? "text-indigo-600 font-bold" : "text-muted-foreground/30"}`} />
+                              <ChevronDown className={`w-3 h-3 ${t4SortCol === "dueDate" && t4SortDir === -1 ? "text-indigo-600 font-bold" : "text-muted-foreground/30"}`} />
+                            </div>
+                          </div>
+                        </TableHead>
+                        <TableHead>Assignee</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right w-20">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {t4Paged.map((row) => (
+                        <TableRow key={row.id} className={t4Selected.includes(row.id) ? "bg-indigo-500/5 hover:bg-indigo-500/10" : ""}>
+                          <TableCell className="text-center">
+                            <Checkbox checked={t4Selected.includes(row.id)} onCheckedChange={(val) => handleToggleSelectRowT4(row.id, !!val)} />
+                          </TableCell>
+                          <TableCell className="font-semibold">{row.title}</TableCell>
+                          <TableCell>
+                            <Badge variant="outline" className={
+                              row.priority === "High" ? "border-rose-500/30 text-rose-500 bg-rose-500/5" :
+                              row.priority === "Medium" ? "border-amber-500/30 text-amber-500 bg-amber-500/5" :
+                              "border-slate-500/30 text-slate-500 bg-slate-500/5"
+                            }>
+                              {row.priority}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="font-mono text-xs">{row.dueDate}</TableCell>
+                          <TableCell className="text-xs text-muted-foreground">{row.assignee}</TableCell>
+                          <TableCell>
+                            <span id={row.status} className={`inline-flex items-center px-2 py-0.5 rounded-full text-2xs font-semibold ${
+                              row.status === "Danger" ? "bg-rose-500/10 text-rose-500" :
+                              row.status === "Warning" ? "bg-amber-500/10 text-amber-500" :
+                              "bg-emerald-500/10 text-emerald-500"
+                            }`}>
+                              {row.status === "Danger" ? "Danger" : row.status === "Warning" ? "Warning" : "Safe"}
+                            </span>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-7 w-7 p-0 ml-auto">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end" className="text-xs">
+                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem onClick={() => toast({ title: `Editing Task: ${row.title}` })}>Edit Task</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => toast({ title: `Completed Task: ${row.title}` })}>Mark Completed</DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem className="text-destructive" onClick={() => {
+                                  toast({ title: `Deleted Task: ${row.title}` });
+                                  setT4Selected(prev => prev.filter(id => id !== row.id));
+                                }}>Delete</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                      {t4Paged.length === 0 && (
+                        <TableRow>
+                          <TableCell colSpan={7} className="text-center py-8 text-muted-foreground text-xs">No tasks match selected filter criteria.</TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                  <div className="p-3 border-t border-border flex items-center justify-between bg-muted/10 text-xs">
+                    <span className="text-muted-foreground">Page {t4Page + 1} of {t4PageCount || 1}</span>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setT4Page(prev => Math.max(0, prev - 1))} disabled={t4Page === 0}>Prev</Button>
+                      <Button variant="outline" size="sm" onClick={() => setT4Page(prev => Math.min(t4PageCount - 1, prev + 1))} disabled={t4Page >= t4PageCount - 1 || t4PageCount === 0}>Next</Button>
+                    </div>
+                  </div>
+                </div>
+              </SkeuCard>
+
+              {/* TABLE 5: Table with Column-wise filters (50 records) */}
+              <SkeuCard className="p-6 col-span-1 md:col-span-2">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                  <SectionHeading icon={Table2} title="5. Directory with Column Filters (50 Records)" description="Table showcasing filters on every individual column" />
+                  <div className="text-xs text-muted-foreground font-mono bg-muted/30 px-3 py-1.5 rounded-lg border">
+                    Filtered: {t5Filtered.length} / 50 records
+                  </div>
+                </div>
+                <div className="border rounded-xl overflow-hidden bg-card">
+                  <Table id="filter-table" data-test-id="filter-table" data-testid="filter-table">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>
+                          <div className="space-y-1.5 py-1">
+                            <span className="font-semibold text-xs block">Name / Email</span>
+                            <Input className="h-7 text-xs w-[140px] px-2 font-normal" placeholder="Filter name..." value={t5NameFilter} onChange={(e) => { setT5NameFilter(e.target.value); setT5Page(0); }} />
+                          </div>
+                        </TableHead>
+                        <TableHead>
+                          <div className="space-y-1.5 py-1">
+                            <span className="font-semibold text-xs block">Department</span>
+                            <Select value={t5DeptFilter} onValueChange={(val) => { setT5DeptFilter(val); setT5Page(0); }}>
+                              <SelectTrigger className="w-[120px] h-7 text-[11px] font-normal px-2">
+                                <SelectValue placeholder="All" />
+                              </SelectTrigger>
+                              <SelectContent className="text-xs">
+                                <SelectItem value="all">All Depts</SelectItem>
+                                {departments.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </TableHead>
+                        <TableHead>
+                          <div className="space-y-1.5 py-1">
+                            <span className="font-semibold text-xs block">Role</span>
+                            <Select value={t5RoleFilter} onValueChange={(val) => { setT5RoleFilter(val); setT5Page(0); }}>
+                              <SelectTrigger className="w-[110px] h-7 text-[11px] font-normal px-2">
+                                <SelectValue placeholder="All" />
+                              </SelectTrigger>
+                              <SelectContent className="text-xs">
+                                <SelectItem value="all">All Roles</SelectItem>
+                                {roles.map(r => <SelectItem key={r} value={r}>{r}</SelectItem>)}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </TableHead>
+                        <TableHead>
+                          <div className="space-y-1.5 py-1">
+                            <span className="font-semibold text-xs block">Status</span>
+                            <Select value={t5StatusFilter} onValueChange={(val) => { setT5StatusFilter(val); setT5Page(0); }}>
+                              <SelectTrigger className="w-[110px] h-7 text-[11px] font-normal px-2">
+                                <SelectValue placeholder="All" />
+                              </SelectTrigger>
+                              <SelectContent className="text-xs">
+                                <SelectItem value="all">All Status</SelectItem>
+                                {statuses.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {t5Paged.map((row) => (
+                        <TableRow key={row.id}>
+                          <TableCell>
+                            <div>
+                              <p className="font-semibold text-xs">{row.name}</p>
+                              <p className="text-3xs text-muted-foreground font-mono">{row.email}</p>
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-xs">{row.department}</TableCell>
+                          <TableCell className="text-xs text-muted-foreground">{row.role}</TableCell>
+                          <TableCell>
+                            <Badge className={
+                              row.status === "Active" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" :
+                              row.status === "Inactive" ? "bg-destructive/10 text-destructive border-destructive/20" :
+                              "bg-amber-500/10 text-amber-500 border-amber-500/20"
+                            } variant="outline">
+                              {row.status}
+                            </Badge>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                      {t5Paged.length === 0 && (
+                        <TableRow>
+                          <TableCell colSpan={4} className="text-center py-10 text-muted-foreground text-xs">No records found matching filters.</TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                  <div className="p-3 border-t border-border flex items-center justify-between bg-muted/10 text-xs">
+                    <span className="text-muted-foreground">Page {t5Page + 1} of {t5PageCount || 1}</span>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setT5Page(prev => Math.max(0, prev - 1))} disabled={t5Page === 0}>Prev</Button>
+                      <Button variant="outline" size="sm" onClick={() => setT5Page(prev => Math.min(t5PageCount - 1, prev + 1))} disabled={t5Page >= t5PageCount - 1 || t5PageCount === 0}>Next</Button>
+                    </div>
+                  </div>
+                </div>
+              </SkeuCard>
+
+              {/* TABLE 6: Search Text Filters with Tag Pills inside input box */}
+              <SkeuCard className="p-6 col-span-1 md:col-span-2">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+                  <div>
+                    <SectionHeading icon={Table2} title="6. Log Explorer (Multi-Tag Search)" description="Type search query and press Enter to lock it as a filter tag" />
+                    {t6Filters.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mt-2">
+                        {t6Filters.map(tag => (
+                          <Badge key={tag} variant="secondary" className="text-[10px] py-0.5 px-2 bg-indigo-500/10 text-indigo-600 border border-indigo-500/20 flex items-center gap-1">
+                            {tag}
+                            <button className="text-indigo-600 hover:text-indigo-900 text-[8px] font-bold" onClick={() => handleRemoveT6Filter(tag)}>✕</button>
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="relative flex items-center w-full max-w-xs">
+                    <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                    <Input
+                      className="pl-8 pr-10 h-9 text-xs"
+                      placeholder="Type filter and press Enter..."
+                      value={t6Input}
+                      onChange={(e) => setT6Input(e.target.value)}
+                      onKeyDown={handleT6InputKeyDown}
+                    />
+                    {t6Filters.length > 0 && (
+                      <span
+                        className="absolute right-2.5 bg-indigo-600 text-white rounded-full text-[10px] w-5 h-5 flex items-center justify-center font-bold shadow-sm cursor-pointer hover:bg-indigo-700 select-none animate-in scale-in duration-200"
+                        onClick={handleClearT6Filters}
+                        title="Clear all filters"
+                      >
+                        {t6Filters.length}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="border rounded-xl overflow-hidden bg-card">
+                  <Table id="tag-table" data-test-id="tag-table" data-testid="tag-table">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[120px]">Timestamp</TableHead>
+                        <TableHead className="w-[100px]">Level</TableHead>
+                        <TableHead className="w-[140px]">Component</TableHead>
+                        <TableHead>Message</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {t6Paged.map((row) => (
+                        <TableRow key={row.id}>
+                          <TableCell className="font-mono text-2xs text-muted-foreground">{row.timestamp}</TableCell>
+                          <TableCell>
+                            <Badge className={
+                              row.level === "Critical" || row.level === "Error" ? "bg-rose-500/10 text-rose-500 border-rose-500/20" :
+                              row.level === "Warning" ? "bg-amber-500/10 text-amber-500 border-amber-500/20" :
+                              "bg-slate-500/10 text-slate-500 border-slate-500/20"
+                            } variant="outline">
+                              {row.level}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="font-semibold text-xs">{row.component}</TableCell>
+                          <TableCell className="font-mono text-2xs truncate max-w-md">{row.message}</TableCell>
+                        </TableRow>
+                      ))}
+                      {t6Paged.length === 0 && (
+                        <TableRow>
+                          <TableCell colSpan={4} className="text-center py-10 text-muted-foreground text-xs">No logs match active filter tags.</TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                  <div className="p-3 border-t border-border flex items-center justify-between bg-muted/10 text-xs">
+                    <span className="text-muted-foreground">Page {t6Page + 1} of {t6PageCount || 1}</span>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setT6Page(prev => Math.max(0, prev - 1))} disabled={t6Page === 0}>Prev</Button>
+                      <Button variant="outline" size="sm" onClick={() => setT6Page(prev => Math.min(t6PageCount - 1, prev + 1))} disabled={t6Page >= t6PageCount - 1 || t6PageCount === 0}>Next</Button>
+                    </div>
+                  </div>
+                </div>
+              </SkeuCard>
+
+            </div>
+          </TabsContent>
+
+          {/* TAB 6: CHARTS SHOWCASE */}
+          <TabsContent value="charts" className="space-y-6 animate-in fade-in duration-300">
+            <div className="grid md:grid-cols-2 gap-6">
+              
+              {/* Active Line Chart */}
+              <SkeuCard className="p-6 relative">
+                <div className="absolute top-4 right-4 flex gap-2">
+                  <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20" id="Safe">
+                    Safe
+                  </Badge>
+                </div>
+                <SectionHeading icon={Sliders} title="Active Line Chart" description="Live telemetry line chart view" />
+                <div className="h-[300px] w-full mt-4" data-test-id="active-line-chart" data-testid="active-line-chart">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={dummyLineData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted/30" />
+                      <XAxis dataKey="name" className="fill-muted-foreground text-xs" />
+                      <YAxis className="fill-muted-foreground text-xs" />
+                      <RechartsTooltip contentStyle={{ backgroundColor: 'hsl(var(--background))', borderColor: 'hsl(var(--border))' }} labelStyle={{ color: 'hsl(var(--foreground))' }} />
+                      <Line type="monotone" dataKey="value" stroke="#6366f1" strokeWidth={3} activeDot={{ r: 8 }} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </SkeuCard>
+
+              {/* Inactive Line Chart */}
+              <SkeuCard className="p-6 relative opacity-60 grayscale-[30%]">
+                <div className="absolute top-4 right-4 flex gap-2">
+                  <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20" id="Safe">
+                    Safe
+                  </Badge>
+                </div>
+                <SectionHeading icon={Sliders} title="Inactive Line Chart" description="Offline telemetry line chart view" />
+                <div className="h-[300px] w-full mt-4" data-test-id="inactive-line-chart" data-testid="inactive-line-chart">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={dummyLineData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted/10" />
+                      <XAxis dataKey="name" className="fill-muted-foreground/30 text-xs" />
+                      <YAxis className="fill-muted-foreground/30 text-xs" />
+                      <RechartsTooltip contentStyle={{ backgroundColor: 'hsl(var(--background))', borderColor: 'hsl(var(--border))' }} labelStyle={{ color: 'hsl(var(--foreground))' }} />
+                      <Line type="monotone" dataKey="value" stroke="#94a3b8" strokeWidth={2} dot={false} activeDot={false} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </SkeuCard>
+
+              {/* Active Bar Chart */}
+              <SkeuCard className="p-6 relative">
+                <div className="absolute top-4 right-4 flex gap-2">
+                  <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20" id="Danger">
+                    Danger
+                  </Badge>
+                </div>
+                <SectionHeading icon={Grid} title="Active Bar Chart" description="Live resource usage bar chart view" />
+                <div className="h-[300px] w-full mt-4" data-test-id="active-bar-chart" data-testid="active-bar-chart">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={dummyBarData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted/30" />
+                      <XAxis dataKey="name" className="fill-muted-foreground text-xs" />
+                      <YAxis className="fill-muted-foreground text-xs" />
+                      <RechartsTooltip contentStyle={{ backgroundColor: 'hsl(var(--background))', borderColor: 'hsl(var(--border))' }} labelStyle={{ color: 'hsl(var(--foreground))' }} />
+                      <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </SkeuCard>
+
+              {/* Inactive Bar Chart */}
+              <SkeuCard className="p-6 relative opacity-60 grayscale-[30%]">
+                <div className="absolute top-4 right-4 flex gap-2">
+                  <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20" id="Danger">
+                    Danger
+                  </Badge>
+                </div>
+                <SectionHeading icon={Grid} title="Inactive Bar Chart" description="Offline resource usage bar chart view" />
+                <div className="h-[300px] w-full mt-4" data-test-id="inactive-bar-chart" data-testid="inactive-bar-chart">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={dummyBarData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted/10" />
+                      <XAxis dataKey="name" className="fill-muted-foreground/30 text-xs" />
+                      <YAxis className="fill-muted-foreground/30 text-xs" />
+                      <RechartsTooltip contentStyle={{ backgroundColor: 'hsl(var(--background))', borderColor: 'hsl(var(--border))' }} labelStyle={{ color: 'hsl(var(--foreground))' }} />
+                      <Bar dataKey="value" fill="#94a3b8" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </SkeuCard>
+
             </div>
           </TabsContent>
         </Tabs>

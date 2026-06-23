@@ -580,9 +580,11 @@ button[role="switch"][data-state="checked"] {
 [role="menuitem"]:not([data-state="active"]):hover,
 .hover\:bg-muted\/30:hover,
 tr:hover td,
-a:not(.active):not(.text-transparent):not(#top-nav-logo):hover,
-button:not(.active):not([data-state="active"]):not([aria-selected="true"]):not(.skeu-button-primary):not(.bg-primary):not(.bg-emerald-600):not(.bg-amber-600):not(.bg-destructive):not([class*="bg-destructive"]):not([class*="bg-red-"]):not([id*="active-workspace-btn"]):not([id*="workspace-dropdown-arrow"]):not([id*="switch-to-"]):hover {
+a:not(.active):not(.text-transparent):not(#top-nav-logo):hover {
   color: #F97316 !important;
+}
+button:not(.active):not([data-state="active"]):not([aria-selected="true"]):not(.skeu-button-primary):not(.bg-primary):not(.bg-emerald-600):not(.bg-amber-600):not(.bg-destructive):not([class*="bg-destructive"]):not([class*="bg-red-"]):not([id*="active-workspace-btn"]):not([id*="workspace-dropdown-arrow"]):not([id*="switch-to-"]):hover {
+  color: #000000 !important;
 }
 
 /* Skeuomorphic style and cursor pointer for options/menuitems on hover */

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, LayoutDashboard, FlaskConical, FileCode2, LogOut, Moon, Sun, BookOpen, Shuffle, ChevronDown } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
-import { useHeader } from "@/lib/HeaderContext";
+import { useHeader, HEADERS } from "@/lib/HeaderContext";
 
 export default function TopNav() {
   const { isAuthenticated, logout } = useAuth();
@@ -54,8 +54,9 @@ export default function TopNav() {
   };
 
   const activeWorkspace = getActiveWorkspace();
-  const isLandingPage = ["/pw-core", "/k6-core", "/"].includes(location.pathname);
+  const isLandingPage = ["/", ...HEADERS.map(h => `/${h}`)].includes(location.pathname);
   const isDull = isLandingPage && activeWorkspace.label === "QA Workspace";
+  const hasHeaderInPath = HEADERS.some(h => location.pathname === `/${h}` || location.pathname.startsWith(`/${h}/`));
 
   return (
     <header id="top-nav" data-test-id="top-nav" data-testid="top-nav" className="sticky top-0 z-50 border-b border-border bg-background">
@@ -64,72 +65,85 @@ export default function TopNav() {
         <div className="flex justify-start items-center gap-2.5">
           <img src="/logo.png" alt="Logo" className="h-8 object-contain shrink-0" />
           <div className="flex items-center gap-3 select-none">
-            {activeHeader === "pw-core" ? (
-              <>
-                <Link
-                  to="/pw-core"
-                  id="top-nav-logo"
-                  data-test-id="top-nav-logo"
-                  data-testid="top-nav-logo"
-                  className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity w-[78px] md:w-[88px] inline-flex items-center"
-                  style={{
-                    fontFamily: "'Outfit', sans-serif",
-                    backgroundImage: "linear-gradient(135deg, hsl(38, 92%, 55%), hsl(25, 95%, 53%))",
-                  }}
-                >
-                  PW-Core
-                </Link>
-                <Shuffle
-                  id="header-shuffle"
-                  data-test-id="header-shuffle"
-                  data-testid="header-shuffle"
-                  onClick={handleShuffle}
-                  className="w-3.5 h-3.5 text-muted-foreground/60 hover:text-foreground hover:rotate-180 transition-all duration-300 cursor-pointer shrink-0 mx-0.5"
-                />
-                <button
-                  id="switch-to-k6-core"
-                  data-test-id="switch-to-k6-core"
-                  data-testid="switch-to-k6-core"
-                  onClick={() => setActiveHeader("k6-core")}
-                  className="w-[70px] inline-flex items-center justify-center py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 transition-all border border-border/50 shrink-0"
-                  style={{ fontFamily: "'Outfit', sans-serif" }}
-                >
-                  K6-Core
-                </button>
-              </>
+            {hasHeaderInPath ? (
+              activeHeader === "pw-core" ? (
+                <>
+                  <Link
+                    to="/pw-core"
+                    id="top-nav-logo"
+                    data-test-id="top-nav-logo"
+                    data-testid="top-nav-logo"
+                    className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity w-[78px] md:w-[88px] inline-flex items-center"
+                    style={{
+                      fontFamily: "'Outfit', sans-serif",
+                      backgroundImage: "linear-gradient(135deg, hsl(38, 92%, 55%), hsl(25, 95%, 53%))",
+                    }}
+                  >
+                    PW-Core
+                  </Link>
+                  <Shuffle
+                    id="header-shuffle"
+                    data-test-id="header-shuffle"
+                    data-testid="header-shuffle"
+                    onClick={handleShuffle}
+                    className="w-3.5 h-3.5 text-muted-foreground/60 hover:text-foreground hover:rotate-180 transition-all duration-300 cursor-pointer shrink-0 mx-0.5"
+                  />
+                  <button
+                    id="switch-to-k6-core"
+                    data-test-id="switch-to-k6-core"
+                    data-testid="switch-to-k6-core"
+                    onClick={() => setActiveHeader("k6-core")}
+                    className="w-[70px] inline-flex items-center justify-center py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 transition-all border border-border/50 shrink-0"
+                    style={{ fontFamily: "'Outfit', sans-serif" }}
+                  >
+                    K6-Core
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/k6-core"
+                    id="top-nav-logo"
+                    data-test-id="top-nav-logo"
+                    data-testid="top-nav-logo"
+                    className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity w-[78px] md:w-[88px] inline-flex items-center"
+                    style={{
+                      fontFamily: "'Outfit', sans-serif",
+                      backgroundImage: "linear-gradient(135deg, hsl(260, 92%, 65%), hsl(280, 95%, 55%))",
+                    }}
+                  >
+                    K6-Core
+                  </Link>
+                  <Shuffle
+                    id="header-shuffle"
+                    data-test-id="header-shuffle"
+                    data-testid="header-shuffle"
+                    onClick={handleShuffle}
+                    className="w-3.5 h-3.5 text-muted-foreground/60 hover:text-foreground hover:rotate-180 transition-all duration-300 cursor-pointer shrink-0 mx-0.5"
+                  />
+                  <button
+                    id="switch-to-pw-core"
+                    data-test-id="switch-to-pw-core"
+                    data-testid="switch-to-pw-core"
+                    onClick={() => setActiveHeader("pw-core")}
+                    className="w-[70px] inline-flex items-center justify-center py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 transition-all border border-border/50 shrink-0"
+                    style={{ fontFamily: "'Outfit', sans-serif" }}
+                  >
+                    PW-Core
+                  </button>
+                </>
+              )
             ) : (
-              <>
-                <Link
-                  to="/k6-core"
-                  id="top-nav-logo"
-                  data-test-id="top-nav-logo"
-                  data-testid="top-nav-logo"
-                  className="text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r bg-clip-text text-transparent hover:opacity-90 transition-opacity w-[78px] md:w-[88px] inline-flex items-center"
-                  style={{
-                    fontFamily: "'Outfit', sans-serif",
-                    backgroundImage: "linear-gradient(135deg, hsl(260, 92%, 65%), hsl(280, 95%, 55%))",
-                  }}
-                >
-                  K6-Core
-                </Link>
-                <Shuffle
-                  id="header-shuffle"
-                  data-test-id="header-shuffle"
-                  data-testid="header-shuffle"
-                  onClick={handleShuffle}
-                  className="w-3.5 h-3.5 text-muted-foreground/60 hover:text-foreground hover:rotate-180 transition-all duration-300 cursor-pointer shrink-0 mx-0.5"
-                />
-                <button
-                  id="switch-to-pw-core"
-                  data-test-id="switch-to-pw-core"
-                  data-testid="switch-to-pw-core"
-                  onClick={() => setActiveHeader("pw-core")}
-                  className="w-[70px] inline-flex items-center justify-center py-1 rounded-full text-xs font-semibold text-muted-foreground bg-secondary/50 transition-all border border-border/50 shrink-0"
-                  style={{ fontFamily: "'Outfit', sans-serif" }}
-                >
-                  PW-Core
-                </button>
-              </>
+              <Link
+                to={`/${activeHeader}`}
+                id="go-back-to-docs"
+                data-test-id="go-back-to-docs"
+                data-testid="go-back-to-docs"
+                className="text-xs font-semibold text-muted-foreground/50 hover:text-foreground transition-all duration-200 transform scale-90 hover:scale-95 flex items-center gap-1.5 bg-secondary/20 px-2.5 py-1 rounded-md border border-border/30"
+              >
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>Go back to Docs</span>
+              </Link>
             )}
           </div>
         </div>

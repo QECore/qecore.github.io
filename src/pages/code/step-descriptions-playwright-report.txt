@@ -1,0 +1,16 @@
+test.step("Fill Billing Details - John Doe - 90210", async () => {
+  await locator.fill();
+  await locator.fill();
+});
+test.step("Login", async () => {
+  await locator.click();
+});
+test.step("Open - transactions", async () => {
+  await locator.click();
+});
+test.step("Toggle Logo - enable", async () => {
+  await locator.click();
+});
+test.step("Verify Logo - enabled", async () => {
+  await expect.toBeVisible();
+});

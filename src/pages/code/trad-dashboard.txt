@@ -1,0 +1,40 @@
+// dashboard.page.ts
+import { Locator, Page } from "@playwright/test";
+
+export class DashboardPage {
+  salesChartContainer: Locator;
+  salesTableContainer: Locator;
+  ordersChartContainer: Locator;
+  ordersTableContainer: Locator;
+  tasksChartContainer: Locator;
+  tasksTableContainer: Locator;
+
+  activeBadge: Locator;
+  inactiveBadge: Locator;
+
+  constructor(private page: Page) {
+    this.salesChartContainer = page.locator(".sales-chart-container");
+    this.salesTableContainer = page.locator(".sales-table-container");
+
+    this.ordersChartContainer = page.locator(".orders-chart-container");
+    this.ordersTableContainer = page.locator(".orders-table-container");
+
+    this.tasksChartContainer = page.locator(".tasks-chart-container");
+    this.tasksTableContainer = page.locator(".tasks-table-container");
+
+    this.activeBadge = page.getByTestId("active-badge");
+    this.inactiveBadge = page.getByTestId("inactive-badge");
+  }
+}
+
+// dashboard.spec.ts
+import { expect, test } from "@playwright/test";
+import { DashboardPage } from "./dashboard.page";
+
+test("dashboard widgets", async ({ page }) => {
+  const dashboard = new DashboardPage(page);
+  await dashboard.salesChartContainer.click();
+  await expect(dashboard.activeBadge).toBeVisible();
+  await dashboard.tasksTableContainer.click();
+  await expect(dashboard.inactiveBadge).toBeVisible();
+});

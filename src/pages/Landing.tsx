@@ -169,14 +169,14 @@ function GlitchCommand() {
 
       <div className="pl-3.5 font-mono text-xs flex items-center text-slate-200 flex-1 whitespace-nowrap">
         <span className="text-slate-400 select-none mr-2">$</span>
-        <span>npm 
+        <span>npm
           <span className="text-amber-500 font-bold tracking-wide transition-all duration-150 inline-block min-w-[56px] text-center">
             {displayText}
           </span>
-           pw-core
-           <span className="text-rose-700 font-bold tracking-wide transition-all duration-150 inline-block min-w-[56px] text-center">
+          pw-core
+          <span className="text-rose-700 font-bold tracking-wide transition-all duration-150 inline-block min-w-[56px] text-center">
             @latest
-           </span>
+          </span>
         </span>
       </div>
 
@@ -452,14 +452,14 @@ function ScalingInsightCard() {
   //   -> Reduction: ~63 chars per locator. With 8 locators: ~504 chars saved per page.
   // - Chaining locators & shortened method calls (e.g. login.fill('name', 'val') vs loginPage.name.fill('val'))
   //   -> Saves ~25 chars per method call. With 5 action calls per test: ~125 chars saved per test.
-  
+
   // Traditional calculations:
   // - Base boilerplate (imports, fixtures, etc.): ~350 chars
   // - Per Page: Page Object Class structure (~400 chars) + 8 locators definition (~680 chars) = ~1080 chars
   // - Per Test: Test boilerplate (~300 chars) + 5 action calls (~200 chars) = ~500 chars
   const tradFiles = 2 * pages + 1;
   const tradChars = 1580 * pages + 350;
-  
+
   // PW-Core calculations:
   // - Base boilerplate (registry imports & setup): ~250 chars
   // - Per Page: Registry entry config (~80 chars) + 8 selectors (~176 chars) = ~256 chars
@@ -553,12 +553,12 @@ function ScalingInsightCard() {
                 {pages} Page{pages === 1 ? '' : 's'}
               </span>
             </div>
-            
-            <input 
-              type="range" 
-              min="1" 
-              max="15" 
-              value={pages} 
+
+            <input
+              type="range"
+              min="1"
+              max="15"
+              value={pages}
               onChange={(e) => setPages(Number(e.target.value))}
               className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500 shadow-[inset_0_1px_3px_rgba(0,0,0,0.6)]"
             />
@@ -591,7 +591,7 @@ function ScalingInsightCard() {
                       </span>
                     </div>
                     <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className="h-full bg-gradient-to-r from-red-600 to-rose-500 transition-all duration-300"
                         style={{ width: `${Math.min(100, (tradFiles / 31) * 100)}%` }}
                       />
@@ -612,7 +612,7 @@ function ScalingInsightCard() {
                       </span>
                     </div>
                     <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className="h-full bg-gradient-to-r from-amber-600 to-amber-400 transition-all duration-300"
                         style={{ width: `${Math.min(100, (coreFiles / 31) * 100)}%` }}
                       />
@@ -645,7 +645,7 @@ function ScalingInsightCard() {
                       </span>
                     </div>
                     <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className="h-full bg-gradient-to-r from-red-600 to-rose-500 transition-all duration-300"
                         style={{ width: `${Math.min(100, (tradChars / maxPossibleChars) * 100)}%` }}
                       />
@@ -666,7 +666,7 @@ function ScalingInsightCard() {
                       </span>
                     </div>
                     <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className="h-full bg-gradient-to-r from-amber-600 to-amber-400 transition-all duration-300"
                         style={{ width: `${Math.min(100, (coreChars / maxPossibleChars) * 100)}%` }}
                       />
@@ -691,7 +691,7 @@ function ScalingInsightCard() {
             <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400/80 block select-none">
               Metrics Insight
             </span>
-            
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={pages}
@@ -704,7 +704,7 @@ function ScalingInsightCard() {
                 <div className="text-xl font-extrabold text-foreground tracking-tight font-heading leading-tight">
                   At {pages} Page{pages === 1 ? '' : 's'}
                 </div>
-                
+
                 <div className="text-xs text-muted-foreground leading-relaxed font-sans space-y-3">
                   {dynamicContent.paragraphs.map((para, idx) => (
                     <p key={idx}>{para}</p>
@@ -836,7 +836,7 @@ function ScalingCodeComparison() {
               Traditional Playwright (Framework Scaling)
             </span>
             <pre className="font-mono text-xs text-slate-300 bg-black/60 p-4 rounded-lg border border-white/5 leading-relaxed overflow-x-auto select-all">
-{`class LoginPage {}
+              {`class LoginPage {}
 class UsersPage {}
 class ProductsPage {}
 class SettingsPage {}
@@ -856,7 +856,7 @@ class ReportsPage {}
               PW-Core (Configuration Scaling)
             </span>
             <pre className="font-mono text-xs text-slate-300 bg-black/60 p-4 rounded-lg border border-white/5 leading-relaxed overflow-x-auto select-all">
-{`createPageRegistry({
+              {`createPageRegistry({
   login: {...},
   users: {...},
   products: {...},
@@ -875,17 +875,25 @@ class ReportsPage {}
 }
 
 const sections = [
-  { id: "hero", label: "Overview" },
+  { id: "overview", label: "Overview" },
   { id: "why-pw-core", label: "Registry → Runtime → Tests" },
   { id: "why-not-playwright", label: "Playwright vs PW-Core" },
-  { id: "docs-registry", label: "Page Registry" },
-  { id: "docs-typed-examples", label: "Typed Page" },
-  { id: "docs-features", label: "Features" },
+  { id: "registry", label: "Page Registry" },
+  { id: "typed-page", label: "Typed Page" },
+  { id: "features", label: "Features" },
+  { id: "features-dynamic-locators", label: "Dynamic Locators", isSub: true, parentId: "features" },
+  { id: "features-auto-steps", label: "Auto Steps", isSub: true, parentId: "features" },
+  { id: "features-capabilities", label: "Capabilities", isSub: true, parentId: "features" },
+  { id: "features-masking", label: "Secret Masking", isSub: true, parentId: "features" },
+  { id: "features-table", label: "Table Component", isSub: true, parentId: "features" },
+  { id: "releases", label: "Releases" },
 ];
 
 export default function Landing() {
   const [downloads, setDownloads] = React.useState("Loading...");
   const [activeFile, setActiveFile] = React.useState<"page" | "spec">("page");
+  const [dynamicReleases, setDynamicReleases] = React.useState<any[]>([]);
+  const [loadingReleases, setLoadingReleases] = React.useState(true);
 
   React.useEffect(() => {
     fetch("https://api.npmjs.org/downloads/point/last-month/pw-core")
@@ -902,14 +910,94 @@ export default function Landing() {
       });
   }, []);
 
+  React.useEffect(() => {
+    const fetchReleases = async () => {
+      try {
+        const res = await fetch("https://api.github.com/repos/QECore/pw-core/contents/releases");
+        if (!res.ok) throw new Error("Failed to fetch releases list");
+        const files = await res.json();
+
+        const mdFiles = files
+          .filter((f: any) => f.name.endsWith(".md"))
+          .sort((a: any, b: any) => b.name.localeCompare(a.name));
+
+        const cleanTitle = (rawTitle: string) => {
+          return rawTitle
+            .replace(/^[-*]\s+/, "")
+            .replace(/\*\*?/g, "")
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+            .replace(/\[|\]/g, "")
+            .trim();
+        };
+
+        const fetchedData = await Promise.all(
+          mdFiles.map(async (file: any) => {
+            const contentRes = await fetch(file.download_url);
+            if (!contentRes.ok) throw new Error(`Failed to fetch content for ${file.name}`);
+            const text = await contentRes.text();
+
+            const version = file.name.replace(".md", "");
+
+            const lines = text.split('\n');
+            const highlights: any[] = [];
+            let capture = false;
+
+            for (let line of lines) {
+              const trimmed = line.trim();
+              if (trimmed.startsWith('##') && trimmed.includes('Release Highlights')) {
+                capture = true;
+                continue;
+              }
+              if (capture) {
+                if (trimmed.startsWith('#')) {
+                  break;
+                }
+                if (trimmed.startsWith('-') || trimmed.startsWith('*')) {
+                  const colonIndex = trimmed.indexOf(":");
+                  if (colonIndex !== -1) {
+                    const rawTitle = trimmed.substring(0, colonIndex);
+                    const rawDesc = trimmed.substring(colonIndex + 1);
+                    highlights.push({
+                      title: cleanTitle(rawTitle),
+                      desc: rawDesc.trim()
+                    });
+                  } else {
+                    const cleanLine = trimmed.replace(/^[-*]\s+/, '').replace(/\*\*/g, '').trim();
+                    if (cleanLine) {
+                      highlights.push({ title: cleanLine, desc: "" });
+                    }
+                  }
+                }
+              }
+            }
+
+            return {
+              version,
+              url: `https://github.com/QECore/pw-core/blob/main/releases/${file.name}`,
+              highlights
+            };
+          })
+        );
+
+        setDynamicReleases(fetchedData);
+      } catch (err) {
+        console.error("Dynamic fetch failed:", err);
+      } finally {
+        setLoadingReleases(false);
+      }
+    };
+
+    fetchReleases();
+  }, []);
+
   return (
     <ElasticScroll>
       <ThreadedPageLayout sections={sections}>
         <div className="notion-page pt-0 pb-12">
-          {/* Hero */}
-          <section id="hero" className="snap-item scroll-mt-24 text-left py-12 md:py-8 border-b border-border/40 mb-12 relative">
+          {/* overview */}
+          <section id="overview" className="snap-item scroll-mt-24 text-left py-12 md:py-8 border-b border-border/40 mb-12 relative">
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-              {/* Left Column: Hero Content */}
+              {/* Left Column: overview Content */}
               <div className="lg:col-span-7 flex flex-col justify-between">
                 <div>
                   {/* Tagline */}
@@ -1263,6 +1351,84 @@ export default function Landing() {
           </section>
 
           <Docs isEmbedded={true} />
+
+          {/* Section: Releases */}
+          <section id="releases" className="snap-item scroll-mt-24 py-12 border-t border-border/40 mb-12 relative text-left">
+            <div className="max-w-6xl mx-auto text-left mb-8">
+              <h2 className="sticky z-20 mb-1 backdrop-blur-md bg-background/85 text-4xl font-bold font-heading text-foreground">
+                Releases & Changelog
+              </h2>
+              <p className="text-[13.5px] text-muted-foreground max-w-3xl">
+                Stay up to date with the latest features, improvements, and updates to the pw-core framework.
+              </p>
+            </div>
+
+            <div className="max-w-6xl mx-auto space-y-8">
+              {loadingReleases ? (
+                <div className="flex flex-col items-center justify-center py-12 space-y-3">
+                  <div className="w-8 h-8 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin" />
+                  <span className="text-xs text-muted-foreground">Fetching release notes...</span>
+                </div>
+              ) : (
+                dynamicReleases.map((release) => (
+                  <SkeuCard key={release.version} className="p-6 md:p-8 hover:border-amber-500/25 transition-all text-left relative overflow-hidden bg-slate-950/40 border border-white/5">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-4 border-b border-white/5">
+                      <div>
+                        <h3 className="text-xl font-bold text-foreground font-heading flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded text-xs bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono">
+                            {release.version.startsWith('v') ? release.version : `v${release.version}`}
+                          </span>
+                          Release Notes
+                        </h3>
+                      </div>
+                      <a
+                        href={release.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-amber-500 hover:text-orange-500 font-semibold flex items-center gap-1 mt-2 md:mt-0 transition-colors"
+                      >
+                        View Full notes on GitHub <ArrowRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                    <div className="space-y-4">
+                      {release.highlights && release.highlights.length > 0 && (
+                        <>
+                          <h4 className="text-xs uppercase font-bold tracking-wider text-muted-foreground/80">🌟 Release Highlights</h4>
+                          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {release.highlights.map((highlight: any, idx: number) => (
+                              <li
+                                key={idx}
+                                className={`p-4 rounded-lg bg-black/30 border border-white/5 space-y-1 ${idx === release.highlights.length - 1 && release.highlights.length % 2 !== 0 ? "md:col-span-2" : ""
+                                  }`}
+                              >
+                                <strong className="text-sm font-semibold text-slate-200 block">{highlight.title}</strong>
+                                {highlight.desc && (
+                                  <span className="text-xs text-muted-foreground leading-normal block">{highlight.desc}</span>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </div>
+                  </SkeuCard>
+                ))
+              )}
+
+              {/* View Rest of the releases */}
+              <div className="flex justify-center pt-4">
+                <a
+                  href="https://github.com/QECore/pw-core/tree/main/releases"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-amber-500/20 bg-amber-500/5 hover:bg-amber-500/10 text-amber-500 font-semibold transition-all hover:scale-105 duration-200"
+                >
+                  Browse all releases on GitHub
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </section>
         </div>
       </ThreadedPageLayout>
     </ElasticScroll>

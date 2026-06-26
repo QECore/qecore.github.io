@@ -1644,14 +1644,14 @@ export default function Playground() {
               </SkeuCard>
 
               {/* Inactive Line Chart */}
-              <SkeuCard className="p-6 relative opacity-60 grayscale-[30%]">
+              <SkeuCard className="p-6 relative opacity-60 grayscale-[30%]" disabled>
                 <div className="absolute top-4 right-4 flex gap-2">
                   <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20" id="Safe">
                     Safe
                   </Badge>
                 </div>
                 <SectionHeading icon={Sliders} title="Inactive Line Chart" description="Offline telemetry line chart view" />
-                <div className="h-[300px] w-full mt-4" data-test-id="inactive-line-chart" data-testid="inactive-line-chart">
+                <div className="h-[300px] w-full mt-4" data-test-id="inactive-line-chart" data-testid="inactive-line-chart" aria-disabled="true" data-disabled="true" role="group">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={dummyLineData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" className="stroke-muted/10" />
@@ -1686,14 +1686,14 @@ export default function Playground() {
               </SkeuCard>
 
               {/* Inactive Bar Chart */}
-              <SkeuCard className="p-6 relative opacity-60 grayscale-[30%]">
+              <SkeuCard className="p-6 relative opacity-60 grayscale-[30%]" disabled>
                 <div className="absolute top-4 right-4 flex gap-2">
                   <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20" id="Danger">
                     Danger
                   </Badge>
                 </div>
                 <SectionHeading icon={Grid} title="Inactive Bar Chart" description="Offline resource usage bar chart view" />
-                <div className="h-[300px] w-full mt-4" data-test-id="inactive-bar-chart" data-testid="inactive-bar-chart">
+                <div className="h-[300px] w-full mt-4" data-test-id="inactive-bar-chart" data-testid="inactive-bar-chart" aria-disabled="true" data-disabled="true" role="group">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={dummyBarData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" className="stroke-muted/10" />

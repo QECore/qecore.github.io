@@ -1,0 +1,31 @@
+// dashboard.registry.ts
+import { createPageRegistry } from "pw-core";
+
+export const test = createPageRegistry({
+  dashboard: {
+    selectors: {
+      "{module}{component}Container": {
+        module: ["Sales", "Orders", "Tasks"],
+        component: ["Chart", "Table"],
+        selector: ".{module}-{component}-container"
+      }
+    },
+
+    testIds: {
+      "{state}Badge": {
+        state: ["Active", "Inactive"],
+        testId: "{state}-badge"
+      }
+    }
+  }
+});
+
+// dashboard.spec.ts
+import { test } from "./fixtures";
+
+test("dashboard widgets", async ({ dashboard }) => {
+  await dashboard.click("salesChartContainer");
+  await dashboard.verify("activeBadge")
+  await dashboard.click("tasksTableContainer");
+  await dashboard.verify("inactiveBadge")
+});

@@ -29,7 +29,7 @@ const seedDatabase = () => {
   // Seed default users if not present
   if (!localStorage.getItem('local_db_users')) {
     const defaultUsers = [
-      { id: 1, email: 'demo@pw-core.app', name: 'Demo User', password: 'password123' }
+      { id: 1, email: 'default@mail.com', name: 'Demo User', password: 'default' }
     ];
     setStorageItem('local_db_users', defaultUsers);
     localStorage.setItem('local_db_seq_users', '1');
@@ -37,7 +37,7 @@ const seedDatabase = () => {
 
   // Always ensure a demo session so /app works without manual login, unless the user explicitly logged out
   if (!localStorage.getItem('access_token') && localStorage.getItem('explicit_logout') !== 'true') {
-    const defaultUser = { id: 1, email: 'demo@pw-core.app', name: 'Demo User' };
+    const defaultUser = { id: 1, email: 'default@mail.com', name: 'Demo User' };
     localStorage.setItem('access_token', 'mock-session-token');
     setStorageItem('current_user', defaultUser);
   }

@@ -32,7 +32,7 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      await client.auth.loginViaEmailPassword("demo@pw-core.app", "password123");
+      await client.auth.loginViaEmailPassword("default@mail.com", "default");
       window.location.href = "/app";
     } catch (err: any) {
       setError(err.message || "Failed to log in as default user");
@@ -135,6 +135,9 @@ export default function Login() {
             "Log in"
           )}
         </SkeuButton>
+        <div className="mt-4 text-center text-xs text-muted-foreground">
+          Default credentials: <span className="font-semibold text-foreground">default@mail.com</span> / <span className="font-semibold text-foreground">default</span>
+        </div>
       </form>
     </AuthLayout>
   );

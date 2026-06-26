@@ -1,0 +1,5 @@
+await checkout.fillBillingDetails("John Doe", "90210");
+await login.login();
+await sidebar.open("transactions");
+await settings.toggleLogo("enable");
+await settings.verifyLogo("enabled");

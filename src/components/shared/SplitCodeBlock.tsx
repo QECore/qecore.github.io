@@ -9,6 +9,7 @@ interface SplitFile {
 interface SplitCodeBlockProps {
   files: SplitFile[];
   textSizeClass?: string;
+  gridColsClass?: string;
 }
 
 function CopyButton({ code }: { code: string }) {
@@ -45,7 +46,7 @@ function CopyButton({ code }: { code: string }) {
   );
 }
 
-export default function SplitCodeBlock({ files, textSizeClass = "text-[9.5px]" }: SplitCodeBlockProps) {
+export default function SplitCodeBlock({ files, textSizeClass = "text-[9.5px]", gridColsClass }: SplitCodeBlockProps) {
   const highlightTypeScript = (rawCode: string) => {
     let escaped = rawCode
       .replace(/&/g, "&amp;")
@@ -84,6 +85,7 @@ export default function SplitCodeBlock({ files, textSizeClass = "text-[9.5px]" }
   };
 
   const getGridColsClass = (count: number) => {
+    if (gridColsClass) return gridColsClass;
     if (count === 1) return "grid-cols-1";
     if (count === 2) return "grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x";
     return "grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x";

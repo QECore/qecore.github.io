@@ -39,7 +39,7 @@ export default function Register() {
     setError("");
     setLoading(true);
     try {
-      await client.auth.loginViaEmailPassword("demo@pw-core.app", "password123");
+      await client.auth.loginViaEmailPassword("default@mail.com", "default");
       window.location.href = "/app";
     } catch (err: any) {
       setError(err.message || "Failed to log in as default user");

@@ -124,10 +124,10 @@ const apiGroups = [
     name: "Auth",
     base: "/api/auth",
     endpoints: [
-      { method: "POST", path: "/api/auth/login", desc: "Login with email/password", defaultPayload: { email: "demo@pw-core.app", password: "password123" } },
+      { method: "POST", path: "/api/auth/login", desc: "Login with email/password", defaultPayload: { email: "default@mail.com", password: "default" } },
       { method: "POST", path: "/api/auth/logout", desc: "Logout current user" },
       { method: "GET", path: "/api/auth/me", desc: "Get current authenticated user" },
-      { method: "POST", path: "/api/auth/register", desc: "Register new account", defaultPayload: { email: "newuser@example.com", password: "password123" } },
+      { method: "POST", path: "/api/auth/register", desc: "Register new account", defaultPayload: { email: "newuser@example.com", password: "default" } },
       { method: "POST", path: "/api/auth/reset-password-request", desc: "Request password reset", defaultPayload: { email: "user@example.com" } },
     ],
   },

@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-type HeaderType = "pw-core" | "k6-core";
+export type HeaderType = "pw-core" | "k6-core";
+export const HEADERS: HeaderType[] = ["pw-core", "k6-core"];
 
 interface HeaderContextType {
   activeHeader: HeaderType;
@@ -17,11 +18,11 @@ export const HeaderProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   // Initialize from localStorage or path prefix
   const [activeHeader, setActiveHeaderState] = useState<HeaderType>(() => {
-    if (location.pathname === "/pw-core" || location.pathname.startsWith("/pw-core/docs")) return "pw-core";
-    if (location.pathname === "/k6-core" || location.pathname.startsWith("/k6-core/docs")) return "k6-core";
+    const matched = HEADERS.find(h => location.pathname === `/${h}` || location.pathname.startsWith(`/${h}/`));
+    if (matched) return matched;
     
-    const saved = localStorage.getItem("active_header");
-    return (saved === "k6-core" ? "k6-core" : "pw-core");
+    const saved = localStorage.getItem("active_header") as HeaderType;
+    return (HEADERS.includes(saved) ? saved : HEADERS[0]);
   });
 
   const setActiveHeader = (header: HeaderType) => {
@@ -29,25 +30,26 @@ export const HeaderProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     localStorage.setItem("active_header", header);
 
     // If on docs page, transition to the target docs page
-    if (location.pathname.startsWith("/pw-core/docs") || location.pathname.startsWith("/k6-core/docs")) {
+    const isDocs = HEADERS.some(h => location.pathname.startsWith(`/${h}/docs`));
+    if (isDocs) {
       navigate(`/${header}/docs`);
-    } else if (location.pathname === "/pw-core" || location.pathname === "/k6-core" || location.pathname === "/") {
+    } else if (HEADERS.some(h => location.pathname === `/${h}`) || location.pathname === "/") {
       navigate(`/${header}`);
     }
   };
 
   const toggleHeader = () => {
-    setActiveHeader(activeHeader === "pw-core" ? "k6-core" : "pw-core");
+    const currentIndex = HEADERS.indexOf(activeHeader);
+    const nextIndex = (currentIndex + 1) % HEADERS.length;
+    setActiveHeader(HEADERS[nextIndex]);
   };
 
   // Sync state if path changes externally
   useEffect(() => {
-    if (location.pathname === "/pw-core" || location.pathname.startsWith("/pw-core/docs")) {
-      setActiveHeaderState("pw-core");
-      localStorage.setItem("active_header", "pw-core");
-    } else if (location.pathname === "/k6-core" || location.pathname.startsWith("/k6-core/docs")) {
-      setActiveHeaderState("k6-core");
-      localStorage.setItem("active_header", "k6-core");
+    const matched = HEADERS.find(h => location.pathname === `/${h}` || location.pathname.startsWith(`/${h}/`));
+    if (matched) {
+      setActiveHeaderState(matched);
+      localStorage.setItem("active_header", matched);
     }
   }, [location.pathname]);
 

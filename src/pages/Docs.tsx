@@ -9,18 +9,25 @@ import SplitCodeBlock from "../components/shared/SplitCodeBlock";
 import { useHeader } from "@/lib/HeaderContext";
 import ElasticScroll from "../components/shared/ElasticScroll";
 
-// Import example source files raw from their segregated directories
-import pwcoreLoginPageRaw from "../docs/pw-core/examples/typed-page/pages/login.page.ts?raw";
-import pwcoreLoginTestRaw from "../docs/pw-core/examples/typed-page/tests/login.test.ts?raw";
-import pwcoreFixturesRaw from "../docs/pw-core/examples/typed-page/docs/fixtures.ts?raw";
-import pwcoreDashboardPageRaw from "../docs/pw-core/examples/typed-page/pages/dashboard.page.ts?raw";
-import registryRaw from "../docs/pw-core/examples/registry/docs/registry.ts?raw";
-import registryFixturesUsageRaw from "../docs/pw-core/examples/registry/tests/registry-fixtures-usage.test.ts?raw";
-import overrideLoginPageRaw from "../docs/pw-core/examples/registry/pages/login.page.ts?raw";
-import overrideFixturesRaw from "../docs/pw-core/examples/registry/docs/fixtures.ts?raw";
-import overrideLoginTestRaw from "../docs/pw-core/examples/registry/tests/login.test.ts?raw";
+// Import code blocks from the /code folder in txt format
+import pwcoreLoginPageRaw from "./code/pwcore-login-page.txt?raw";
+import pwcoreLoginTestRaw from "./code/pwcore-login-test.txt?raw";
+import pwcoreFixturesRaw from "./code/pwcore-fixtures.txt?raw";
+import registryRaw from "./code/registry.txt?raw";
+import registryFixturesUsageRaw from "./code/registry-fixtures-usage.txt?raw";
+import overrideLoginPageRaw from "./code/override-login-page.txt?raw";
+import overrideFixturesRaw from "./code/override-fixtures.txt?raw";
+import overrideLoginTestRaw from "./code/override-login-test.txt?raw";
 
 import projectsTableRaw from "./code/projects-table.txt?raw";
+import tradDashboardRaw from "./code/trad-dashboard.txt?raw";
+import coreDashboardRaw from "./code/core-dashboard.txt?raw";
+
+import stepPlaywrightReportRaw from "./code/step-descriptions-playwright-report.txt?raw";
+import stepYourTestCodeRaw from "./code/step-descriptions-your-test-code.txt?raw";
+import stepPwCoreReportRaw from "./code/step-descriptions-pw-core-report.txt?raw";
+import stepMinimalCodeRaw from "./code/step-descriptions-minimal-code.txt?raw";
+import stepResultingReportRaw from "./code/step-descriptions-resulting-report.txt?raw";
 
 import featuresData from "../docs/pw-core/features.json";
 
@@ -187,7 +194,7 @@ export default function Docs({ isEmbedded = false }: DocsProps) {
         {/* Content Panel */}
         <main className="w-full space-y-12">
           {/* Section 3: Page Registry */}
-          <div id="docs-registry" className="space-y-8 pt-12 border-t border-border/40 animate-in fade-in duration-300">
+          <div id="registry" className="space-y-8 pt-12 border-t border-border/40 animate-in fade-in duration-300">
             <div className="border-b border-border pb-4">
               <h1 className="text-3xl font-extrabold font-heading text-foreground">
                 Page Registry
@@ -227,7 +234,7 @@ export default function Docs({ isEmbedded = false }: DocsProps) {
           </div>
 
           {/* Section 4: Typed Page Examples */}
-          <div id="docs-typed-examples" className="space-y-8 pt-12 border-t border-border/40 animate-in fade-in duration-300">
+          <div id="typed-page" className="space-y-8 pt-12 border-t border-border/40 animate-in fade-in duration-300">
             <div className="border-b border-border pb-4">
               <h1 className="text-3xl font-extrabold font-heading text-foreground">
                 Typed Page <span className="text-base font-normal text-muted-foreground/50 ml-2">(Only if you want your locators to be within the page file - Not Recommended)</span>
@@ -249,15 +256,26 @@ export default function Docs({ isEmbedded = false }: DocsProps) {
           </div>
 
           {/* Section: Features (Capabilities Catalog) */}
-          <div id="docs-features" className="space-y-6 pt-12 border-t border-border/40 animate-in fade-in duration-300">
+          <div id="features" className="space-y-6 pt-12 border-t border-border/40 animate-in fade-in duration-300">
             <div className="space-y-3">
-              <div className="border-b border-border pb-4">
-                <h1 className="text-3xl font-extrabold font-heading text-foreground">
-                  Features
-                </h1>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Discover the APIs, assertions, components, and utilities available in PW-Core.
-                </p>
+              <div className="border-b border-border pb-4 flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                <div>
+                  <h1 className="text-3xl font-extrabold font-heading text-foreground">
+                    Features
+                  </h1>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Discover the APIs, assertions, components, and utilities available in PW-Core.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-x-4 gap-y-1 text-[11px] font-semibold text-amber-500 select-none shrink-0 md:text-left">
+                  <span>✓ Key-Based Actions</span>
+                  <span>✓ Dynamic Locators</span>
+                  <span>✓ Auto Step Descriptions</span>
+                  <span>✓ Built-In Assertions</span>
+                  <span>✓ Locator Filters</span>
+                  <span>✓ Automatic Secrets Masking</span>
+                  <span>✓ Table Component</span>
+                </div>
               </div>
 
               {/* Compact Callout: PW-Core Extends Playwright */}
@@ -269,85 +287,185 @@ export default function Docs({ isEmbedded = false }: DocsProps) {
                   All Playwright APIs remain available. Think of PW-Core as Playwright with a more readable, key-driven developer experience.
                 </p>
               </div>
-
-              {/* Compact Feature Strip */}
-              <div className="flex flex-wrap gap-6 text-lg font-semibold text-amber-500 select-none pb-2">
-                <span>✓ Key-Based Actions</span>
-                <span>✓ Built-In Assertions</span>
-                <span>✓ Table Component</span>
-                <span>✓ Locator Filters</span>
-                <span>✓ Automatic Secret Masking</span>
-              </div>
-
-              <p className="text-[11px] text-muted-foreground/60 italic pb-2">
-                All examples below assume selectors are defined in your Page Registry or Typed Page configuration.
-              </p>
             </div>
 
-            {/* Table Component Hero Section (Placed at the top for maximum emphasis) */}
-            <div className="space-y-4 pt-4 border-t border-border/40 pb-8">
+            {/* Dynamic Locators Section */}
+            <div id="features-dynamic-locators" className="space-y-4 pt-8 border-t border-border/40 pb-8 scroll-mt-24">
               <div className="space-y-1">
-                <h2 className="text-2xl font-extrabold font-heading text-foreground">Table Component</h2>
+                <h2 className="text-2xl font-extrabold font-heading text-foreground">Dynamic Locators</h2>
                 <p className="text-xs text-muted-foreground">
-                  Work with table data as structured records instead of manually traversing rows and cells.
+                  Generate combinations of selector keys dynamically from multiple dimensions with complete compile-time type safety.
                 </p>
               </div>
 
-              {/* Main Table Example and API Reference Table Side-by-Side */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-                {/* Main Table Example (Custom highlighted code block) */}
-                <div className="h-[220px] max-h-[220px]">
-                  <CustomCodeBlock
-                    code={projectsTableRaw}
-                    filename="projects-table.ts"
-                  />
+
+              {/* Business Value Cards */}
+              <div className="space-y-2 pt-2">
+                <h3 className="text-sm font-bold text-amber-500 uppercase tracking-wider">Business Value</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
+                    <span className="text-xs font-bold text-slate-200">Eliminate Duplication</span>
+                    <p className="text-[11px] text-muted-foreground leading-normal">
+                      Stop writing hundreds of almost-identical locators. Declare patterns once and generate all valid keys automatically.
+                    </p>
+                  </div>
+                  <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
+                    <span className="text-xs font-bold text-slate-200">Prevent Errors</span>
+                    <p className="text-[11px] text-muted-foreground leading-normal">
+                      Maintain structural consistency across all selector combinations. Enforce type safety in tests at compile time.
+                    </p>
+                  </div>
+                  <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
+                    <span className="text-xs font-bold text-slate-200">Simplify AI Automation</span>
+                    <p className="text-[11px] text-muted-foreground leading-normal">
+                      Minimize token usage and supply cleaner codebase contexts to help AI-generated scripts construct valid locators.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Side-by-Side Comparison */}
+              <div className="space-y-2">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-2">
+                  <div>
+                    <h3 className="text-sm font-bold text-red-500 uppercase tracking-wider">Traditional Playwright</h3>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Manual declarations, verbose constructor assignments, and high maintenance for multi-dimensional test IDs.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-amber-500 uppercase tracking-wider">PW-Core</h3>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Define a single dynamic config pattern and get full IntelliSense/compile-time safety.
+                    </p>
+                  </div>
+                </div>
+                <SplitCodeBlock
+                  textSizeClass="text-[10px]"
+                  files={[
+                    {
+                      filename: "dashboard.page.ts + dashboard.spec.ts",
+                      code: tradDashboardRaw
+                    },
+                    {
+                      filename: "dashboard.registry.ts + dashboard.spec.ts",
+                      code: coreDashboardRaw
+                    }
+                  ]}
+                />
+              </div>
+
+              {/* Automatic Test Step Descriptions Section */}
+              <div id="features-auto-steps" className="space-y-4 pt-8 border-t border-border/40 pb-8 scroll-mt-24">
+                <div className="space-y-1">
+                  <h2 className="text-2xl font-extrabold font-heading text-foreground">Automatic Test Step Descriptions</h2>
+                  <p className="text-xs text-muted-foreground">
+                    Transform existing page methods into readable report steps automatically.
+                  </p>
+                  <p className="text-[11px] font-semibold text-amber-500">
+                    No decorators. No wrappers. No <code className="text-slate-300">test.step()</code>.
+                  </p>
                 </div>
 
-                {/* API Reference Table */}
-                <div className="p-3 bg-[#080808] border border-white/10 rounded-xl h-[284px] overflow-y-auto scrollbar-thin">
-                  <CapabilityTable
-                    title={featuresData.sections.find(s => s.id === "table-apis")?.title || "Table Reference"}
-                    items={featuresData.sections.find(s => s.id === "table-apis")?.items || []}
-                    titleSize="h3"
+                <div className="space-y-6">
+                  {/* Three-way SplitCodeBlock representing flow */}
+                  <SplitCodeBlock
+                    textSizeClass="text-[10px]"
+                    gridColsClass="grid-cols-1 lg:grid-cols-[5fr_4.5fr_5fr] divide-y lg:divide-y-0 lg:divide-x"
+                    files={[
+                      {
+                        filename: "You Don't need to wrap your steps ❌",
+                        code: stepPlaywrightReportRaw
+                      },
+                      {
+                        filename: "Your Test Code",
+                        code: stepYourTestCodeRaw
+                      },
+                      {
+                        filename: "PW-Core Automatically Generates steps",
+                        code: stepPwCoreReportRaw
+                      }
+                    ]}
                   />
+
+                  {/* Why It Matters / Business Value Bullet Grid */}
+                  <div className="pt-6 border-t border-white/5 space-y-4">
+                    <h3 className="text-sm font-bold text-amber-500 uppercase tracking-wider">Why It Matters</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="p-3.5 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
+                        <span className="text-xs font-bold text-slate-200">✓ No Decorators or Wrappers</span>
+                        <p className="text-[10px] text-muted-foreground leading-normal">
+                          Keep your page classes clean. Avoid complex decorators or wrapper functions.
+                        </p>
+                      </div>
+                      <div className="p-3.5 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
+                        <span className="text-xs font-bold text-slate-200">✓ No test.step() boilerplate</span>
+                        <p className="text-[10px] text-muted-foreground leading-normal">
+                          Eliminate redundant `test.step()` calls that pollute your test scripts.
+                        </p>
+                      </div>
+                      <div className="p-3.5 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
+                        <span className="text-xs font-bold text-slate-200">✓ Parameters Included</span>
+                        <p className="text-[10px] text-muted-foreground leading-normal">
+                          Method parameters are automatically parsed and displayed inside report steps.
+                        </p>
+                      </div>
+                      <div className="p-3.5 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
+                        <span className="text-xs font-bold text-slate-200">✓ Zero Report Maintenance</span>
+                        <p className="text-[10px] text-muted-foreground leading-normal">
+                          Reports update dynamically whenever methods or parameter arguments change.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
 
             {/* 2-Column Capability Dashboard Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t border-border/40">
-              {/* Row 1: Actions | Assertions */}
-              <div className="p-3 bg-[#080808] border border-white/10 rounded-xl">
-                <CapabilityTable
-                  title={featuresData.sections.find(s => s.id === "actions")?.title || ""}
-                  items={featuresData.sections.find(s => s.id === "actions")?.items || []}
-                  headerPurpose="What PW-Core Adds"
-                />
+            <div id="features-capabilities" className="space-y-4 pt-8 border-t border-border/40 scroll-mt-24 pb-8">
+              <div className="space-y-2">
+                <h2 className="text-2xl font-extrabold font-heading text-foreground">Capabilities</h2>
+                <p className="text-xs text-muted-foreground">
+                  The grid below showcases some of the new features and APIs added by PW-Core that are not available in Playwright.
+                </p>
               </div>
-              <div className="p-3 bg-[#080808] border border-white/10 rounded-xl">
-                <CapabilityTable
-                  title={featuresData.sections.find(s => s.id === "assertions")?.title || ""}
-                  items={featuresData.sections.find(s => s.id === "assertions")?.items || []}
-                />
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-              {/* Row 2: Navigation | Targeting */}
-              <div className="p-3 bg-[#080808] border border-white/10 rounded-xl">
-                <CapabilityTable
-                  title={featuresData.sections.find(s => s.id === "navigation")?.title || ""}
-                  items={featuresData.sections.find(s => s.id === "navigation")?.items || []}
-                />
-              </div>
-              <div className="p-3 bg-[#080808] border border-white/10 rounded-xl">
-                <CapabilityTable
-                  title={featuresData.sections.find(s => s.id === "locator-targeting")?.title || ""}
-                  items={featuresData.sections.find(s => s.id === "locator-targeting")?.items || []}
-                />
+                {/* Row 1: Actions | Assertions */}
+                <div className="p-3 bg-[#080808] border border-white/10 rounded-xl">
+                  <CapabilityTable
+                    title={featuresData.sections.find(s => s.id === "actions")?.title || ""}
+                    items={featuresData.sections.find(s => s.id === "actions")?.items || []}
+                    headerPurpose="What PW-Core Adds"
+                  />
+                </div>
+                <div className="p-3 bg-[#080808] border border-white/10 rounded-xl">
+                  <CapabilityTable
+                    title={featuresData.sections.find(s => s.id === "assertions")?.title || ""}
+                    items={featuresData.sections.find(s => s.id === "assertions")?.items || []}
+                  />
+                </div>
+
+                {/* Row 2: Navigation | Targeting */}
+                <div className="p-3 bg-[#080808] border border-white/10 rounded-xl">
+                  <CapabilityTable
+                    title={featuresData.sections.find(s => s.id === "navigation")?.title || ""}
+                    items={featuresData.sections.find(s => s.id === "navigation")?.items || []}
+                  />
+                </div>
+                <div className="p-3 bg-[#080808] border border-white/10 rounded-xl">
+                  <CapabilityTable
+                    title={featuresData.sections.find(s => s.id === "locator-targeting")?.title || ""}
+                    items={featuresData.sections.find(s => s.id === "locator-targeting")?.items || []}
+                  />
+                </div>
               </div>
             </div>
 
             {/* Security Section (Automatic Secret Masking Card) */}
-            <div className="pt-8 border-t border-border/40 space-y-4">
+            <div id="features-masking" className="pt-8 border-t border-border/40 space-y-4 scroll-mt-24">
               <div className="space-y-2">
                 <h2 className="text-2xl font-extrabold font-heading text-foreground">Automatic Secret Masking</h2>
                 <div className="flex flex-wrap gap-4">
@@ -360,6 +478,36 @@ export default function Docs({ isEmbedded = false }: DocsProps) {
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   While standard Playwright reports might reveal sensitive passwords in plain text (e.g., <code className="text-slate-300 font-mono">fill('password', 'secret')</code>), <br />PW-Core automatically masks them so that the reports contain secured values (e.g., <code className="text-slate-300 font-mono">fill('password', '****')</code>).
                 </p>
+              </div>
+
+              {/* Table Component Section */}
+              <div id="features-table" className="space-y-4 pt-8 border-t border-border/40 pb-8 scroll-mt-24">
+                <div className="space-y-1">
+                  <h2 className="text-2xl font-extrabold font-heading text-foreground">Table Component</h2>
+                  <p className="text-xs text-muted-foreground">
+                    Work with table data as structured records instead of manually traversing rows and cells.
+                  </p>
+                </div>
+
+                {/* Main Table Example and API Reference Table Side-by-Side */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                  {/* Main Table Example (Custom highlighted code block) */}
+                  <div className="h-[220px] max-h-[220px]">
+                    <CustomCodeBlock
+                      code={projectsTableRaw}
+                      filename="projects-table.ts"
+                    />
+                  </div>
+
+                  {/* API Reference Table */}
+                  <div className="p-3 bg-[#080808] border border-white/10 rounded-xl h-[284px] overflow-y-auto scrollbar-thin">
+                    <CapabilityTable
+                      title={featuresData.sections.find(s => s.id === "table-apis")?.title || "Table Reference"}
+                      items={featuresData.sections.find(s => s.id === "table-apis")?.items || []}
+                      titleSize="h3"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -1,0 +1,8 @@
+export class CheckoutPage extends TypedPage<typeof config> {
+  async fillBillingDetails(name: string, zip: string) {
+    await this.fill("nameInput", name);
+    await this.fill("zipInput", zip);
+  }
+}
+
+await checkout.fillBillingDetails("John Doe", "90210");

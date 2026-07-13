@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useScrollSpy } from "@/hooks/useScrollSpy";
 
 interface Section {
   id: string;
@@ -11,69 +12,7 @@ interface ThreadedPageLayoutProps {
 }
 
 export default function ThreadedPageLayout({ sections, children }: ThreadedPageLayoutProps) {
-  const [activeId, setActiveId] = React.useState<string>(sections[0]?.id || "");
-  const [isAtBottom, setIsAtBottom] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 70;
-      setIsAtBottom(atBottom);
-
-      if (atBottom && sections.length > 0) {
-        setActiveId(sections[sections.length - 1].id);
-        return;
-      }
-
-      const targetOffset = 150;
-      let closestId = "";
-      let minDistance = Infinity;
-      let foundCovering = false;
-
-      sections.forEach((sec) => {
-        if (foundCovering) return;
-        const el = document.getElementById(sec.id);
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        
-        // If the section covers the target offset line, it is active
-        if (rect.top <= targetOffset && rect.bottom >= targetOffset) {
-          closestId = sec.id;
-          foundCovering = true;
-          return;
-        }
-
-        // Fallback: Calculate the absolute distance of the section's top from the target offset line
-        const distance = Math.abs(rect.top - targetOffset);
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestId = sec.id;
-        }
-      });
-
-      if (closestId) {
-        setActiveId(closestId);
-      }
-    };
-
-    // Run once on mount/update to set initial active state
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, [sections]);
-
-  const handleNodeClick = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      // Smooth scroll with offset accounted for by CSS scroll-margin-top
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  const { activeId, isAtBottom, scrollToSection } = useScrollSpy(sections);
 
   const activeIndex = sections.findIndex((s) => s.id === activeId);
 
@@ -104,7 +43,7 @@ export default function ThreadedPageLayout({ sections, children }: ThreadedPageL
               return (
                 <div
                   key={sec.id}
-                  onClick={() => handleNodeClick(sec.id)}
+                  onClick={() => scrollToSection(sec.id)}
                   className={`flex items-center gap-3 cursor-pointer group py-1.5 transition-all ${isSub ? "pl-4" : ""}`}
                 >
                   {/* Node Dot indicator */}

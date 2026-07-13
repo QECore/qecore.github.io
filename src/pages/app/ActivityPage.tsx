@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { client } from "@/api/client";
 import { Filter, ArrowUpDown, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
-import SkeuCard from "../../components/shared/SkueCard";
+import SkeuCard from "../../components/cards/SkueCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 import moment from "moment";
-import { TruncatedCell } from "../../components/shared/TruncatedCell";
+import { TruncatedCell } from "../../components/tables/TruncatedCell";
 
 const actionColors: Record<string, string> = {
   created: "bg-emerald-400",

@@ -39,37 +39,37 @@ import {
 
 
 // Standard templates & layouts
-import SkeuCard from "../components/shared/SkueCard";
-import SectionHeading from "../components/shared/SectionHeading";
-import { TruncatedCell } from "../components/shared/TruncatedCell";
+import SkeuCard from "../components/cards/SkueCard";
+import SectionHeading from "../components/sections/SectionHeading";
+import { TruncatedCell } from "../components/tables/TruncatedCell";
 
 // UI Components
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
+import { Button } from "@/components/buttons/button";
+import { Input } from "@/components/forms/Input";
+import { Label } from "@/components/forms/Label";
 import { Textarea } from "@/components/ui/Textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/Slider";
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/Input-Otp";
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/forms/Input-Otp";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/Radio-Group";
-import { Toggle } from "@/components/ui/toggle";
+import { Toggle } from "@/components/buttons/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/Toggle-Group";
-import { Calendar } from "@/components/ui/Calendar";
+import { Calendar } from "@/components/forms/Calendar";
 
 // Feedback & Display
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/Accordian";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/Alert";
+import { Alert, AlertTitle, AlertDescription } from "@/components/feedback/Alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
-import { Badge } from "@/components/ui/Badge";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/Breadcrumb";
+import { Badge } from "@/components/feedback/Badge";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/navigation/Breadcrumb";
 import { Progress } from "@/components/ui/Progress";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/tables/Table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/Hover-Card";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/cards/Card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/Collapsible";
 
 // Overlays & Dialogs
@@ -80,10 +80,10 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/Sheet";
 
 // Advanced
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/Carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/media/Carousel";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/Resizable";
 
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const sampleTableData = [
   { id: 1, name: "Widget Alpha", category: "Electronics", price: 29.99, stock: 150 },

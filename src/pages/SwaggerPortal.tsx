@@ -1,9 +1,9 @@
 // @ts-nocheck
 import React, { useState } from "react";
 import { FileCode2, ChevronDown, ChevronRight, Play, Copy, Check } from "lucide-react";
-import SkeuCard from "../components/shared/SkueCard";
-import SkeuButton from "../components/shared/SkueButton";
-import EndpointBadge from "../components/shared/EndpointBadge";
+import SkeuCard from "../components/cards/SkueCard";
+import SkeuButton from "../components/buttons/SkueButton";
+import EndpointBadge from "../components/feedback/EndpointBadge";
 
 // ─── JSON Syntax Highlighter ─────────────────────────────────────────────────
 function colorizeJson(json: string): React.ReactNode[] {

@@ -1,0 +1,19 @@
+import { createPageConfig } from 'pw-core/page'
+
+export const config = createPageConfig({
+  url: "/login",
+  
+  // ARIA roles natively mapped:
+  button: ['submit', 'cancel'],
+  checkbox: ['rememberMe'],
+  radio: ['agreeToTerms'],
+  heading: ['welcomeHeader'],
+  
+  // Standard Playwright internal locator strategies:
+  placeholder: ['usernameInput', 'passwordInput'],
+  label: ['termsLabel'],
+  text: ['forgotPasswordLink'],
+  altText: ['avatarImage'],
+  title: ['tooltipInfo'],
+  testId: ['submitBtn']
+})

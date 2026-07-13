@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { client } from "@/api/client";
-import SkeuButton from "@/components/shared/SkueButton";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
+import SkeuButton from "@/components/buttons/SkueButton";
+import { Input } from "@/components/forms/Input";
+import { Label } from "@/components/forms/Label";
 import { UserPlus, Mail, Lock, Loader2, User } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
 

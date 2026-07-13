@@ -2,8 +2,8 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { client } from "@/api/client";
 import { BarChart3, FolderKanban, ListChecks, FileText, Clock } from "lucide-react";
-import SkeuCard from "../../components/shared/SkueCard";
-import StatusBadge from "../../components/shared/StatusBadge";
+import SkeuCard from "../../components/cards/SkueCard";
+import StatusBadge from "../../components/feedback/StatusBadge";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {

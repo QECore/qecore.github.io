@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { HEADERS, type HeaderType } from "@/constants/site";
 
-type HeaderType = "pw-core" | "k6-core";
+export { HEADERS };
+export type { HeaderType };
 
 interface HeaderContextType {
   activeHeader: HeaderType;

@@ -1,0 +1,5 @@
+# Launch interactive Playwright Codegen CLI
+npx pw-core codegen
+
+# Run in safe mode (prevents overriding existing selectors in your registry)
+npx pw-core codegen --safe

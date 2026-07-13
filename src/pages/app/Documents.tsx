@@ -2,13 +2,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { client } from "@/api/client";
 import { Upload, FileText, Trash2, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
-import SkeuCard from "@/components/shared/SkueCard";
-import SkeuButton from "@/components/shared/SkueButton";
-import { TruncatedCell } from "@/components/shared/TruncatedCell";
+import SkeuCard from "@/components/cards/SkueCard";
+import SkeuButton from "@/components/buttons/SkueButton";
+import { TruncatedCell } from "@/components/tables/TruncatedCell";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
-import FilterBar from "@/components/shared/FilterBar";
+import FilterBar from "@/components/forms/FilterBar";
 
 interface DocumentItem {
   id: string;

@@ -2,16 +2,16 @@
 import React, { useState, useEffect } from "react";
 import { client } from "@/api/client";
 import { Plus, Pencil, Trash2, ArrowUpDown, ArrowUp, ArrowDown, Calendar as CalendarIcon } from "lucide-react";
-import SkeuCard from "../../components/shared/SkueCard";
-import SkeuButton from "../../components/shared/SkueButton";
-import StatusBadge from "../../components/shared/StatusBadge";
-import FilterBar from "../../components/shared/FilterBar";
-import { TruncatedCell } from "../../components/shared/TruncatedCell";
+import SkeuCard from "../../components/cards/SkueCard";
+import SkeuButton from "../../components/buttons/SkueButton";
+import StatusBadge from "../../components/feedback/StatusBadge";
+import FilterBar from "../../components/forms/FilterBar";
+import { TruncatedCell } from "../../components/tables/TruncatedCell";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/Dialog";
-import { Calendar as CalendarComponent } from "@/components/ui/Calendar";
+import { Calendar as CalendarComponent } from "@/components/forms/Calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/Popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/lib/AuthContext";
 
 const emptyProject = { title: "", description: "", status: "active", priority: "medium", progress: 0, due_date: "", tags: "" };

@@ -9,7 +9,7 @@ export interface DocsSidebarProps {
 
 export function DocsSidebar({ groups, activeSectionId, onSelectSection }: DocsSidebarProps) {
   return (
-    <nav aria-label="Documentation navigation" className="space-y-6 h-full">
+    <nav aria-label="Documentation navigation" className="space-y-6 pb-1">
       {Object.entries(groups).map(([groupLabel, sections]) => {
         const isGroupActive = sections.some((s) => s.id === activeSectionId);
         return (

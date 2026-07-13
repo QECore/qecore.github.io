@@ -26,7 +26,7 @@ export function PreviousNext({
       {prevLink ? (
         <Button
           variant="activeOrange"
-          className="py-2 rounded-xl text-xs font-medium font-sans shadow-lg pointer-events-auto bg-slate-950/65 backdrop-blur-md border border-white/10 hover:bg-zinc-800 transition-all"
+          className="shadow-sm pointer-events-auto hover:bg-amber-500/20 transition-all"
           onClick={() => onNavigate(prevLink.id)}
         >
           ← {prevLink.label}
@@ -37,7 +37,7 @@ export function PreviousNext({
       {nextLink ? (
         <Button
           variant="activeOrange"
-          className="px-4 py-2 rounded-xl text-xs font-semibold font-sans shadow-lg pointer-events-auto"
+          className="shadow-sm pointer-events-auto hover:bg-amber-500/20 transition-all"
           onClick={() => onNavigate(nextLink.id)}
         >
           {nextLink.label} →
